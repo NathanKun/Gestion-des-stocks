@@ -15,6 +15,7 @@
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Developing
+* Version : 0
+
+### [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo) ###
