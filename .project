@@ -14,4 +14,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>DATA_LOC</name>
+			<value>file:/F:/%E7%BC%96%E7%A8%8B/Developpement%20Logiciel/data</value>
+		</variable>
+	</variableList>
 </projectDescription>

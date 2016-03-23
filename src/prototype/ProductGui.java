@@ -1,4 +1,4 @@
-package src;
+package src.prototype;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,12 +21,13 @@ import java.util.List;
 
 
 /**
- *
- *
- * */
+ *Class for the GUI of product management
+ *@version 0.1
+ *@author HE Junyang
+ **/
 
 
-public class Gui extends JFrame implements ActionListener {
+public class ProductGui extends JFrame implements ActionListener {
 	/**
 	 * numero de version pour classe serialisable Permet d'eviter le warning
 	 * "The serializable class ArticleFenetre does not declare a static final serialVersionUID field of type long"
@@ -121,7 +122,7 @@ public class Gui extends JFrame implements ActionListener {
 	/**
 	 * Constructeur Definit la fenetre et ses composants - affiche la fenetre
 	 */
-	public Gui() {
+	public ProductGui() {
 		// on instancie la classe Article DAO
 		this.productDAO = new ProductDAO();
 
@@ -294,7 +295,7 @@ public class Gui extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new Gui();
+		new ProductGui();
 	}
 
 }
