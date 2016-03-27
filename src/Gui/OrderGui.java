@@ -1,4 +1,4 @@
-package src;
+package src.Gui;
 
 import java.awt.Font;
 import java.awt.Frame;
@@ -18,6 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.sun.org.apache.xml.internal.security.Init;
+
+import src.GDS.User;
+import src.prototype.Product;
+import src.util.MouseTracker;
 
 
 public class OrderGui extends JFrame implements ActionListener {

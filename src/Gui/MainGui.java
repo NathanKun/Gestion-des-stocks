@@ -1,4 +1,4 @@
-package src;
+package src.Gui;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -21,6 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import src.GDS.User;
+import src.util.MouseTracker;
 
 /**
  * Main windows

@@ -1,4 +1,4 @@
-package src;
+package src.Gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import src.GDS.User;
+import src.util.MouseTracker;
 
 public class LoginGui extends JFrame implements ActionListener {
 
@@ -83,8 +86,6 @@ public class LoginGui extends JFrame implements ActionListener {
 		jp.add(jb_login);
 		
 		jb_login.addActionListener(this);
-		
-		//TODO put an image at the right side of the window
 	}
 	
 	public User login(){
