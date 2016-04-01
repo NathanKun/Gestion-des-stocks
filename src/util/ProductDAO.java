@@ -16,11 +16,15 @@ public class ProductDAO {
 	 * connection parameter between oracle URL and the DGB, LOGIN and PASS are constants
 	 */
 	/*
-	final static String URL="jdbc:oracle:thin:@localhost:1521:xe";
-	final static String LOGIN = "sysem";
-	final static String PASS = "system";
+	final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	final static String LOGIN = "system";
+	final static String PASS = "bdd";
 	*/
-
+	/*
+	 * final static String URL="jdbc:oracle:thin:@localhost:1521:xe"; final
+	 * static String LOGIN = "BDD6"; 
+	 * final static String PASS = "BDD6";
+	 */
 	final static String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
 	final static String LOGIN = "c##nathankun";
 	final static String PASS = "83783548jun";
@@ -47,9 +51,10 @@ public class ProductDAO {
 		// connection to date base
 		try {
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("INSERT INTO product_pdt (pdt_id, pdt_name) VALUES(?,?)");
+			ps = con.prepareStatement("INSERT INTO product_pdt (pdt_id, pdt_name,pdt_stock) VALUES(?,?,?)");
 			ps.setLong(1, product.getId());
 			ps.setString(2, product.getName());
+			ps.setInt(3, product.getStock());
 			
 			// excecution of the requiere
 			retour = ps.executeUpdate();

@@ -27,7 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.org.apache.xml.internal.security.Init;
@@ -240,6 +243,8 @@ class OrderDialog extends JDialog implements ActionListener {
 
 	private JPanel jp_down = new JPanel();
 
+	private long seletedPdtId = 0;
+
 	// TODO other components
 
 	public OrderDialog(Frame owner, boolean modal, Order order) {
@@ -311,6 +316,36 @@ class OrderDialog extends JDialog implements ActionListener {
 		jb_removePdt.addActionListener(this);
 		jb_searchPdt.addActionListener(this);
 
+		jtb_pdtList.setCellSelectionEnabled(true);
+		ListSelectionModel cellSelectionModel_pdtList = jtb_pdtList.getSelectionModel();
+		cellSelectionModel_pdtList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		cellSelectionModel_pdtList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				long selectedData = 0;
+
+				int[] selectedRow = jtb_pdtList.getSelectedRows();
+				int[] selectedColumns = jtb_pdtList.getSelectedColumns();
+				if (selectedRow.length != 0)
+					selectedData = (long) jtb_pdtList.getValueAt(selectedRow[0], 0);
+				seletedPdtId = selectedData;
+			}
+		});
+
+		jtb_pdtSearch.setCellSelectionEnabled(true);
+		ListSelectionModel cellSelectionModel_pdtSearch = jtb_pdtSearch.getSelectionModel();
+		cellSelectionModel_pdtSearch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		cellSelectionModel_pdtSearch.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				long selectedData = 0;
+
+				int[] selectedRow = jtb_pdtSearch.getSelectedRows();
+				int[] selectedColumns = jtb_pdtSearch.getSelectedColumns();
+
+				selectedData = (long) jtb_pdtSearch.getValueAt(selectedRow[0], 0);
+				jt_pdtId.setText(String.valueOf(selectedData));
+			}
+		});
+
 		if (order != null) {
 
 		}
@@ -323,7 +358,18 @@ class OrderDialog extends JDialog implements ActionListener {
 			if (Regex.isLong(jt_pdtId.getText())) {
 				Product pdt = new ProductDAO().getProduct(Long.parseLong(jt_pdtId.getText()));
 				if (pdt != null) {
-					model_pdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
+					boolean b = false;
+					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+						if ((long) model_pdtList.getValueAt(i, 0) == pdt.getId())
+							b = true;
+					}
+					if (b) {
+						for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+							if ((long) model_pdtList.getValueAt(i, 0) == pdt.getId())
+								model_pdtList.setValueAt((int) model_pdtList.getValueAt(i, 3) + 1, i, 3);
+						}
+					} else
+						model_pdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
 				} else {
 					System.out.println("pdt not found");
 				}
@@ -335,10 +381,13 @@ class OrderDialog extends JDialog implements ActionListener {
 		} else if (e.getSource() == jb_createOdr) {
 
 		} else if (e.getSource() == jb_removePdt) {
-
+			for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+				if ((long) model_pdtList.getValueAt(i, 0) == seletedPdtId) {
+					model_pdtList.removeRow(i);
+				}
+			}
 		} else if (e.getSource() == jb_searchPdt) {
 			ArrayList<Product> pdtList = new ProductDAO().getProductList();
-			System.out.println(model_pdtSearch.getRowCount());
 			for (int i = model_pdtSearch.getRowCount() - 1; i >= 0; i--) {
 				model_pdtSearch.removeRow(i);
 			}

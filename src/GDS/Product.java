@@ -22,9 +22,13 @@ public class Product {
 	 * containt available stock for the product
 	 */
 	private int stock;
-	
+	/**
+	 * contain the product's supplier identifiant
+	 */
 	private long supplierId;
-	
+	/**
+	 * contain the name of product's supplier
+	 */
 	private String supplierName;
 	/**
 	 * create a new product
