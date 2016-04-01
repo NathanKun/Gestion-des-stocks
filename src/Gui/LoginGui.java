@@ -102,7 +102,7 @@ public class LoginGui extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		// TODO Login button
 		if(ae.getSource() == jb_login){
-			new MainGui(new User());
+			new MainGui(new User(null, null, null));
 			dispose();
 			//login();
 		}

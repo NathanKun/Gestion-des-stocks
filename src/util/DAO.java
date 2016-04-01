@@ -1,5 +1,6 @@
 package src.util;
 
+/*
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class DAO {
 	 * static String LOGIN = "BDD6"; final static String PASS = "BDD6";
 	 */
 
-	public DAO() {
+	/*public DAO() {
 		// Load database driver
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -137,7 +138,7 @@ public class DAO {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("INSERT INTO product_pdt (pdt_id, pdt_name, pdt_stock)"
 					+ " VALUES (?, ?, ?)");
-			ps.setInt(1, pdt.getId());
+			ps.setLong(1, pdt.getId());
 			ps.setString(2, pdt.getName());
 			ps.setInt(3, pdt.getStock());
 
@@ -171,3 +172,4 @@ public class DAO {
 	}
 
 }
+*/

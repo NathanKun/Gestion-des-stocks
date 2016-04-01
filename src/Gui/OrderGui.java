@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import com.sun.org.apache.xml.internal.security.Init;
 
 import src.GDS.User;
-import src.prototype.Product;
+//import src.prototype.Product;
 import src.util.MouseTracker;
 
 
