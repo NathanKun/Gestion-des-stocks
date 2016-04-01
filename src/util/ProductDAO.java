@@ -15,9 +15,15 @@ public class ProductDAO {
 	/**
 	 * connection parameter between oracle URL and the DGB, LOGIN and PASS are constants
 	 */
-	final static String URL="jdbc:oraclethin:@localhost:1521:xe";
+	/*
+	final static String URL="jdbc:oracle:thin:@localhost:1521:xe";
 	final static String LOGIN = "sysem";
 	final static String PASS = "system";
+	*/
+
+	final static String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
+	final static String LOGIN = "c##nathankun";
+	final static String PASS = "83783548jun";
 	/**
 	 *class constructor 
 	 */
@@ -78,12 +84,16 @@ public class ProductDAO {
 		// connection to the data base  
 		try{
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("SELECT *FROM product_pdt WHERE pdt_id = ?");
+			ps = con.prepareStatement("SELECT * FROM product_pdt INNER JOIN supplier_spr ON pdt_spr = spr_id WHERE pdt_id = ? ");
 			ps.setLong(1, id);
 			rs=ps.executeQuery();
 			if(rs.next())
 				retour = new Product(rs.getLong("pdt_id"),
-									rs.getString("pdt_name"));
+									rs.getString("pdt_name"),
+									rs.getInt("pdt_stock"),
+									rs.getDouble("pdt_price"),
+									rs.getLong("pdt_spr"),
+									rs.getString("spr_name"));
 		} catch (Exception ee) {
 			ee.printStackTrace();
 		} finally {
@@ -102,15 +112,15 @@ public class ProductDAO {
 	 * allow to have the full list of product presents in the data base
 	 * @return the list of all the products in the data base
 	 */
-	public List<Product> getProductList(){
+	public ArrayList<Product> getProductList(){
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<Product> retour = new ArrayList<Product>();
+		ArrayList<Product> retour = new ArrayList<Product>();
 		//connection to the data base
 		try{
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("SELECT *FROM product_pdt");
+			ps = con.prepareStatement("SELECT * FROM product_pdt INNER JOIN supplier_spr on spr_id = pdt_spr");
 			
 			//requet execution
 			rs=ps.executeQuery();
@@ -118,7 +128,11 @@ public class ProductDAO {
 			//we crosse all the line of the results
 			while(rs.next())
 				retour.add(new Product(rs.getLong("pdt_id"),
-						rs.getString("pdt_name")));
+						rs.getString("pdt_name"),
+						rs.getInt("pdt_stock"),
+						rs.getDouble("pdt_price"),
+						rs.getLong("pdt_spr"),
+						rs.getString("spr_name")));
 		} catch (Exception ee) {
 			ee.printStackTrace();
 		} finally {
@@ -165,5 +179,12 @@ public class ProductDAO {
 			}
 		}
 		return retour;
+	}
+	
+	//TODO int updateProduct(Product pdt)
+	
+	public static void main(String[] args){
+		Product pdt = new ProductDAO().getProduct(1l);
+		System.out.println(pdt.toString());
 	}
 }

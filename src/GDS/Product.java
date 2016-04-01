@@ -22,6 +22,10 @@ public class Product {
 	 * containt available stock for the product
 	 */
 	private int stock;
+	
+	private long supplierId;
+	
+	private String supplierName;
 	/**
 	 * create a new product
 	 * @param id product identification
@@ -32,6 +36,37 @@ public class Product {
 		this.name=name;
 		this.stock=0;
 		this.price=0;
+		this.supplierId = 0l;
+		this.supplierName = null;
+	}
+	/**
+	 * get a product from db
+	 */
+	public Product(long id, String name, int stock, double price, long supplierId, String supplierName){
+		this.id=id;
+		this.name=name;
+		this.stock=stock;
+		this.price=price;
+		this.supplierId = supplierId;
+		this.supplierName = supplierName;
+	}
+	public long getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(long supplierId) {
+		this.supplierId = supplierId;
+	}
+	public String getSupplierName() {
+		return supplierName;
+	}
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 	/**
 	 * return product name
@@ -83,5 +118,10 @@ public class Product {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", stock=" + stock + ", supplierId="
+				+ supplierId + ", supplierName=" + supplierName + "]";
 	}
 }

@@ -64,5 +64,9 @@ public class User {
 	public String getId() {
 		return id;
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", pw=" + pw + ", name=" + name + "]";
+	}
 	
 }

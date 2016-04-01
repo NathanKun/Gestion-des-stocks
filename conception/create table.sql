@@ -22,7 +22,10 @@ CREATE TABLE supplier_spr (
 CREATE TABLE product_pdt (
     pdt_id NUMBER(10) CONSTRAINT PK_pdt PRIMARY KEY,
     pdt_name VARCHAR2(15),
-    pdt_stock NUMBER(3) NOT NULL
+    pdt_stock NUMBER(3) NOT NULL,
+    PDT_SPR NUMBER (10),
+    pdt_price NUMBER (10,2),
+    CONSTRAINT FK_pdt_sprid FOREIGN KEY (pdt_spr) REFERENCES supplier_spr (spr_id) ON DELETE CASCADE
 );
 
 CREATE TABLE user_usr (
@@ -53,7 +56,16 @@ CREATE TABLE odrpdtlist_opl (
 CREATE TABLE sprpdtlist_spl (
     spl_id  NUMBER(10) CONSTRAINT PK_spl PRIMARY KEY,
     spl_spr_id NUMBER(10) NOT NULL,
-    SPL_PDT_ID NUMBER(10) NOT NULL,
+    spl_pdt_id NUMBER(10) NOT NULL,
+    spl_pdt_price NUMBER(10,2) NOT NULL,
     CONSTRAINT FK_SPL_SPRID FOREIGN KEY (SPL_SPR_ID) REFERENCES SUPPLIER_SPR (SPR_ID) ON DELETE CASCADE,
     CONSTRAINT FK_SPL_PDTID FOREIGN KEY (SPL_PDT_ID) REFERENCES PRODUCT_pdt (PDT_ID) ON DELETE CASCADE
 );
+INSERT INTO user_usr VALUES ('a', 'a', 'tester');
+INSERT INTO supplier_spr VALUES(1, 'spr1');
+INSERT INTO supplier_spr VALUES(2, 'spr TWO');
+INSERT INTO supplier_spr VALUES(16, 'spr sixteen');
+INSERT INTO product_pdt VALUES (1, 'pdt1', 11, 1, 111.11);
+INSERT INTO product_pdt VALUES (2, 'pdt2', 22, 2, 22);
+INSERT INTO PRODUCT_PDT VALUES (5, 'pdt5', 55, 1, 5.5);
+INSERT INTO product_pdt (pdt_id, pdt_name, pdt_stock) VALUES (3, 'pdt3 no spr', 0);
