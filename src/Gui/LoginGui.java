@@ -1,5 +1,7 @@
 package src.Gui;
 
+import src.util.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -8,11 +10,15 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import src.GDS.User;
 import src.util.MouseTracker;
@@ -95,6 +101,33 @@ public class LoginGui extends JFrame implements ActionListener {
 		
 		//TODO DAO and Login Algorithm, then dispose()
 		
+		
+		if(id.isEmpty() == true){
+			JOptionPane.showConfirmDialog(null, "ID can't be void!", "Opps",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+		} else if(pw.length == 0){
+			JOptionPane.showConfirmDialog(null, "Password can't be void!", "Opps",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+		} else {
+			UserDAO userDAO = new UserDAO();
+			user = userDAO.getUser(id);
+			System.out.println("id = " + id);
+			if(user == null){
+				System.out.println("id wrong");
+				JOptionPane.showConfirmDialog(null, "ID or Password incorrect.", "Opps",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+			}
+			else {
+				if(user.getPw().equals(new String(pw))){
+					return user;
+				}
+				else{
+					System.out.println("pw wrong");
+					JOptionPane.showConfirmDialog(null, "ID or Password incorrect.", "Opps",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		}
 		return null;
 	}
 	
@@ -102,10 +135,11 @@ public class LoginGui extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		// TODO Login button
 		if(ae.getSource() == jb_login){
-			new MainGui(new User(null, null, null));
-			dispose();
-			//login();
+			User user = login();
+			if(user != null){
+				new MainGui(user);
+				dispose();
+			}
 		}
 	}
-
 }

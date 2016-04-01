@@ -23,15 +23,6 @@ public class Product {
 	 */
 	private int stock;
 	/**
-	 * contain the product's supplier identifiant
-	 */
-	private long supplierId;
-	/**
-	 * contain the name of product's supplier
-	 */
-	private String supplierName;
-	
-	/**
 	 * create a new product
 	 * @param id product identification
 	 * @param name product name

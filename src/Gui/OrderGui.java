@@ -16,9 +16,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import com.sun.org.apache.xml.internal.security.Init;
 
+import src.GDS.Order;
 import src.GDS.User;
 //import src.prototype.Product;
 import src.util.MouseTracker;
@@ -62,7 +67,7 @@ public class OrderGui extends JFrame implements ActionListener {
 	/**
 	 * big font size for buttons
 	 */
-	private Font fontBig = new Font(null, 0, 20);
+	private Font fontBig = new Font(null, 0, 18);
 	
 	private User user;
 	
@@ -161,7 +166,7 @@ public class OrderGui extends JFrame implements ActionListener {
 			new MainGui(user);
 			dispose();
 		} else if(ae.getSource() == jb_new){
-			new  OrderDialog(this, true);
+			new  OrderDialog(this, true, null);
 		}
 
 	}
@@ -172,19 +177,63 @@ class OrderDialog extends JDialog implements ActionListener{
 
 	//TODO labels, textFields and buttons for a order.
 	
-	public OrderDialog(Frame owner, boolean modal) {
+
+	private JTable jt_pdtList = null;
+
+	private DefaultTableModel model = null;
+
+	private JButton jb_addPdt = new JButton("Add");
+	
+	private JButton jb_createOdr = new JButton("Create");
+	
+	private JLabel jl_id = new JLabel ("Order ID : ");
+	
+	private JLabel jl_state = new JLabel ("State : ");
+	
+	private JLabel jl_CltName = new JLabel ("Client name : ");
+	
+	private JLabel jl_date = new JLabel ("Date : ");
+	
+	private JLabel jl_AddPdt = new JLabel ("Add product By ID : ");
+	
+	private JLabel jl_searchPdt = new JLabel ("Search product by name : ");
+
+	private JLabel jl_pdtList = new JLabel ("Product list : ");
+	
+	private JLabel jl_price = new JLabel ("Totol price : ");
+	
+	//TODO add id generator here
+	private JTextField jt_idField = new JTextField(/**/);
+	
+	private JTextField jt_state = new JTextField("Creating");
+	
+	//TODO other components
+	
+	
+	public OrderDialog(Frame owner, boolean modal, Order order) {
 		super(owner, modal);
 		this.setTitle("Order");
 		this.setSize(500, 600);
 		
-		init();
+		init(order);
 		
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	
-	public void init(){
+	public void init(Order order){
 		//TODO init
+		String[][][] datas = {};
+		String[] titles = {"Product", "Price", "Quantity"};
+		model = new DefaultTableModel(datas, titles);
+		jt_pdtList = new JTable(model);
+		
+		this.add(jt_pdtList);
+		this.add(new JScrollPane(jt_pdtList));
+		
+		if(order != null){
+			
+		}
 	}
 	
 	@Override

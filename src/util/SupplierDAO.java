@@ -3,7 +3,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.GDS.Product;
 import src.GDS.Supplier;
 
 //import projetDeveloppementLogiciel.Supplier;
@@ -13,9 +12,9 @@ public class SupplierDAO {
 	 * connection parameter between oracle URL and the DGB, LOGIN and PASS
 	 *  are constants
 	 */
-	final static String URL="jdbc:oracle:thin:@localhost:1521:xe";
-	final static String LOGIN = "system";
-	final static String PASS = "bdd";
+	final static String URL="jdbc:oraclethin:@localhost:1521:xe";
+	final static String LOGIN = "sysem";
+	final static String PASS = "system";
 	/**
 	 *class constructor 
 	 */
@@ -39,9 +38,9 @@ public class SupplierDAO {
 		// connection to date base
 		try {
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("INSERT INTO supplier_spr (spr_id, spr_name) VALUES(?,?)");
+			ps = con.prepareStatement("INSERT INTO supplier_spr (spr_id, spr_name) VALUES(?,?,?)");
 			ps.setLong(1, supplier.getId());
-			ps.setString(2, supplier.getName());
+			ps.setString(1, supplier.getName());
 			
 			// excecution of the requiere
 			retour = ps.executeUpdate();
@@ -144,80 +143,6 @@ public class SupplierDAO {
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
 			ps = con.prepareStatement("DELETE FROM supplier_spr WHERE spr_id=?");
 			ps.setLong(1, id);
-			
-			// excecution of the requiere
-			retour = ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// close preparedStatement and connexion
-			try { 
-				if(ps != null) ps.close();
-			} catch (Exception ignore){
-				System.out.println("closing problem");
-			}
-			try { 
-				if(con != null) con.close();
-			} catch (Exception ignore){
-				System.out.println("closing problem");
-			}
-		}
-		return retour;
-	}
-	/**
-	 * generate a new id for the supplier list product
-	 * @return retour the new id of the 
-	 */
-	public long idGenerator(){
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		long retour = 0;
-		// connection to date base
-		try {
-			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("SELECT MAX(spl_id) FROM sprpdtlist_spl");
-			
-			// excecution of the requiere
-			rs = ps.executeQuery();
-			// recuperation of number
-			rs.next();
-			retour =rs.getLong(1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// close preparedStatement and connection
-			try { 
-				if(ps != null) ps.close();
-			} catch (Exception ignore){
-				System.out.println("closing problem");
-			}
-			try { 
-				if(con != null) con.close();
-			} catch (Exception ignore){
-				System.out.println("closing problem");
-			}
-		}
-		return (retour+1);
-	}
-	/**
-	 * add a new product in the supplier's products list
-	 * @param id the id of the product to add
-	 * @param price the price of the product
-	 * @return the number of products add in the table
-	 */
-	public int addProduct(long id,Product product, Double price){
-		Connection con = null;
-		PreparedStatement ps = null;
-		int retour = 0;
-		// connection to date base
-		try {
-			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("INSERT INTO sprpdtlist_spl (spl_id, spl_spr_id, spl_pdt_id, spl_pdt_price) VALUES(?,?,?,?)");
-			ps.setLong(1, idGenerator());
-			ps.setLong(2, id);
-			ps.setLong(3, product.getId());
-			ps.setDouble(4, product.getPrice());
 			
 			// excecution of the requiere
 			retour = ps.executeUpdate();

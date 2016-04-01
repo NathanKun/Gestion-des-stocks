@@ -81,7 +81,7 @@ public class MainGui extends JFrame implements ActionListener {
 	/**
 	 * font : big size, for big buttons in the main page
 	 */
-	private Font fontBig = new Font(null, 0, 20);
+	private Font fontBig = new Font(null, 0, 18);
 
 	/**
 	 * Constructor of MainGui

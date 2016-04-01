@@ -10,17 +10,17 @@ import src.GDS.User;
  * @author FOTSING KENGNE Junior - HE Junyang
  *@version 1.0
  */
-public class userDAO {
+public class UserDAO {
 	/**
 	 * connection parameter between oracle URL and the DGB, LOGIN and PASS are constants
 	 */
 	final static String URL="jdbc:oracle:thin:@localhost:1521:xe";
-	final static String LOGIN = "system";
-	final static String PASS = "bdd";
+	final static String LOGIN = "BDD6";
+	final static String PASS = "BDD6";
 	/**
 	 *class userDAO constructor 
 	 */
-	public userDAO() {
+	public UserDAO() {
 		//loading  the pilot of DGB
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -72,14 +72,15 @@ public class userDAO {
 		
 		// connection to the data base  
 		try{
-			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("SELECT *FROM usr WHERE usr_id = ?");
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM user_usr WHERE usr_id = ?");
 			ps.setString(1, id);
 			rs=ps.executeQuery();
-			if(rs.next())
+			if(rs.next()){
 				retour = new User(rs.getString("usr_id"),
 									rs.getString("usr_pw"),
 									rs.getString("usr_name"));
+			}
 		} catch (Exception ee) {
 			ee.printStackTrace();
 		} finally {
@@ -105,7 +106,7 @@ public class userDAO {
 		//connection to the data base
 		try{
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("SELECT *FROM product_pdt");
+			ps = con.prepareStatement("SELECT * FROM product_pdt");
 			
 			//requet execution
 			rs=ps.executeQuery();
@@ -144,42 +145,6 @@ public class userDAO {
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
 			ps = con.prepareStatement("DELETE FROM user_usr WHERE usr_id=?");
 			ps.setString(1, id);
-			
-			// excecution of the requiere
-			retour = ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// close preparedStatement and connexion
-			try { 
-				if(ps != null) ps.close();
-			} catch (Exception ignore){
-				System.out.println("closing problem");
-			}
-			try { 
-				if(con != null) con.close();
-			} catch (Exception ignore){
-				System.out.println("closing problem");
-			}
-		}
-		return retour;
-	}
-	/**
-	 * update the informations of the user in parameter
-	 * @param user the user to update
-	 * @return the number of update made
-	 */
-	public int updateUser(User user){
-		Connection con = null;
-		PreparedStatement ps = null;
-		int retour = 0;
-		// connection to date base
-		try {
-			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("UPDATE user_usr SET usr_pw=?, usr_name=? WHERE usr_id=?");
-			ps.setString(1, user.getPw());
-			ps.setString(2, user.getName());
-			ps.setString(3, user.getId());
 			
 			// excecution of the requiere
 			retour = ps.executeUpdate();
