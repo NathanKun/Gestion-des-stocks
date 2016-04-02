@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="src/prototype/" kind="src" path=""/>
+	<classpathentry excluding="src/prototype/|doc/" kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/ojdbc7_g.jar"/>
 	<classpathentry kind="output" path=""/>

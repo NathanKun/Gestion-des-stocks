@@ -56,7 +56,7 @@ public class Order {
 		this.priceDiscount = priceDiscount;
 		this.id = id;
 		this.price = price;
-		this.isPaid = isSold;
+		this.isPaid = isPaid;
 		this.productIdList = productIdList;
 	}
 	/**
@@ -81,13 +81,6 @@ public class Order {
 		return priceDiscount;
 	}
 	/**
-	 * 
-	 * @param priceDiscount - contain the new order discount value
-	 */
-	public void setpriceDiscount(int priceDiscount) {
-		this.priceDiscount = priceDiscount;
-	}
-	/**
 	 * name of client's order discount
 	 * @return the name of the client
 	 */
@@ -105,15 +98,8 @@ public class Order {
 	 * return the state of the order
 	 * @return - state's order
 	 */
-	public boolean isSold() {
-		return isSold;
-	}
-	/**
-	 * change the state value
-	 * @param isSold is sold
-	 */
-	public void setIsSold(boolean isSold) {
-		this.isSold = isSold;
+	public boolean getIsPaid() {
+		return isPaid;
 	}
 	/**
 	 * product id list getter
@@ -122,6 +108,10 @@ public class Order {
 	public ArrayList<Long> getProductIdList() {
 		return productIdList;
 	}
+	/**
+	 * productIdList setter
+	 * @param productIdList new product Id List
+	 */
 	public void setProductIdList(ArrayList<Long> productIdList) {
 		this.productIdList = productIdList;
 	}
@@ -139,6 +129,48 @@ public class Order {
 	public Date getDate() {
 		return date;
 	}
-	
+	/**
+	 * priceDiscount getter
+	 * @return priceDiscount
+	 */
+	public int getPriceDiscount() {
+		return priceDiscount;
+	}
+	/**
+	 * priceDiscount setter
+	 * @param priceDiscount - contain the new order discount value
+	 */
+	public void setPriceDiscount(int priceDiscount) {
+		this.priceDiscount = priceDiscount;
+	}
+	/**
+	 * id setter
+	 * @param id new id
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+	/**
+	 * isPaid setter
+	 * @param isPaid new isPaid state
+	 */
+	public void setIsPaid(boolean isPaid) {
+		this.isPaid = isPaid;
+	}
+	/**
+	 * date setter
+	 * @param date new date
+	 */
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	/**
+	 * toString
+	 */
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", price=" + price + ", priceDiscount=" + priceDiscount + ", clientName="
+				+ clientName + ", isPaid=" + isPaid + ", date=" + date + ", productIdList=" + productIdList + "]";
+	}
 
 }

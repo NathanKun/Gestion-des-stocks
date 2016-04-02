@@ -35,6 +35,7 @@ import src.GDS.Product;
 import src.GDS.User;
 //import src.prototype.Product;
 import src.util.*;
+import javax.swing.JRadioButton;
 
 /**
  * graphical user interface of Order menu window
@@ -111,7 +112,7 @@ public class OrderGui extends JFrame implements ActionListener {
 		this.setTitle("Gestion de stocks - Order");
 		this.setSize(1024, 768);
 		this.setLocationRelativeTo(null);
-		this.setLayout(null);
+		getContentPane().setLayout(null);
 
 		// confirmation when X on click
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -151,7 +152,7 @@ public class OrderGui extends JFrame implements ActionListener {
 		jb_search.setBounds(500, 340, 200, 50);
 		jb_calendar.setBounds(800, 100, 200, 50);
 		jb_replenishment.setBounds(500, 500, 200, 50);
-		jb_return.setBounds(50, 599, 100, 100);
+		jb_return.setBounds(50, 600, 100, 100);
 
 		jb_new.setFont(fontBig);
 		jb_edit.setFont(fontBig);
