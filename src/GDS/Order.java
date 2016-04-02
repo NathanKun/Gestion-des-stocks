@@ -20,17 +20,17 @@ public class Order {
 	/**
 	 * contain the order discount for the client
 	 */
-	private int discountPct;
+	private int priceDiscount;
 	/**
 	 * the name of the client
 	 */
 	private String clientName;
 	/**
 	 * the state of the order
-	 * true - for sold
-	 * false - for not sold
+	 * true - for paid
+	 * false - for not paid
 	 */
-	boolean isSold;
+	boolean isPaid;
 	/**
 	 * contain the date of the order creation
 	 */
@@ -43,20 +43,20 @@ public class Order {
 	 * constructor of the order class
 	 * @param id of the new order
 	 * @param price - the initial price of the order
-	 * @param discountPct - the order discount of the order
+	 * @param priceDiscount - the order discount of the order
 	 * @param clientName - the name of the client
-	 * @param state - the state of the order
+	 * @param isPaid - is the order paid
 	 * @param date - date of the order creation
 	 * @param productIdList - the IDs of the order's products
 	 */
-	public Order(long id, double price, int discountPct, String clientName, 
-			boolean isSold, Date date, ArrayList<Long> productIdList) {
+	public Order(long id, double price, int priceDiscount, String clientName, 
+			boolean isPaid, Date date, ArrayList<Long> productIdList) {
 		this.clientName = clientName;
 		this.date = date;
-		this.discountPct = discountPct;
+		this.priceDiscount = priceDiscount;
 		this.id = id;
 		this.price = price;
-		this.isSold = isSold;
+		this.isPaid = isSold;
 		this.productIdList = productIdList;
 	}
 	/**
@@ -74,18 +74,18 @@ public class Order {
 		this.price = price;
 	}
 	/**
-	 * discountPct getter
+	 * priceDiscount getter
 	 * @return the order discount for the user
 	 */
-	public int getDiscountPct() {
-		return discountPct;
+	public int getpriceDiscount() {
+		return priceDiscount;
 	}
 	/**
 	 * 
-	 * @param discountPct - contain the new order discount value
+	 * @param priceDiscount - contain the new order discount value
 	 */
-	public void setDiscountPct(int discountPct) {
-		this.discountPct = discountPct;
+	public void setpriceDiscount(int priceDiscount) {
+		this.priceDiscount = priceDiscount;
 	}
 	/**
 	 * name of client's order discount
@@ -105,12 +105,12 @@ public class Order {
 	 * return the state of the order
 	 * @return - state's order
 	 */
-	public boolean isIsSold() {
+	public boolean isSold() {
 		return isSold;
 	}
 	/**
 	 * change the state value
-	 * @param isSold
+	 * @param isSold is sold
 	 */
 	public void setIsSold(boolean isSold) {
 		this.isSold = isSold;

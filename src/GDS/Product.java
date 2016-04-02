@@ -45,6 +45,12 @@ public class Product {
 	}
 	/**
 	 * get a product from db
+	 * @param id			product id
+	 * @param name			product name
+	 * @param stock			product stock
+	 * @param price			product price
+	 * @param supplierID	supplier id
+	 * @param supplierName	supplier name
 	 */
 	public Product(long id, String name, int stock, double price, long supplierId, String supplierName){
 		this.id=id;
@@ -139,7 +145,7 @@ public class Product {
 		stock-=quantity;
 	}
 	
-	//TODO affectSupplier， removeSupplier
+	//TODO affectSupplier, removeSupplier
 	public void affectSupplier(Supplier supplier){
 		
 	}

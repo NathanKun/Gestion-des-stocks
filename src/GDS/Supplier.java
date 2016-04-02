@@ -70,7 +70,7 @@ public class Supplier {
 	}
 	/**
 	 * add a new product in the supplier's products list
-	 * @param product contain the new product
+	 * @param pdtId id of the  product
 	 * @param price	contain the price of the product
 	 */
 	public void addProduct(long pdtId, Double price){
@@ -92,7 +92,7 @@ public class Supplier {
 	public void setProductPrice(long productId, double price){
 		for(Entry<Long, Double> entry : productList.entrySet()){
 			if(productId==entry.getKey()){
-				System.out.println("trouvé");
+				System.out.println("found");
 				productList.put(entry.getKey(), price);
 			}
 		}

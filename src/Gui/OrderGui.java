@@ -38,6 +38,7 @@ import src.util.*;
 
 /**
  * graphical user interface of Order menu window
+ * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
@@ -87,6 +88,7 @@ public class OrderGui extends JFrame implements ActionListener {
 
 	/**
 	 * constructor
+	 * @param user The user who logged in
 	 */
 	public OrderGui(User user) {
 		this.user = user;
@@ -102,10 +104,8 @@ public class OrderGui extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * initialization
-	 * init JFrame
-	 * init JPanel jp_main main container
-	 * init background
+	 * initialization init JFrame init JPanel jp_main main container init
+	 * background
 	 */
 	public void init() {
 		this.setTitle("Gestion de stocks - Order");
@@ -174,27 +174,29 @@ public class OrderGui extends JFrame implements ActionListener {
 		jp_main.add(jb_replenishment);
 		jp_main.add(jb_return);
 	}
-	
+
 	/**
 	 * main methode of class, use for testing
-	 * @param args for main
+	 * 
+	 * @param args
+	 *            for main
 	 */
 	public static void main(String[] args) {
 		OrderGui orderGui = new OrderGui(null);
 	}
-	
+
 	/**
 	 * action perform when buttons on click
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		// TODO button on click
-		//return buttton on click
+		// return buttton on click
 		if (ae.getSource() == jb_return) {
 			new MainGui(user);
 			dispose();
-		} 
-		//new order button on click
+		}
+		// new order button on click
 		else if (ae.getSource() == jb_new) {
 			new OrderDialog(this, true, null);
 		}
@@ -202,9 +204,10 @@ public class OrderGui extends JFrame implements ActionListener {
 	}
 
 }
+
 /**
- * OrderDialog class
- * A dialog window to create/edit an order of client
+ * OrderDialog class A dialog window to create/edit an order of client
+ * 
  * @author HE Junyang, Fotsing Junior
  *
  */
@@ -243,36 +246,35 @@ class OrderDialog extends JDialog implements ActionListener {
 	 */
 	private JButton jb_removePdt = new JButton("Remove");
 	/**
-	 * lable : Order ID : 
+	 * lable : Order ID :
 	 */
 	private JLabel jl_id = new JLabel("Order ID : ");
 	/**
-	 * lable : State : 
+	 * lable : State :
 	 */
 	private JLabel jl_state = new JLabel("State : ");
 	/**
-	 * lable : Client name : 
+	 * lable : Client name :
 	 */
 	private JLabel jl_CltName = new JLabel("Client name : ");
 	/**
-	 * lable : Date : 
+	 * lable : Date :
 	 */
 	private JLabel jl_date = new JLabel("Date : ");
 	/**
-	 * lable : Add product By ID : ");
-	/**
+	 * lable : Add product By ID : "); /**
 	 */
 	private JLabel jl_addPdt = new JLabel("Add product By ID : ");
 	/**
-	 * lable : Search product by name : 
+	 * lable : Search product by name :
 	 */
 	private JLabel jl_searchPdt = new JLabel("Search product by name : ");
 	/**
-	 * lable : Product list : 
+	 * lable : Product list :
 	 */
 	private JLabel jl_pdtList = new JLabel("Product list : ");
 	/**
-	 * lable : Totol price : 
+	 * lable : Totol price :
 	 */
 	private JLabel jl_price = new JLabel("Totol price : ");
 	/**
@@ -317,15 +319,19 @@ class OrderDialog extends JDialog implements ActionListener {
 	 */
 	private JPanel jp_down = new JPanel();
 	/**
-	 * the id of the product which is selected in the product list table 
+	 * the id of the product which is selected in the product list table
 	 */
 	private long seletedPdtId = 0;
 
 	/**
 	 * contructor
-	 * @param owner	father JFrame of this dialog
-	 * @param modal	modal of dialog
-	 * @param order	order to load by dialog, null if create a new order
+	 * 
+	 * @param owner
+	 *            father JFrame of this dialog
+	 * @param modal
+	 *            modal of dialog
+	 * @param order
+	 *            order to load by dialog, null if create a new order
 	 */
 	public OrderDialog(Frame owner, boolean modal, Order order) {
 		super(owner, modal);
@@ -337,10 +343,13 @@ class OrderDialog extends JDialog implements ActionListener {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+
 	/**
-	 * initialization
-	 * init panels, labels, textFields, buttons, models and tables
-	 * @param order	order to load by dialog, null if create a new order
+	 * initialization init panels, labels, textFields, buttons, models and
+	 * tables
+	 * 
+	 * @param order
+	 *            order to load by dialog, null if create a new order
 	 */
 	public void init(Order order) {
 		this.setLayout(new FlowLayout());
@@ -424,25 +433,26 @@ class OrderDialog extends JDialog implements ActionListener {
 
 				int[] selectedRow = jtb_pdtSearch.getSelectedRows();
 				int[] selectedColumns = jtb_pdtSearch.getSelectedColumns();
-
-				selectedData = (long) jtb_pdtSearch.getValueAt(selectedRow[0], 0);
-				jt_pdtId.setText(String.valueOf(selectedData));
+				if (selectedRow.length != 0) {
+					selectedData = (long) jtb_pdtSearch.getValueAt(selectedRow[0], 0);
+					jt_pdtId.setText(String.valueOf(selectedData));
+				}
 			}
 		});
-		//TODO load a order
+		// TODO load a order
 		if (order != null) {
 
 		}
 	}
-	
+
 	/**
 	 * action perform if a button on click
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//add a product button on click
+		// add a product button on click
 		if (e.getSource() == jb_addPdt) {
-			//if is a long
+			// if is a long
 			if (Regex.isLong(jt_pdtId.getText())) {
 				Product pdt = new ProductDAO().getProduct(Long.parseLong(jt_pdtId.getText()));
 				if (pdt != null) {
@@ -466,20 +476,20 @@ class OrderDialog extends JDialog implements ActionListener {
 				JOptionPane.showConfirmDialog(null, "Invalid input", "Opps", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.WARNING_MESSAGE);
 			}
-		} 
-		//create the order button on click
+		}
+		// create the order button on click
 		else if (e.getSource() == jb_createOdr) {
 
-		} 
-		//remove a product button on click
+		}
+		// remove a product button on click
 		else if (e.getSource() == jb_removePdt) {
 			for (int i = 0; i < model_pdtList.getRowCount(); i++) {
 				if ((long) model_pdtList.getValueAt(i, 0) == seletedPdtId) {
 					model_pdtList.removeRow(i);
 				}
 			}
-		} 
-		//search product by name button on click
+		}
+		// search product by name button on click
 		else if (e.getSource() == jb_searchPdt) {
 			ArrayList<Product> pdtList = new ProductDAO().getProductList();
 			for (int i = model_pdtSearch.getRowCount() - 1; i >= 0; i--) {

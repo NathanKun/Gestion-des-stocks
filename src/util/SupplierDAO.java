@@ -258,6 +258,8 @@ public class SupplierDAO {
 	 *            the id of the product to add
 	 * @param price
 	 *            the price of the product
+	 *  @param product
+	 *  		  the product for add
 	 * @return the number of products add in the table
 	 */
 	public int addProduct(long id, Product product, Double price) {
