@@ -3,6 +3,11 @@ package src.GDS;
 import java.util.*;
 import java.util.Map.Entry;
 
+/**
+ * Supplier class, represent a Supplier
+ * @author HE Junyang - FOTSING KENGNE Junior
+ *
+ */
 public class Supplier {
 	/**
 	 * contain supplier id
@@ -92,12 +97,23 @@ public class Supplier {
 			}
 		}
 	}
+	/**
+	 * Supplier id setter
+	 * @param id	new supplier id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+	/**
+	 * product list setter
+	 * @param productList	new product list
+	 */
 	public void setProductList(HashMap<Long, Double> productList) {
 		this.productList = productList;
 	}
+	/**
+	 * toString
+	 */
 	@Override
 	public String toString() {
 		return "Supplier [id=" + id + ", name=" + name + ", productList=" + productList + "]";

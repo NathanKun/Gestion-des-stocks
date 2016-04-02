@@ -43,7 +43,11 @@ public class UserDAO {
 					"impossible to load the BDD pilot, please make sure you have import the .jar folder in the project");
 		}
 	}
-
+	/**
+	 * Add a user into the db
+	 * @param user	user for add
+	 * @return	number of line added
+	 */
 	public int addUser(User user) {
 		Connection con = null;
 		PreparedStatement ps = null;

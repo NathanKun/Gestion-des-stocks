@@ -1,20 +1,12 @@
 package src.Gui;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,8 +18,8 @@ import src.GDS.User;
 import src.util.MouseTracker;
 
 /**
- * Main windows
- * @author HE Junyang, FOTSING Junior
+ * graphical user interface of Main window
+ * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
 public class MainGui extends JFrame implements ActionListener {
@@ -197,28 +189,47 @@ public class MainGui extends JFrame implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent ae) {
 		// TODO action for buttons
+		//help button on click
 		if (ae.getSource() == jb_main_help) {
 			
-		} else if (ae.getSource() == jb_main_login) {
+		}
+		//admin login button on click 
+		else if (ae.getSource() == jb_main_login) {
 			new LoginGui();
 			dispose();
-		} else if (ae.getSource() == jb_main_logout) {
+		} 
+		//logout button on click
+		else if (ae.getSource() == jb_main_logout) {
 			this.user = null;
 			setupAdminsComponents();
-		} else if (ae.getSource() == jb_main_menuOrder) {
+		} 
+		//order button on click
+		else if (ae.getSource() == jb_main_menuOrder) {
 			new OrderGui(user);
 			dispose();
-		} else if (ae.getSource() == jb_main_menuSearch) {
+		} 
+		//search button on click
+		else if (ae.getSource() == jb_main_menuSearch) {
 			
-		} else if (ae.getSource() == jb_main_settleShipment) {
+		} 
+		//settle&shipment button on click
+		else if (ae.getSource() == jb_main_settleShipment) {
 			
-		} else if (ae.getSource() == jb_main_productMng) {
+		} 
+		//product management button on click
+		else if (ae.getSource() == jb_main_productMng) {
 			
-		} else if (ae.getSource() == jb_main_supplierMng) {
+		} 
+		//supplier management button on click
+		else if (ae.getSource() == jb_main_supplierMng) {
 			
 		}
 	}
 
+	/**
+	 * main methode of MainGui, for test
+	 * @param args for main
+	 */
 	public static void main(String[] args) {
 		MainGui mainGui = new MainGui(null);
 	}

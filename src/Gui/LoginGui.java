@@ -10,7 +10,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,23 +17,46 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import src.GDS.User;
 import src.util.MouseTracker;
-
+/**
+ * graphical user interface of login window
+ * @author HE Junyang - FOTSING KENGNE Junior
+ *
+ */
 public class LoginGui extends JFrame implements ActionListener {
-
+	/**
+	 * main container
+	 */
 	private JPanel jp = new JPanel();
+	/**
+	 * main background
+	 */
 	private JLabel jl_bgMain = new JLabel();
-
+	/**
+	 * label : id
+	 */
 	private JLabel jl_id = new JLabel("ID : ");
+	/**
+	 * label : password
+	 */
 	private JLabel jl_pw = new JLabel("Password : ");
+	/**
+	 * text field for id
+	 */
 	private JTextField jtf_id = new JTextField();
+	/**
+	 * password field for password
+	 */
 	private JPasswordField jtf_pw = new JPasswordField();
-	
+	/**
+	 * button : login
+	 */
 	private JButton jb_login = new JButton("Login");
 	
+	/**
+	 * constructor 
+	 */
 	public LoginGui() {
 		init();
 		initComponents();
@@ -46,7 +68,13 @@ public class LoginGui extends JFrame implements ActionListener {
 		jp.add(mt);
 		
 	}
-
+	
+	/**
+	 * Initialization principal
+	 * init JFrame
+	 * init jp main container
+	 * setup background
+	 */
 	public void init() {
 		this.setTitle("Login");
 		this.setSize(800, 400);
@@ -77,7 +105,11 @@ public class LoginGui extends JFrame implements ActionListener {
 		jp = (JPanel) this.getContentPane();
 		jp.setOpaque(false);
 	}
-
+	
+	/**
+	 * initialization of components
+	 * init labels, text fields, buttons.
+	 */
 	public void initComponents(){
 		jl_id.setBounds(50, 100, 100, 30);
 		jl_pw.setBounds(50, 200, 100, 30);
@@ -94,6 +126,10 @@ public class LoginGui extends JFrame implements ActionListener {
 		jb_login.addActionListener(this);
 	}
 	
+	/**
+	 * Login algorithm
+	 * @return	Objet User who logged in, or null if login field
+	 */
 	public User login(){
 		User user;
 		String id = jtf_id.getText();
@@ -130,10 +166,12 @@ public class LoginGui extends JFrame implements ActionListener {
 		}
 		return null;
 	}
-	
+	/**
+	 * action perform if button on click
+	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// TODO Login button
+		//Login button on click
 		if(ae.getSource() == jb_login){
 			User user = login();
 			if(user != null){

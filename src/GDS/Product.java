@@ -1,6 +1,6 @@
 package src.GDS;
 /**
- * class product
+ * class product, represent a product 
  * @author Junior FOTSING - HE junyang
  * @version 1.0
  */
@@ -54,21 +54,45 @@ public class Product {
 		this.supplierId = supplierId;
 		this.supplierName = supplierName;
 	}
+	/**
+	 * supplier Id getter
+	 * @return	supplier id
+	 */
 	public long getSupplierId() {
 		return supplierId;
 	}
+	/**
+	 * supplier id setter
+	 * @param supplierId	new supplier id
+	 */
 	public void setSupplierId(long supplierId) {
 		this.supplierId = supplierId;
 	}
+	/**
+	 * supplier name getter
+	 * @return	supplier name
+	 */
 	public String getSupplierName() {
 		return supplierName;
 	}
+	/**
+	 * supplier name setter
+	 * @param supplierName	new supplier name
+	 */
 	public void setSupplierName(String supplierName) {
 		this.supplierName = supplierName;
 	}
+	/**
+	 * product id setter
+	 * @param id	product name
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+	/**
+	 * product stock setter
+	 * @param stock	new stock
+	 */
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
@@ -114,15 +138,24 @@ public class Product {
 	public void reduceStock(int quantity){
 		stock-=quantity;
 	}
+	
+	//TODO affectSupplier， removeSupplier
 	public void affectSupplier(Supplier supplier){
 		
 	}
 	public void removeSupplier(long id){
 		
 	}
+	/**
+	 * product price setter
+	 * @param price	product price
+	 */
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	/**
+	 * toString
+	 */
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", stock=" + stock + ", supplierId="

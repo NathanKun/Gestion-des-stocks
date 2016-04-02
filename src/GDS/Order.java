@@ -3,6 +3,11 @@ package src.GDS;
 import java.sql.Date;
 import java.util.*;
 
+/**
+ * Order class, represent an order
+ * @author HE Junyang - FOTSING KENGNE Junior
+ *
+ */
 public class Order {
 	/**
 	 * contain the order ID
@@ -110,15 +115,27 @@ public class Order {
 	public void setIsSold(boolean isSold) {
 		this.isSold = isSold;
 	}
+	/**
+	 * product id list getter
+	 * @return product id ArrayList
+	 */
 	public ArrayList<Long> getProductIdList() {
 		return productIdList;
 	}
 	public void setProductIdList(ArrayList<Long> productIdList) {
 		this.productIdList = productIdList;
 	}
+	/**
+	 * Order Id getter
+	 * @return	order Id
+	 */
 	public long getId() {
 		return id;
 	}
+	/**
+	 * Order date getter
+	 * @return	order date
+	 */
 	public Date getDate() {
 		return date;
 	}

@@ -1,7 +1,7 @@
 package src.GDS;
 import java.util.*;
 /**
- * User class
+ * User class, represent an user
  * @author FOTSING KENGNE Junior - HE Junyang
  * @version 1.0
  */
@@ -64,6 +64,9 @@ public class User {
 	public String getId() {
 		return id;
 	}
+	/**
+	 * toString
+	 */
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", pw=" + pw + ", name=" + name + "]";

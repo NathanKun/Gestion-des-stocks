@@ -7,8 +7,11 @@ import java.util.List;
 import src.GDS.Product;
 import src.GDS.Supplier;
 
-//import projetDeveloppementLogiciel.Supplier;
-
+/**
+ * Data access object for Supplier
+ * @author FOTSING KENGNE Junior - HE Junyang
+ *
+ */
 public class SupplierDAO {
 	/**
 	 * connection parameter between oracle URL and the DGB, LOGIN and PASS are
