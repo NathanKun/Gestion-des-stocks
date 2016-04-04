@@ -40,14 +40,14 @@ public class Order {
 	 */
 	private ArrayList<Long> productIdList;
 	/**
-	 * constructor of the order class
-	 * @param id of the new order
-	 * @param price - the initial price of the order
-	 * @param priceDiscount - the order discount of the order
-	 * @param clientName - the name of the client
-	 * @param isPaid - is the order paid
-	 * @param date - date of the order creation
-	 * @param productIdList - the IDs of the order's products
+	 * get an order from database or create an order directly
+	 * @param id			id of the new order
+	 * @param price			the initial price of the order
+	 * @param priceDiscount	the order discount of the order
+	 * @param clientName	the name of the client
+	 * @param isPaid		is the order paid
+	 * @param date			date of the order creation
+	 * @param productIdList	the IDs of the order's products
 	 */
 	public Order(long id, double price, int priceDiscount, String clientName, 
 			boolean isPaid, Date date, ArrayList<Long> productIdList) {

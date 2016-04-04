@@ -338,7 +338,8 @@ class OrderDialog extends JDialog implements ActionListener {
 		super(owner, modal);
 		this.setTitle("Order");
 		this.setSize(500, 750);
-
+		this.setResizable(false);
+		
 		init(order);
 
 		this.setLocationRelativeTo(null);
@@ -375,7 +376,7 @@ class OrderDialog extends JDialog implements ActionListener {
 		jp_up.add(jb_searchPdt);
 		this.add(jp_up);
 
-		String[][][] datas = {};
+		String[][] datas = {};
 		String[] titlesList = { "ID", "Name", "Price", "Quantity" };
 		String[] titlesSearch = { "ID", "Name", "Price", "Stock" };
 		model_pdtSearch = new DefaultTableModel(datas, titlesSearch);
@@ -395,7 +396,7 @@ class OrderDialog extends JDialog implements ActionListener {
 		// jtb_pdtList.setSize(jp_down.getWidth(), jp_down.getHeight());
 		jp_down.setPreferredSize(new Dimension(490, 350));
 		jp_down.add(new JLabel("Product list :"));
-		jp_down.add(jtb_pdtList);
+		//jp_down.add(jtb_pdtList);
 		jp_down.add(new JScrollPane(jtb_pdtList));
 		jp_down.add(jb_removePdt);
 		jp_down.add(jl_price);

@@ -89,7 +89,7 @@ public class ProductDAO {
 		// connection to the data base  
 		try{
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("SELECT * FROM product_pdt INNER JOIN supplier_spr ON pdt_spr = spr_id WHERE pdt_id = ? ");
+			ps = con.prepareStatement("SELECT * FROM product_pdt LEFT JOIN supplier_spr ON pdt_spr = spr_id WHERE pdt_id = ? ");
 			ps.setLong(1, id);
 			rs=ps.executeQuery();
 			if(rs.next())
@@ -125,7 +125,7 @@ public class ProductDAO {
 		//connection to the data base
 		try{
 			con = DriverManager.getConnection(URL,LOGIN,PASS);
-			ps = con.prepareStatement("SELECT * FROM product_pdt INNER JOIN supplier_spr on spr_id = pdt_spr");
+			ps = con.prepareStatement("SELECT * FROM product_pdt LEFT JOIN supplier_spr on spr_id = pdt_spr");
 			
 			//requet execution
 			rs=ps.executeQuery();

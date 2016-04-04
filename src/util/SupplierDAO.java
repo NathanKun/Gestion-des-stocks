@@ -2,6 +2,7 @@ package src.util;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import src.GDS.Product;
@@ -89,11 +90,11 @@ public class SupplierDAO {
 	 * 
 	 * @return the list of all the suppliers in the data base
 	 */
-	public List<Supplier> getSupplierList() {
+	public ArrayList<Supplier> getSupplierList() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<Supplier> retour = new ArrayList<Supplier>();
+		ArrayList<Supplier> retour = new ArrayList<Supplier>();
 		// connection to the data base
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
@@ -254,15 +255,16 @@ public class SupplierDAO {
 	/**
 	 * add a new product in the supplier's products list
 	 * 
-	 * @param id
-	 *            the id of the product to add
+	 * @param sprId
+	 *            the ID of the supplier to add
+	 * @param pdtId
+	 *  		  the ID of the product for add
 	 * @param price
 	 *            the price of the product
-	 *  @param product
-	 *  		  the product for add
 	 * @return the number of products add in the table
 	 */
-	public int addProduct(long id, Product product, Double price) {
+	//TODO untested
+	public int addProduct(long sprId, long pdtId, Double price) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int retour = 0;
@@ -272,9 +274,9 @@ public class SupplierDAO {
 			ps = con.prepareStatement(
 					"INSERT INTO sprpdtlist_spl (spl_id, spl_spr_id, spl_pdt_id, spl_pdt_price) VALUES(?,?,?,?)");
 			ps.setLong(1, idGenerator());
-			ps.setLong(2, id);
-			ps.setLong(3, product.getId());
-			ps.setDouble(4, product.getPrice());
+			ps.setLong(2, sprId);
+			ps.setLong(3, pdtId);
+			ps.setDouble(4, price);
 
 			// excecution of the requiere
 			retour = ps.executeUpdate();
@@ -293,6 +295,93 @@ public class SupplierDAO {
 					con.close();
 			} catch (Exception ignore) {
 				System.out.println("closing problem");
+			}
+		}
+		return retour;
+	}
+	
+	
+	/**
+	 * delete a product from the product list of a supplier
+	 * @param sprId	id of supplier for delete a product
+	 * @param pdtId	id of product for delete
+	 * @return the number of line deleted
+	 */
+	//TODO untested
+	public int deleteProduct(long sprId, long pdtId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour = 0;
+		// connection to date base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement(
+					"DELETE FROM sprpdtlist_spl "
+					+ "WHERE spl_spr_id = ? AND spl_pdt_id = ?");
+			ps.setLong(1, sprId);
+			ps.setLong(2, pdtId);
+
+			// excecution of the requiere
+			retour = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connexion
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return retour;
+	}
+	
+	
+	
+	/**
+	 * get the list of product of a supplier from the db
+	 * @param sprId	ID of the supplier for get the list
+	 * @return	the list of product of the supplier
+	 */
+	public HashMap<Long, Double> getSupplierProductList(long sprId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		HashMap<Long, Double> retour = new HashMap<Long, Double>();
+
+		// connection to the data base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?");
+			ps.setLong(1, sprId);
+			rs = ps.executeQuery();
+			while (rs.next())
+				retour.put(rs.getLong("spl_pdt_id"), rs.getDouble("spl_pdt_price"));
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// closing of ResultSet, PreparedStatement and connection
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
 			}
 		}
 		return retour;

@@ -34,6 +34,17 @@ public class Supplier {
 		productList = new HashMap<Long,Double>();
 	}
 	/**
+	 * get a supplier form data base
+	 * @param id			identification of supplier
+	 * @param name			name of the supplier
+	 * @param productList	product list of the supplier
+	 */
+	public Supplier(long id, String name, HashMap<Long, Double> productList){
+		this.id=id;
+		this.name=name;
+		this.productList = productList;
+	}
+	/**
 	 * return the name of the supplier
 	 * @return String name
 	 */
