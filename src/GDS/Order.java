@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.*;
 
 /**
- * Order class, represent an order
+ * Order class, represents an order
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
@@ -18,9 +18,9 @@ public class Order {
 	 */
 	private double price;
 	/**
-	 * contain the order discount for the client
+	 * contain the price after discount for the client
 	 */
-	private int priceDiscount;
+	private double priceDiscount;
 	/**
 	 * the name of the client
 	 */
@@ -38,26 +38,26 @@ public class Order {
 	/**
 	 * contain the ID of all the order's products
 	 */
-	private ArrayList<Long> productIdList;
+	private ArrayList<OrderProduct> productList;
 	/**
 	 * get an order from database or create an order directly
 	 * @param id			id of the new order
 	 * @param price			the initial price of the order
-	 * @param priceDiscount	the order discount of the order
+	 * @param priceDiscount	the price discounted of the order
 	 * @param clientName	the name of the client
 	 * @param isPaid		is the order paid
 	 * @param date			date of the order creation
 	 * @param productIdList	the IDs of the order's products
 	 */
-	public Order(long id, double price, int priceDiscount, String clientName, 
-			boolean isPaid, Date date, ArrayList<Long> productIdList) {
+	public Order(long id, double price, double priceDiscount, String clientName, 
+			boolean isPaid, Date date, ArrayList<OrderProduct> productList) {
 		this.clientName = clientName;
 		this.date = date;
 		this.priceDiscount = priceDiscount;
 		this.id = id;
 		this.price = price;
 		this.isPaid = isPaid;
-		this.productIdList = productIdList;
+		this.productList = productList;
 	}
 	/**
 	 * get the price of the order
@@ -72,13 +72,6 @@ public class Order {
 	 */
 	public void setPrice(double price) {
 		this.price = price;
-	}
-	/**
-	 * priceDiscount getter
-	 * @return the order discount for the user
-	 */
-	public int getpriceDiscount() {
-		return priceDiscount;
 	}
 	/**
 	 * name of client's order discount
@@ -105,15 +98,15 @@ public class Order {
 	 * product id list getter
 	 * @return product id ArrayList
 	 */
-	public ArrayList<Long> getProductIdList() {
-		return productIdList;
+	public ArrayList<OrderProduct> getProductIdList() {
+		return productList;
 	}
 	/**
 	 * productIdList setter
 	 * @param productIdList new product Id List
 	 */
 	public void setProductIdList(ArrayList<Long> productIdList) {
-		this.productIdList = productIdList;
+		this.productList = productList;
 	}
 	/**
 	 * Order Id getter
@@ -133,7 +126,7 @@ public class Order {
 	 * priceDiscount getter
 	 * @return priceDiscount
 	 */
-	public int getPriceDiscount() {
+	public double getPriceDiscount() {
 		return priceDiscount;
 	}
 	/**
@@ -170,7 +163,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", price=" + price + ", priceDiscount=" + priceDiscount + ", clientName="
-				+ clientName + ", isPaid=" + isPaid + ", date=" + date + ", productIdList=" + productIdList + "]";
+				+ clientName + ", isPaid=" + isPaid + ", date=" + date + ", productList=" + productList + "]";
 	}
 
 }

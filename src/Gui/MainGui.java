@@ -114,12 +114,8 @@ public class MainGui extends JFrame implements ActionListener {
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Comfirm",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)// y
-																						// for
-																						// 0,
-																						// n
-																						// for
-																						// 1
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
+					// y for 0, n for 1
 					System.exit(0);
 			}
 		});

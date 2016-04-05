@@ -1,6 +1,6 @@
 package src.GDS;
 /**
- * class product, represent a product 
+ * class product, represents a product 
  * @author Junior FOTSING - HE junyang
  * @version 1.0
  */

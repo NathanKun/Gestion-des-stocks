@@ -186,10 +186,52 @@ public class ProductDAO {
 		return retour;
 	}
 	
+
+	/**
+	 * generate a new id for the product_pdt
+	 * 
+	 * @return retour the new id of the product
+	 */
+	public long idGenerator() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		long retour = 0;
+		// connection to date base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT MAX(pdt_id) FROM product_pdt");
+
+			// excecution of the requiere
+			rs = ps.executeQuery();
+			// recuperation of number
+			rs.next();
+			retour = rs.getLong(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connection
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return (retour + 1);
+	}
+
+	
 	//TODO int updateProduct(Product pdt)
 	
 	public static void main(String[] args){
-		Product pdt = new ProductDAO().getProduct(1l);
-		System.out.println(pdt.toString());
+		ProductDAO dao = new ProductDAO();
+		System.out.println("id gen next pdt_id = " + dao.idGenerator());
 	}
 }

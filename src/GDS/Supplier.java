@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * Supplier class, represent a Supplier
+ * Supplier class, represents a Supplier
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */

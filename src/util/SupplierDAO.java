@@ -50,7 +50,7 @@ public class SupplierDAO {
 	 * 
 	 * @param supplier
 	 *            contain the new supplier o add
-	 * @return retour- 1 if the adding is ok and 0 if not
+	 * @return retour 1 if the adding is ok and 0 if not
 	 */
 	public int addSupplier(Supplier supplier) {
 		Connection con = null;
@@ -215,9 +215,9 @@ public class SupplierDAO {
 	/**
 	 * generate a new id for the supplier list product
 	 * 
-	 * @return retour the new id of the
+	 * @return retour the new id of the sprpdtlist_spl
 	 */
-	public long idGenerator() {
+	public long idGenerator_Sprpdtlist_spl() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -226,6 +226,46 @@ public class SupplierDAO {
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT MAX(spl_id) FROM sprpdtlist_spl");
+
+			// excecution of the requiere
+			rs = ps.executeQuery();
+			// recuperation of number
+			rs.next();
+			retour = rs.getLong(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connection
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return (retour + 1);
+	}
+
+	/**
+	 * generate a new id for a supplier
+	 * 
+	 * @return retour the new id of the supplier
+	 */
+	public long idGenerator_Supplier_spr() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		long retour = 0;
+		// connection to date base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT MAX(spr_id) FROM supplier_spr");
 
 			// excecution of the requiere
 			rs = ps.executeQuery();
@@ -273,7 +313,7 @@ public class SupplierDAO {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement(
 					"INSERT INTO sprpdtlist_spl (spl_id, spl_spr_id, spl_pdt_id, spl_pdt_price) VALUES(?,?,?,?)");
-			ps.setLong(1, idGenerator());
+			ps.setLong(1, idGenerator_Sprpdtlist_spl());
 			ps.setLong(2, sprId);
 			ps.setLong(3, pdtId);
 			ps.setDouble(4, price);
@@ -385,5 +425,15 @@ public class SupplierDAO {
 			}
 		}
 		return retour;
+	}
+	
+	/**
+	 * main method, for testing
+	 * @param args for main
+	 */
+	public static void main (String[] args){
+		SupplierDAO dao = new SupplierDAO();
+		System.out.println("id gen next spl_id = " + dao.idGenerator_Sprpdtlist_spl());
+		System.out.println("id gen next spr_id = " + dao.idGenerator_Supplier_spr());
 	}
 }

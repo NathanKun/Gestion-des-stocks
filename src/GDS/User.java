@@ -1,7 +1,7 @@
 package src.GDS;
 import java.util.*;
 /**
- * User class, represent an user
+ * User class, represents an user
  * @author FOTSING KENGNE Junior - HE Junyang
  * @version 1.0
  */

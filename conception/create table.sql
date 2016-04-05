@@ -30,18 +30,19 @@ CREATE TABLE user_usr (
 CREATE TABLE order_odr (
     odr_id NUMBER(10) CONSTRAINT PK_prd PRIMARY KEY,
     odr_price NUMBER(10, 2) NOT NULL,
-    odr_priceDis NUMBER(10, 2),
-    odr_state VARCHAR2(15),
+    odr_pricedis NUMBER(10, 2),
+    odr_isPaid NUMBER(1),
     odr_clientName VARCHAR2(30),
     odr_date DATE DEFAULT SYSDATE
 );
 
 CREATE TABLE odrpdtlist_opl (
-    odl_id NUMBER(10) CONSTRAINT pk_opl PRIMARY KEY,
-    odl_ord_id NUMBER(10) NOT NULL,
-    odl_pdt_id NUMBER(10) NOT NULL,
-    CONSTRAINT fk_opl_ordid FOREIGN KEY (odl_ord_id) REFERENCES order_odr (odr_id) ON DELETE CASCADE,
-    CONSTRAINT fk_opl_pdtid FOREIGN KEY (odl_pdt_id) REFERENCES product_pdt (pdt_id) ON DELETE CASCADE
+    opl_id NUMBER(10) CONSTRAINT pk_opl PRIMARY KEY,
+    opl_ord_id NUMBER(10) NOT NULL,
+    opl_pdt_id NUMBER(10) NOT NULL,
+    opl_pdt_quantity NUMBER(3) NOT NULL,
+    CONSTRAINT fk_opl_ordid FOREIGN KEY (opl_ord_id) REFERENCES order_odr (odr_id) ON DELETE CASCADE,
+    CONSTRAINT fk_opl_pdtid FOREIGN KEY (opl_pdt_id) REFERENCES product_pdt (pdt_id) ON DELETE CASCADE
 );
 
 CREATE TABLE sprpdtlist_spl (
