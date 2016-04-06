@@ -1,4 +1,4 @@
-package src.GDS;
+package src.gds;
 import java.util.*;
 /**
  * User class, represents an user

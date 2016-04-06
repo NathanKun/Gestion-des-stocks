@@ -1,7 +1,7 @@
-package src.GDS;
+package src.gds;
 /**
  * class represents a product with a quantity
- * @author HE Junyang - FOTSING Junior
+ * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
 public class OrderProduct {
@@ -21,28 +21,28 @@ public class OrderProduct {
 	
 	/**
 	 * id getter
-	 * @return
+	 * @return	id of product
 	 */
 	public long getId() {
 		return id;
 	}
 	/**
 	 * id setter
-	 * @param id
+	 * @param id id of product
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 	/**
 	 * quantity getter
-	 * @return
+	 * @return	quantity of product
 	 */
 	public int getQuantity() {
 		return quantity;
 	}
 	/**
 	 * quantity setter
-	 * @param quantity
+	 * @param quantity quantity of product
 	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;

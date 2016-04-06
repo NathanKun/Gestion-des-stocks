@@ -1,49 +1,20 @@
-package src.util;
+package src.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import src.GDS.Product;
-import src.GDS.Supplier;
+import src.gds.Product;
+import src.gds.Supplier;
 
 /**
  * Data access object for Supplier
+ * 
  * @author FOTSING KENGNE Junior - HE Junyang
  *
  */
-public class SupplierDAO {
-	/**
-	 * connection parameter between oracle URL and the DGB, LOGIN and PASS are
-	 * constants
-	 */
-	/*
-	final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	final static String LOGIN = "system";
-	final static String PASS = "bdd";
-	*/
-	/*
-	 * final static String URL="jdbc:oracle:thin:@localhost:1521:xe"; final
-	 * static String LOGIN = "BDD6"; 
-	 * final static String PASS = "BDD6";
-	 */
-	final static String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
-	final static String LOGIN = "c##nathankun";
-	final static String PASS = "83783548jun";
-
-	/**
-	 * class constructor
-	 */
-	public SupplierDAO() {
-		// loading the pilot of DGB
-		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-		} catch (ClassNotFoundException e) {
-			System.err.println(
-					"impossible to load the BDD pilot, please make sur you have import thr .jar folder in the project");
-		}
-	}
+public class SupplierDAO extends DAO {
 
 	/**
 	 * add product in the date base
@@ -298,12 +269,12 @@ public class SupplierDAO {
 	 * @param sprId
 	 *            the ID of the supplier to add
 	 * @param pdtId
-	 *  		  the ID of the product for add
+	 *            the ID of the product for add
 	 * @param price
 	 *            the price of the product
 	 * @return the number of products add in the table
 	 */
-	//TODO untested
+	// TODO untested
 	public int addProduct(long sprId, long pdtId, Double price) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -339,15 +310,17 @@ public class SupplierDAO {
 		}
 		return retour;
 	}
-	
-	
+
 	/**
 	 * delete a product from the product list of a supplier
-	 * @param sprId	id of supplier for delete a product
-	 * @param pdtId	id of product for delete
+	 * 
+	 * @param sprId
+	 *            id of supplier for delete a product
+	 * @param pdtId
+	 *            id of product for delete
 	 * @return the number of line deleted
 	 */
-	//TODO untested
+	// TODO untested
 	public int deleteProduct(long sprId, long pdtId) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -355,9 +328,7 @@ public class SupplierDAO {
 		// connection to date base
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement(
-					"DELETE FROM sprpdtlist_spl "
-					+ "WHERE spl_spr_id = ? AND spl_pdt_id = ?");
+			ps = con.prepareStatement("DELETE FROM sprpdtlist_spl " + "WHERE spl_spr_id = ? AND spl_pdt_id = ?");
 			ps.setLong(1, sprId);
 			ps.setLong(2, pdtId);
 
@@ -382,13 +353,13 @@ public class SupplierDAO {
 		}
 		return retour;
 	}
-	
-	
-	
+
 	/**
 	 * get the list of product of a supplier from the db
-	 * @param sprId	ID of the supplier for get the list
-	 * @return	the list of product of the supplier
+	 * 
+	 * @param sprId
+	 *            ID of the supplier for get the list
+	 * @return the list of product of the supplier
 	 */
 	public HashMap<Long, Double> getSupplierProductList(long sprId) {
 		Connection con = null;
@@ -426,12 +397,14 @@ public class SupplierDAO {
 		}
 		return retour;
 	}
-	
+
 	/**
 	 * main method, for testing
-	 * @param args for main
+	 * 
+	 * @param args
+	 *            for main
 	 */
-	public static void main (String[] args){
+	public static void main(String[] args) {
 		SupplierDAO dao = new SupplierDAO();
 		System.out.println("id gen next spl_id = " + dao.idGenerator_Sprpdtlist_spl());
 		System.out.println("id gen next spr_id = " + dao.idGenerator_Supplier_spr());

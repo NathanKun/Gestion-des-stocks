@@ -1,4 +1,4 @@
-package src.Gui;
+package src.gui;
 
 import java.awt.Component;
 
@@ -45,10 +45,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatter;
 
-import src.GDS.Order;
-import src.GDS.OrderProduct;
-import src.GDS.Product;
-import src.GDS.User;
+import src.dao.OrderDAO;
+import src.dao.ProductDAO;
+import src.gds.Order;
+import src.gds.OrderProduct;
+import src.gds.Product;
+import src.gds.User;
 //import src.prototype.Product;
 import src.util.*;
 import javax.swing.JRadioButton;
@@ -217,10 +219,9 @@ public class OrderGui extends JFrame implements ActionListener {
 /**
  * OrderDialog class A dialog window to create/edit an order of client
  * 
- * @author HE Junyang, Fotsing Junior
+ * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
-
 
 class OrderDialog extends JDialog implements ActionListener {
 
@@ -398,6 +399,7 @@ class OrderDialog extends JDialog implements ActionListener {
 	 */
 	public void init() {
 		getContentPane().setLayout(null);
+		// add components in the up panel
 		jp_up.setBounds(22, 5, 450, 138);
 		jp_up.setLayout(new GridLayout(6, 3));
 		jp_up.add(jl_id);
@@ -420,10 +422,12 @@ class OrderDialog extends JDialog implements ActionListener {
 		jp_up.add(jb_searchPdt);
 		getContentPane().add(jp_up);
 
+		// set not editable for some text field
 		jtf_isPaid.setEditable(false);
 		jtf_id.setEditable(false);
 		jtf_date.setEditable(false);
 
+		// model for search result table and selected products table
 		String[][] datas = {};
 		String[] titlesList = { "ID", "Name", "Price", "Quantity" };
 		String[] titlesSearch = { "ID", "Name", "Price", "Stock" };
@@ -443,10 +447,13 @@ class OrderDialog extends JDialog implements ActionListener {
 			}
 		};
 
+		// configure search table
 		jtb_pdtSearch = new JTable(model_pdtSearch);
 		jtb_pdtSearch.setBounds(1, 27, 450, 0);
-		jp_middle.setBounds(21, 155, 452, 230);
 		jtb_pdtSearch.setPreferredScrollableViewportSize(new Dimension(450, 180));
+
+		// configure the middle panel
+		jp_middle.setBounds(21, 155, 452, 230);
 		jp_middle.setLayout(null);
 		JLabel label = new JLabel("Search result : ");
 		label.setBounds(0, 0, 96, 15);
@@ -457,8 +464,14 @@ class OrderDialog extends JDialog implements ActionListener {
 		jp_middle.add(scrollPane_1);
 		getContentPane().add(jp_middle);
 
+		// configure selected product table
 		jtb_pdtList = new JTable(model_pdtList);
 		jtb_pdtList.setPreferredScrollableViewportSize(new Dimension(450, 180));
+		jtb_pdtList.setCellSelectionEnabled(true);
+		JScrollPane scrollPane = new JScrollPane(jtb_pdtList);
+		scrollPane.setBounds(0, 21, 452, 212);
+
+		// configure the bottom panel
 		jp_down.setBounds(22, 395, 450, 316);
 		// jp_down.setLayout(new BoxLayout(jp_down, BoxLayout.Y_AXIS));
 		// jtb_pdtList.setSize(jp_down.getWidth(), jp_down.getHeight());
@@ -468,8 +481,6 @@ class OrderDialog extends JDialog implements ActionListener {
 		jl_pdtList.setAlignmentX(LEFT_ALIGNMENT);
 		jp_down.add(jl_pdtList);
 		// jp_down.add(jtb_pdtList);
-		JScrollPane scrollPane = new JScrollPane(jtb_pdtList);
-		scrollPane.setBounds(0, 21, 452, 212);
 		jp_down.add(scrollPane);
 		jb_removePdt.setBounds(359, 243, 81, 23);
 		jp_down.add(jb_removePdt);
@@ -482,6 +493,7 @@ class OrderDialog extends JDialog implements ActionListener {
 		jp_down.add(jb_createOdr);
 		getContentPane().add(jp_down);
 
+		// listener for buttons
 		jb_addPdt.addActionListener(this);
 		jb_createOdr.addActionListener(this);
 		jb_removePdt.addActionListener(this);
@@ -489,14 +501,13 @@ class OrderDialog extends JDialog implements ActionListener {
 		jb_edit.addActionListener(this);
 		jb_cancel.addActionListener(this);
 
-		jtb_pdtList.setCellSelectionEnabled(true);
-
 		// spinner
 		// from 0 to 9, in 1.0 steps start value 5
 		spinnerModel = new SpinnerNumberModel(100.0, 0.0, 100.0, 1.0);
 		jspinner = new JSpinner(spinnerModel);
 		jspinner.setBounds(289, 245, 60, 22);
 
+		// spinner listener
 		JComponent comp = jspinner.getEditor();
 		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
 		DefaultFormatter formatter = (DefaultFormatter) field.getFormatter();
@@ -536,9 +547,13 @@ class OrderDialog extends JDialog implements ActionListener {
 
 		jb_cancel.setBounds(359, 282, 81, 23);
 		jp_down.add(jb_cancel);
+
+		// table listener
 		ListSelectionModel cellSelectionModel_pdtList = jtb_pdtList.getSelectionModel();
 		cellSelectionModel_pdtList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		cellSelectionModel_pdtList.addListSelectionListener(new ListSelectionListener() {
+			// get selected product's id when a product in selected product
+			// table is selected
 			public void valueChanged(ListSelectionEvent e) {
 				long selectedData = 0;
 
@@ -554,6 +569,8 @@ class OrderDialog extends JDialog implements ActionListener {
 		ListSelectionModel cellSelectionModel_pdtSearch = jtb_pdtSearch.getSelectionModel();
 		cellSelectionModel_pdtSearch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		cellSelectionModel_pdtSearch.addListSelectionListener(new ListSelectionListener() {
+			// set selected product's id in Add product's text field when a
+			// product in search result table is selected
 			public void valueChanged(ListSelectionEvent e) {
 				long selectedData = 0;
 
@@ -566,6 +583,9 @@ class OrderDialog extends JDialog implements ActionListener {
 			}
 		});
 
+		// Values in some textFields and table are different between create a
+		// new order and load an order
+		
 		// load a order
 		if (order != null) {
 			jtf_id.setText(String.valueOf(order.getId()));
@@ -686,21 +706,26 @@ class OrderDialog extends JDialog implements ActionListener {
 		}
 		// create the order button on click
 		else if (e.getSource() == jb_createOdr) {
+			// if the selected product table is not empty
 			if (jtb_pdtList.getRowCount() != 0) {
 				OrderDAO orderDAO = new OrderDAO();
+				// add the selected product in a list
 				ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
 				for (int i = 0; i < model_pdtList.getRowCount(); i++) {
 					productList.add(new OrderProduct((Long) model_pdtList.getValueAt(i, 0),
 							(int) model_pdtList.getValueAt(i, 3)));
 				}
+				// Create a new order
 				Order newOrder = new Order(orderDAO.idGeneratorOdr(), Double.parseDouble(jtf_price.getText()),
 						Double.parseDouble(jtf_finalPrice.getText()), jtf_CltName.getText(), false,
 						new java.sql.Date(date.getTime()), productList);
 				System.out.println(newOrder.toString());
+				// add order into date base
 				orderDAO.addOrder(newOrder);
 				JOptionPane.showConfirmDialog(null, "Order created.", "OK", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.INFORMATION_MESSAGE);
 				dispose();
+				//if no product selected
 			} else {
 				System.out.println("product list void");
 				JOptionPane.showConfirmDialog(null, "No product selected.", "Opps", JOptionPane.DEFAULT_OPTION,
@@ -709,7 +734,9 @@ class OrderDialog extends JDialog implements ActionListener {
 		}
 		// edit button on click
 		else if (e.getSource() == jb_edit) {
+			// if table not void
 			if (jtb_pdtList.getRowCount() != 0) {
+				//create new order
 				OrderDAO orderDAO = new OrderDAO();
 				ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
 				for (int i = 0; i < model_pdtList.getRowCount(); i++) {
@@ -720,7 +747,9 @@ class OrderDialog extends JDialog implements ActionListener {
 						Double.parseDouble(jtf_finalPrice.getText()), jtf_CltName.getText(), false,
 						new java.sql.Date(date.getTime()), productList);
 				System.out.println(newOrder.toString());
+				
 				// TODO orderDAO.updateOrder(newOrder)
+				
 				JOptionPane.showConfirmDialog(null, "Order Updated.", "OK", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.INFORMATION_MESSAGE);
 				dispose();
@@ -732,14 +761,17 @@ class OrderDialog extends JDialog implements ActionListener {
 		}
 		// cancel button on click
 		else if (e.getSource() == jb_cancel) {
-			if (JOptionPane.showConfirmDialog(null, "Do you really want to cancel this order?", "Comfirm", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE) == 0)
-				{
-				//TODO orderDAO.deleteOrder(order.getId());
+			if (JOptionPane.showConfirmDialog(null, "Do you really want to cancel this order?", "Comfirm",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+				// TODO orderDAO.deleteOrder(order.getId());
 			}
 		}
 	}
-
+	
+	/**
+	 * main method for testing
+	 * @param args for main
+	 */
 	public static void main(String[] args) {
 		OrderProduct orderProduct1 = new OrderProduct(1, 1);
 		OrderProduct orderProduct2 = new OrderProduct(2, 2);
@@ -758,7 +790,7 @@ class OrderDialog extends JDialog implements ActionListener {
 		// designer mDesigner = new designer(null, true, null);
 
 		// test load order
-		designer mDesigner2 = new designer(null, true, order);
+		OrderDialog orderDialog = new OrderDialog(null, true, order);
 
 	}
 }

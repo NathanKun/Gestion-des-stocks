@@ -1,5 +1,5 @@
 
-package src.GDS;
+package src.gds;
 import java.util.*;
 import java.util.Map.Entry;
 

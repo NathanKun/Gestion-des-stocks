@@ -1,4 +1,4 @@
-package src.GDS;
+package src.gds;
 
 import java.sql.Date;
 import java.util.*;
@@ -47,7 +47,7 @@ public class Order {
 	 * @param clientName	the name of the client
 	 * @param isPaid		is the order paid
 	 * @param date			date of the order creation
-	 * @param productIdList	the IDs of the order's products
+	 * @param productList	the IDs of the order's products
 	 */
 	public Order(long id, double price, double priceDiscount, String clientName, 
 			boolean isPaid, Date date, ArrayList<OrderProduct> productList) {

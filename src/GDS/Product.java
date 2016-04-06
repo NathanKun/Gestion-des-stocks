@@ -1,7 +1,7 @@
-package src.GDS;
+package src.gds;
 /**
  * class product, represents a product 
- * @author Junior FOTSING - HE junyang
+ * @author FOTSING KENGNE Junior - HE junyang
  * @version 1.0
  */
 public class Product {
@@ -49,7 +49,7 @@ public class Product {
 	 * @param name			product name
 	 * @param stock			product stock
 	 * @param price			product price
-	 * @param supplierID	supplier id
+	 * @param supplierId	supplier id
 	 * @param supplierName	supplier name
 	 */
 	public Product(long id, String name, int stock, double price, long supplierId, String supplierName){
