@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import src.gds.Product;
-import src.gds.Supplier;
+import src.GDS.Product;
+import src.GDS.Supplier;
 
 /**
  * Data access object for Supplier

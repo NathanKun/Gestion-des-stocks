@@ -1,4 +1,4 @@
-package src.gui;
+package src.Gui;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -18,8 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import src.gds.Order;
-import src.gds.User;
+import src.GDS.Order;
+import src.GDS.User;
 import src.util.MouseTracker;
 
 /**

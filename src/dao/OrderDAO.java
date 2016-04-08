@@ -1,12 +1,13 @@
 package src.dao;
+//import src.GDS;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import src.gds.Order;
-import src.gds.OrderProduct;
+import src.GDS.Order;
+import src.GDS.OrderProduct;
 
 /**
  * Data access object for Order

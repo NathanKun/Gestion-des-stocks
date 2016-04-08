@@ -1,4 +1,4 @@
-package src.gds;
+package src.GDS;
 
 import java.sql.Date;
 import java.util.*;
