@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="DAO" version="4">
+  <OBJECT>
+    <ID name="DAO" mc="Standard.Package" uid="56845a9a-21cc-4aa1-bc9c-13d8b2558a0e"/>
+    <PID name="project developpement logiciel sujet1" mc="Standard.Package" uid="59c59739-6c4a-46c8-931e-a64919a454e9"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[DAO]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="DAO" mc="Standard.Class" uid="ac872df2-be70-4501-8832-cd7e7eafbb34"/>
+        <COMPID name="UserDAO" mc="Standard.Class" uid="c114e8e1-398d-4a00-a39a-84d77c78182e"/>
+        <COMPID name="SupplierDAO" mc="Standard.Class" uid="6e53f2bb-973c-4d48-a602-975c97f14b52"/>
+        <COMPID name="ProductDAO" mc="Standard.Class" uid="ec3ab7e1-904d-448d-8468-98c4e4e1ac72"/>
+        <COMPID name="OrderDAO" mc="Standard.Class" uid="7a3d8c62-bdd7-4b63-bba8-8775609f1e15"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

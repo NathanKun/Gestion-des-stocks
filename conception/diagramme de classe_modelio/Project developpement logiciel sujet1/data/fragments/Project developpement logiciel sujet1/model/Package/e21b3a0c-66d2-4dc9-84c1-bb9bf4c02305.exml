@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="GDS" version="4">
+  <OBJECT>
+    <ID name="GDS" mc="Standard.Package" uid="e21b3a0c-66d2-4dc9-84c1-bb9bf4c02305"/>
+    <PID name="project developpement logiciel sujet1" mc="Standard.Package" uid="59c59739-6c4a-46c8-931e-a64919a454e9"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[GDS]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="User" mc="Standard.Class" uid="051e8b0e-6666-466f-b734-f94affee3200"/>
+        <COMPID name="Supplier" mc="Standard.Class" uid="be847e2a-d857-48ad-981a-0ef93585f454"/>
+        <COMPID name="Product" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
+        <COMPID name="Order" mc="Standard.Class" uid="9ab12ceb-0aa1-4fef-96fb-8d15c75a6823"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

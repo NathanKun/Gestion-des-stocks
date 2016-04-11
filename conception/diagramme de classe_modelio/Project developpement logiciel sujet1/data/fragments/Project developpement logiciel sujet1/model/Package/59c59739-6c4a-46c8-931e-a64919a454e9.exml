@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="project developpement logiciel sujet1" version="4">
+  <OBJECT>
+    <ID name="project developpement logiciel sujet1" mc="Standard.Package" uid="59c59739-6c4a-46c8-931e-a64919a454e9"/>
+    <PID name="Project developpement logiciel sujet1" mc="Standard.Project" uid="5a5ddcfa-8b7d-43a0-ac57-06aaf8b83201"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[project developpement logiciel sujet1]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Gui" mc="Standard.Class" uid="97dcca94-8820-4a8e-8b7b-e6cd2d77674b"/>
+        <COMPID name="DAO" mc="Standard.Package" uid="56845a9a-21cc-4aa1-bc9c-13d8b2558a0e"/>
+        <COMPID name="GDS" mc="Standard.Package" uid="e21b3a0c-66d2-4dc9-84c1-bb9bf4c02305"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Class diagram gestion des stock" mc="Standard.ClassDiagram" uid="a2706488-4bf3-404d-b4c1-c5e4c5f0599a"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
