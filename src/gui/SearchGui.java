@@ -1,4 +1,4 @@
-package src.Gui;
+package src.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -37,9 +37,9 @@ import javax.swing.table.DefaultTableModel;
 
 import src.dao.ProductDAO;
 import src.dao.SupplierDAO;
-import src.GDS.Product;
-import src.GDS.Supplier;
-import src.GDS.User;
+import src.gds.Product;
+import src.gds.Supplier;
+import src.gds.User;
 
 /**
  * The GUI for the search menu
@@ -80,13 +80,9 @@ public class SearchGui extends JFrame implements ActionListener {
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Comfirm",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) // y
-																						// for
-																						// 0,
-																						// n
-																						// for
-																						// 1
-					dispose();
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) 
+					// y for 0, n for 1
+					System.exit(0);
 			}
 		});
 
@@ -218,7 +214,7 @@ class SearchProduct extends JDialog {
 		productList = new ProductDAO().getProductList();
 
 		JLabel lblProductName = new JLabel("Product name : ");
-		lblProductName.setBounds(10, 10, 100, 15);
+		lblProductName.setBounds(10, 10, 200, 15);
 		contentPanel.add(lblProductName);
 
 		// table
@@ -446,7 +442,7 @@ class SearchSupplier extends JDialog {
 		contentPanel.setLayout(null);
 
 		JLabel lblSupplierName = new JLabel("Supplier name : ");
-		lblSupplierName.setBounds(10, 10, 100, 15);
+		lblSupplierName.setBounds(10, 10, 200, 15);
 		contentPanel.add(lblSupplierName);
 
 		// sprDetail table
@@ -562,7 +558,7 @@ class SearchSupplier extends JDialog {
 		contentPanel.add(jtf_supplierName);
 
 		JLabel lblProductsList = new JLabel("Products list : ");
-		lblProductsList.setBounds(10, 287, 100, 15);
+		lblProductsList.setBounds(10, 287, 200, 15);
 		contentPanel.add(lblProductsList);
 
 		// product list table

@@ -4,4 +4,4 @@
 /**
  * src.gds is a group of class ace for the application Gestion De Stock
  */
-package src.GDS;
+package src.gds;

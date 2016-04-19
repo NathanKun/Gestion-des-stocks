@@ -4,4 +4,4 @@
 /**
  * src.gui is a group of graphical user interface for the application
  */
-package src.Gui;
+package src.gui;

@@ -1,6 +1,4 @@
-package src.Gui;
-
-import src.util.*;
+package src.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import src.dao.UserDAO;
-import src.GDS.User;
+import src.gds.User;
 import src.util.MouseTracker;
 /**
  * graphical user interface of login window

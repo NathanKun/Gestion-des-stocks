@@ -3,7 +3,7 @@ package src.dao;
 import java.sql.*;
 import java.util.*;
 
-import src.GDS.User;
+import src.gds.User;
 
 //import projetDeveloppementLogiciel.User;
 /**

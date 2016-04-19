@@ -4,7 +4,7 @@ package src.dao;
 import java.sql.*;
 import java.util.*;
 
-import src.GDS.Product;
+import src.gds.Product;
 
 //import projetDeveloppementLogiciel.Product;
 /**
@@ -29,10 +29,10 @@ public class ProductDAO extends DAO {
 		// connection to date base
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("INSERT INTO product_pdt (pdt_id, pdt_name,pdt_stock) VALUES(?,?,?)");
-			ps.setLong(1, product.getId());
-			ps.setString(2, product.getName());
-			ps.setInt(3, product.getStock());
+			ps = con.prepareStatement("INSERT INTO product_pdt (pdt_id, pdt_name, pdt_stock) VALUES(pdtid_seq.NEXTVAL,?,?)");
+			//ps.setLong(1, product.getId());
+			ps.setString(1, product.getName());
+			ps.setInt(2, product.getStock());
 
 			// excecution of the requiere
 			retour = ps.executeUpdate();
@@ -230,6 +230,7 @@ public class ProductDAO extends DAO {
 
 	public static void main(String[] args) {
 		ProductDAO dao = new ProductDAO();
-		System.out.println("id gen next pdt_id = " + dao.idGenerator());
+		//System.out.println("id gen next pdt_id = " + dao.idGenerator());
+		dao.addProduct(new Product("omggg"));
 	}
 }
