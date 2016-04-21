@@ -14,10 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-<<<<<<< HEAD
 import src.gds.Order;
-=======
->>>>>>> db68ff5e9582e1b41fae640001a926ebb2b8cadf
 import src.gds.User;
 import src.util.MouseTracker;
 

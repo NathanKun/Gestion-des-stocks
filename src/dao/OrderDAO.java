@@ -10,10 +10,7 @@ import java.util.ArrayList;
 
 import src.gds.Order;
 import src.gds.OrderProduct;
-<<<<<<< HEAD
-=======
 import src.gds.Product;
->>>>>>> db68ff5e9582e1b41fae640001a926ebb2b8cadf
 
 /**
  * Data access object for Order

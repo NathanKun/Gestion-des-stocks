@@ -1,9 +1,6 @@
 package src.gui;
-<<<<<<< HEAD
 
 import java.awt.Component;
-=======
->>>>>>> db68ff5e9582e1b41fae640001a926ebb2b8cadf
 
 import java.awt.Dimension;
 import java.awt.Font;

@@ -7,10 +7,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-<<<<<<< HEAD
+
 import src.gds.Product;
-=======
->>>>>>> db68ff5e9582e1b41fae640001a926ebb2b8cadf
+
 import src.gds.Supplier;
 
 /**
