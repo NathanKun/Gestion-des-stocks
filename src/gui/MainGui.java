@@ -1,9 +1,6 @@
 package src.gui;
 
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -12,13 +9,15 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+<<<<<<< HEAD
 import src.gds.Order;
+=======
+>>>>>>> db68ff5e9582e1b41fae640001a926ebb2b8cadf
 import src.gds.User;
 import src.util.MouseTracker;
 

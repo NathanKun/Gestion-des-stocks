@@ -105,8 +105,8 @@ public class Order {
 	 * productIdList setter
 	 * @param productIdList new product Id List
 	 */
-	public void setProductIdList(ArrayList<Long> productIdList) {
-		this.productList = productList;
+	public void setProductIdList(ArrayList<OrderProduct> productIdList) {
+		this.productList = productIdList;
 	}
 	/**
 	 * Order Id getter
