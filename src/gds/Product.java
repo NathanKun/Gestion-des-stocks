@@ -32,11 +32,10 @@ public class Product {
 	private String supplierName;
 	/**
 	 * create a new product
-	 * @param id product identification
 	 * @param name product name
 	 */
-	public Product(long id, String name){
-		this.id=id;
+	public Product(String name){
+		this.id=0l;
 		this.name=name;
 		this.stock=0;
 		this.price=0;

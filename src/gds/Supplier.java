@@ -28,8 +28,8 @@ public class Supplier {
 	 * @param id identification of supplier
 	 * @param name name of the supplier
 	 */
-	public Supplier(long id, String name){
-		this.id=id;
+	public Supplier(String name){
+		this.id=0l;
 		this.name=name;
 		productList = new HashMap<Long,Double>();
 	}

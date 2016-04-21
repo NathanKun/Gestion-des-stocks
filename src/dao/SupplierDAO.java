@@ -1,11 +1,15 @@
 package src.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 
 import src.gds.Product;
+
 import src.gds.Supplier;
 
 /**
@@ -30,9 +34,9 @@ public class SupplierDAO extends DAO {
 		// connection to date base
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("INSERT INTO supplier_spr (spr_id, spr_name) VALUES(?,?)");
-			ps.setLong(1, supplier.getId());
-			ps.setString(2, supplier.getName());
+			ps = con.prepareStatement("INSERT INTO supplier_spr (spr_id, spr_name) VALUES(sprid_seq.NEXTVAL,?)");
+			// ps.setLong(1, supplier.getId());
+			ps.setString(1, supplier.getName());
 
 			// excecution of the requiere
 			retour = ps.executeUpdate();
@@ -75,8 +79,11 @@ public class SupplierDAO extends DAO {
 			rs = ps.executeQuery();
 
 			// we cross all the line of the results
-			while (rs.next())
-				retour.add(new Supplier(rs.getLong("spr_id"), rs.getString("spr_name")));
+			while (rs.next()) {
+				long id = rs.getLong("spr_id");
+				retour.add(new Supplier(id, rs.getString("spr_name"), this
+						.getSupplierProductList(id)));
+			}
 		} catch (Exception ee) {
 			ee.printStackTrace();
 		} finally {
@@ -120,7 +127,9 @@ public class SupplierDAO extends DAO {
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			if (rs.next())
-				retour = new Supplier(rs.getLong("spr_id"), rs.getString("spr_name"));
+				retour = new Supplier(rs.getLong("spr_id"),
+						rs.getString("spr_name"),
+						this.getSupplierProductList(id));
 		} catch (Exception ee) {
 			ee.printStackTrace();
 		} finally {
@@ -275,19 +284,25 @@ public class SupplierDAO extends DAO {
 	 * @return the number of products add in the table
 	 */
 	// TODO untested
+	// if return 0 means this product is already existed
+	// in the list of this supplier
+	// Should show a warning panel
 	public int addProduct(long sprId, long pdtId, Double price) {
+
+		HashMap<Long, Double> map = this.getSupplierProductList(sprId);
+		if (map.containsKey(pdtId))
+			return 0;
 		Connection con = null;
 		PreparedStatement ps = null;
 		int retour = 0;
 		// connection to date base
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement(
-					"INSERT INTO sprpdtlist_spl (spl_id, spl_spr_id, spl_pdt_id, spl_pdt_price) VALUES(?,?,?,?)");
-			ps.setLong(1, idGenerator_Sprpdtlist_spl());
-			ps.setLong(2, sprId);
-			ps.setLong(3, pdtId);
-			ps.setDouble(4, price);
+			ps = con.prepareStatement("INSERT INTO sprpdtlist_spl (spl_id, spl_spr_id, spl_pdt_id, spl_pdt_price) VALUES(splid_seq.NEXTVAL,?,?,?)");
+			// ps.setLong(1, idGenerator_Sprpdtlist_spl());
+			ps.setLong(1, sprId);
+			ps.setLong(2, pdtId);
+			ps.setDouble(3, price);
 
 			// excecution of the requiere
 			retour = ps.executeUpdate();
@@ -328,7 +343,8 @@ public class SupplierDAO extends DAO {
 		// connection to date base
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("DELETE FROM sprpdtlist_spl " + "WHERE spl_spr_id = ? AND spl_pdt_id = ?");
+			ps = con.prepareStatement("DELETE FROM sprpdtlist_spl "
+					+ "WHERE spl_spr_id = ? AND spl_pdt_id = ?");
 			ps.setLong(1, sprId);
 			ps.setLong(2, pdtId);
 
@@ -374,7 +390,8 @@ public class SupplierDAO extends DAO {
 			ps.setLong(1, sprId);
 			rs = ps.executeQuery();
 			while (rs.next())
-				retour.put(rs.getLong("spl_pdt_id"), rs.getDouble("spl_pdt_price"));
+				retour.put(rs.getLong("spl_pdt_id"),
+						rs.getDouble("spl_pdt_price"));
 		} catch (Exception ee) {
 			ee.printStackTrace();
 		} finally {
@@ -406,7 +423,11 @@ public class SupplierDAO extends DAO {
 	 */
 	public static void main(String[] args) {
 		SupplierDAO dao = new SupplierDAO();
-		System.out.println("id gen next spl_id = " + dao.idGenerator_Sprpdtlist_spl());
-		System.out.println("id gen next spr_id = " + dao.idGenerator_Supplier_spr());
+		// System.out.println("id gen next spl_id = " +
+		// dao.idGenerator_Sprpdtlist_spl());
+		// System.out.println("id gen next spr_id = " +
+		// dao.idGenerator_Supplier_spr());
+		// dao.addSupplier(new Supplier("sprrrrrr"));
+		System.out.print(dao.addProduct(10, 3, 233d));
 	}
 }
