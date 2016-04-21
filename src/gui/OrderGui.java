@@ -1,4 +1,4 @@
-package src.Gui;
+package src.gui;
 
 import java.awt.Component;
 
@@ -47,10 +47,10 @@ import javax.swing.text.DefaultFormatter;
 
 import src.dao.OrderDAO;
 import src.dao.ProductDAO;
-import src.GDS.Order;
-import src.GDS.OrderProduct;
-import src.GDS.Product;
-import src.GDS.User;
+import src.gds.Order;
+import src.gds.OrderProduct;
+import src.gds.Product;
+import src.gds.User;
 //import src.prototype.Product;
 import src.util.*;
 import javax.swing.JRadioButton;

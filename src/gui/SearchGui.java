@@ -1,4 +1,4 @@
-package src.Gui;
+package src.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -37,9 +37,9 @@ import javax.swing.table.DefaultTableModel;
 
 import src.dao.ProductDAO;
 import src.dao.SupplierDAO;
-import src.GDS.Product;
-import src.GDS.Supplier;
-import src.GDS.User;
+import src.gds.Product;
+import src.gds.Supplier;
+import src.gds.User;
 
 /**
  * The GUI for the search menu

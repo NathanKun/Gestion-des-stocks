@@ -1,4 +1,4 @@
-package src.GDS;
+package src.gds;
 /**
  * class represents a product with a quantity
  * @author HE Junyang - FOTSING KENGNE Junior

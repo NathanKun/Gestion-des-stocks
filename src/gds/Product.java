@@ -1,4 +1,4 @@
-package src.GDS;
+package src.gds;
 /**
  * class product, represents a product 
  * @author FOTSING KENGNE Junior - HE junyang

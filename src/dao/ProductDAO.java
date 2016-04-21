@@ -4,7 +4,7 @@ package src.dao;
 import java.sql.*;
 import java.util.*;
 
-import src.GDS.Product;
+import src.gds.Product;
 
 //import projetDeveloppementLogiciel.Product;
 /**

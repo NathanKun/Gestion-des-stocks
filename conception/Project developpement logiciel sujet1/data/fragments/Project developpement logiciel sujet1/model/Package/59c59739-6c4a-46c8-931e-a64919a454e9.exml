@@ -17,6 +17,7 @@
         <COMPID name="Gui" mc="Standard.Class" uid="97dcca94-8820-4a8e-8b7b-e6cd2d77674b"/>
         <COMPID name="DAO" mc="Standard.Package" uid="56845a9a-21cc-4aa1-bc9c-13d8b2558a0e"/>
         <COMPID name="GDS" mc="Standard.Package" uid="e21b3a0c-66d2-4dc9-84c1-bb9bf4c02305"/>
+        <COMPID name="OrderProduct" mc="Standard.Class" uid="1f0638d2-4a8f-40dd-ad7c-1d312c04e939"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="Class diagram gestion des stock" mc="Standard.ClassDiagram" uid="a2706488-4bf3-404d-b4c1-c5e4c5f0599a"/>

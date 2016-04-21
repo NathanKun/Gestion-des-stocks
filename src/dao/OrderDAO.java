@@ -6,8 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import src.GDS.Order;
-import src.GDS.OrderProduct;
+import src.gds.Order;
+import src.gds.OrderProduct;
 
 /**
  * Data access object for Order
