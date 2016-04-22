@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="variable productList" version="4">
+  <OBJECT>
+    <ID name="variable productList" mc="Standard.ExternDocument" uid="67d96c17-2aaa-4ea1-be3d-6d7085c46785"/>
+    <PID name="Supplier" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
+    <ATTRIBUTES>
+      <ATT name="MimeType"><![CDATA[application/vnd.openxmlformats-officedocument.wordprocessingml.document]]></ATT>
+      <ATT name="Path"><![CDATA[richnotes\67d96c17-2aaa-4ea1-be3d-6d7085c46785.docx]]></ATT>
+      <ATT name="Abstract"><![CDATA[< type de variabe HashMap>]]></ATT>
+      <ATT name="Name"><![CDATA[variable productList]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Type">
+        <FOREIGNID name="description" mc="Standard.ExternDocumentType" uid="9ccf914f-2175-11e1-a46e-002564c97630"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

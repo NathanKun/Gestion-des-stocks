@@ -63,7 +63,7 @@ public class SupplierDAO extends DAO {
 	 * @return the list of all the suppliers in the data base
 	 */
 	public ArrayList<Supplier> getSupplierList() {
-		Connection con = null;
+		/*Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ArrayList<Supplier> retour = new ArrayList<Supplier>();
@@ -101,7 +101,9 @@ public class SupplierDAO extends DAO {
 			} catch (Exception ignore) {
 			}
 		}
-		return retour;
+		return retour;*/
+		String sql = "SELECT *FROM Supplier_spr";
+		return (ArrayList<Supplier>) this.getList("Supplier", sql, 0, 0l);
 	}
 
 	/**
@@ -112,7 +114,7 @@ public class SupplierDAO extends DAO {
 	 * @return the supplier
 	 */
 	public Supplier getSupplier(long id) {
-		Connection con = null;
+		/*Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Supplier retour = null;
@@ -147,7 +149,9 @@ public class SupplierDAO extends DAO {
 			} catch (Exception ignore) {
 			}
 		}
-		return retour;
+		return retour;*/
+		String sql = "SELECT *FROM supplier_spr WHERE spr_id = ?";
+		return (Supplier) this.getOne("Supplier", sql, id);
 	}
 
 	/**
@@ -375,6 +379,7 @@ public class SupplierDAO extends DAO {
 	 * @return the list of product of the supplier
 	 */
 	public HashMap<Long, Double> getSupplierProductList(long sprId) {
+		/*
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -409,7 +414,10 @@ public class SupplierDAO extends DAO {
 			} catch (Exception ignore) {
 			}
 		}
-		return retour;
+		return retour;*/
+		String sql = "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?";
+		System.out.println("1");
+		return (HashMap<Long, Double>) this.getList("spl", sql, 1, sprId);
 	}
 
 	/**

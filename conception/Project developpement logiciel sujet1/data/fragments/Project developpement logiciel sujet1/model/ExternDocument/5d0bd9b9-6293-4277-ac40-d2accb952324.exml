@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ArrayList" version="4">
+  <OBJECT>
+    <ID name="ArrayList" mc="Standard.ExternDocument" uid="5d0bd9b9-6293-4277-ac40-d2accb952324"/>
+    <PID name="ProductDAO" mc="Standard.Class" uid="ec3ab7e1-904d-448d-8468-98c4e4e1ac72"/>
+    <ATTRIBUTES>
+      <ATT name="MimeType"><![CDATA[application/vnd.openxmlformats-officedocument.wordprocessingml.document]]></ATT>
+      <ATT name="Path"><![CDATA[richnotes\5d0bd9b9-6293-4277-ac40-d2accb952324.docx]]></ATT>
+      <ATT name="Abstract"><![CDATA[<Les ArrayList sont representés par le nom de la variable suivi du signe [*]>]]></ATT>
+      <ATT name="Name"><![CDATA[ArrayList]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Type">
+        <FOREIGNID name="description" mc="Standard.ExternDocumentType" uid="9ccf914f-2175-11e1-a46e-002564c97630"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -1,4 +1,3 @@
-
 package src.dao;
 
 import java.sql.*;
@@ -30,7 +29,7 @@ public class ProductDAO extends DAO {
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("INSERT INTO product_pdt (pdt_id, pdt_name, pdt_stock) VALUES(pdtid_seq.NEXTVAL,?,?)");
-			//ps.setLong(1, product.getId());
+			// ps.setLong(1, product.getId());
 			ps.setString(1, product.getName());
 			ps.setInt(2, product.getStock());
 
@@ -64,42 +63,26 @@ public class ProductDAO extends DAO {
 	 * @return retourn - the product
 	 */
 	public Product getProduct(long id) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		Product retour = null;
-
-		// connection to the data base
-		try {
-			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement(
-					"SELECT * FROM product_pdt LEFT JOIN supplier_spr ON pdt_spr = spr_id WHERE pdt_id = ? ");
-			ps.setLong(1, id);
-			rs = ps.executeQuery();
-			if (rs.next())
-				retour = new Product(rs.getLong("pdt_id"), rs.getString("pdt_name"), rs.getInt("pdt_stock"),
-						rs.getDouble("pdt_price"), rs.getLong("pdt_spr"), rs.getString("spr_name"));
-		} catch (Exception ee) {
-			ee.printStackTrace();
-		} finally {
-			// closing of ResultSet, PreparedStatement and connection
-			try {
-				if (rs != null)
-					rs.close();
-			} catch (Exception ignore) {
-			}
-			try {
-				if (ps != null)
-					ps.close();
-			} catch (Exception ignore) {
-			}
-			try {
-				if (con != null)
-					con.close();
-			} catch (Exception ignore) {
-			}
-		}
-		return retour;
+		/*
+		 * Connection con = null; PreparedStatement ps = null; ResultSet rs =
+		 * null; Product retour = null;
+		 * 
+		 * // connection to the data base try { con =
+		 * DriverManager.getConnection(URL, LOGIN, PASS); ps =
+		 * con.prepareStatement(
+		 * "SELECT * FROM product_pdt LEFT JOIN supplier_spr ON pdt_spr = spr_id WHERE pdt_id = ? "
+		 * ); ps.setLong(1, id); rs = ps.executeQuery(); if (rs.next()) retour =
+		 * new Product(rs.getLong("pdt_id"), rs.getString("pdt_name"),
+		 * rs.getInt("pdt_stock"), rs.getDouble("pdt_price"),
+		 * rs.getLong("pdt_spr"), rs.getString("spr_name")); } catch (Exception
+		 * ee) { ee.printStackTrace(); } finally { // closing of ResultSet,
+		 * PreparedStatement and connection try { if (rs != null) rs.close(); }
+		 * catch (Exception ignore) { } try { if (ps != null) ps.close(); }
+		 * catch (Exception ignore) { } try { if (con != null) con.close(); }
+		 * catch (Exception ignore) { } } return retour;
+		 */
+		String sql = "SELECT * FROM product_pdt LEFT JOIN supplier_spr ON pdt_spr = spr_id WHERE pdt_id = ? ";
+		return (Product) this.getOne("Product", sql, id);
 	}
 
 	/**
@@ -108,7 +91,7 @@ public class ProductDAO extends DAO {
 	 * @return the list of all the products in the data base
 	 */
 	public ArrayList<Product> getProductList() {
-		Connection con = null;
+		/*Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ArrayList<Product> retour = new ArrayList<Product>();
@@ -122,8 +105,10 @@ public class ProductDAO extends DAO {
 
 			// we crosse all the line of the results
 			while (rs.next())
-				retour.add(new Product(rs.getLong("pdt_id"), rs.getString("pdt_name"), rs.getInt("pdt_stock"),
-						rs.getDouble("pdt_price"), rs.getLong("pdt_spr"), rs.getString("spr_name")));
+				retour.add(new Product(rs.getLong("pdt_id"), rs
+						.getString("pdt_name"), rs.getInt("pdt_stock"), rs
+						.getDouble("pdt_price"), rs.getLong("pdt_spr"), rs
+						.getString("spr_name")));
 		} catch (Exception ee) {
 			ee.printStackTrace();
 		} finally {
@@ -144,7 +129,9 @@ public class ProductDAO extends DAO {
 			} catch (Exception ignore) {
 			}
 		}
-		return retour;
+		return retour;*/
+		String sql = "SELECT * FROM product_pdt LEFT JOIN supplier_spr on spr_id = pdt_spr";
+		return (ArrayList<Product>)this.getList("Product", sql, 0, 0l);
 	}
 
 	/**
@@ -230,7 +217,7 @@ public class ProductDAO extends DAO {
 
 	public static void main(String[] args) {
 		ProductDAO dao = new ProductDAO();
-		//System.out.println("id gen next pdt_id = " + dao.idGenerator());
+		// System.out.println("id gen next pdt_id = " + dao.idGenerator());
 		dao.addProduct(new Product("omggg"));
 	}
 }
