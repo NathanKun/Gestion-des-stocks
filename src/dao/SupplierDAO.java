@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+import src.gds.Product;
+
 import src.gds.Supplier;
 
 /**

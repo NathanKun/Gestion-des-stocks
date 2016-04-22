@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import src.gds.Order;
 import src.gds.User;
 import src.util.MouseTracker;
 

@@ -173,7 +173,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="Supplier" mc="Standard.Class" uid="be847e2a-d857-48ad-981a-0ef93585f454"/>
+                    <ID name="Product" mc="Standard.Class" uid="be847e2a-d857-48ad-981a-0ef93585f454"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -424,7 +424,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="Supplier" mc="Standard.Class" uid="be847e2a-d857-48ad-981a-0ef93585f454"/>
+                    <ID name="Product" mc="Standard.Class" uid="be847e2a-d857-48ad-981a-0ef93585f454"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -449,8 +449,8 @@
                 <ID name="" mc="Standard.Parameter" uid="c56442f1-f749-4ace-be9b-e0cb1501c904"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
                   <ATT name="TypeConstraint"></ATT>
                   <ATT name="DefaultValue"></ATT>
                   <ATT name="IsOrdered">false</ATT>
@@ -463,7 +463,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="Supplier" mc="Standard.Class" uid="be847e2a-d857-48ad-981a-0ef93585f454"/>
+                    <ID name="Product" mc="Standard.Class" uid="be847e2a-d857-48ad-981a-0ef93585f454"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -502,7 +502,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <FOREIGNID name="long" mc="Standard.DataType" uid="00000004-0000-0011-0000-000000000000"/>
+                    <ID name="Supplier" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>

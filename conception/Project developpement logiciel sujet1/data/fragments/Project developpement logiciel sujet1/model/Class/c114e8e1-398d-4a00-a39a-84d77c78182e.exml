@@ -66,7 +66,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="Product" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
+                    <ID name="Supplier" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -232,7 +232,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="Product" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
+                    <ID name="Supplier" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -273,8 +273,8 @@
                 <ID name="" mc="Standard.Parameter" uid="f4aad91b-70c3-4531-aeae-b07001c4d2d6"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
                   <ATT name="TypeConstraint"></ATT>
                   <ATT name="DefaultValue"></ATT>
                   <ATT name="IsOrdered">false</ATT>
@@ -287,7 +287,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="Product" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
+                    <ID name="Supplier" mc="Standard.Class" uid="0e076d73-0697-4cf0-80a4-b0ad68e01d30"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>

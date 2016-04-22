@@ -13,6 +13,10 @@
       <ATT name="Name"><![CDATA[LocalProfile]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
-    <DEPENDENCIES></DEPENDENCIES>
+    <DEPENDENCIES>
+      <COMP relation="DefinedStereotype">
+        <COMPID name="HashMap" mc="Standard.Stereotype" uid="6e464283-f3a9-472c-8b5e-a8b22be62482"/>
+      </COMP>
+    </DEPENDENCIES>
   </OBJECT>
 </EXT>
