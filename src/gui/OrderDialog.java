@@ -122,7 +122,6 @@ public class OrderDialog extends JDialog implements ActionListener {
 	/**
 	 * text field of order id
 	 */
-	// TODO add id generator here
 	private JTextField jtf_id = new JTextField(/**/);
 	/**
 	 * text field of id state
@@ -215,11 +214,9 @@ public class OrderDialog extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * initialization init panels, labels, textFields, buttons, models and
+	 * initialization init panels, labels, textFields, buttons, models and.
 	 * tables
 	 * 
-	 * @param order
-	 *            order to load by dialog, null if create a new order
 	 */
 	public void init() {
 		getContentPane().setLayout(null);
@@ -274,8 +271,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 		// configure search table
 		jtb_pdtSearch = new JTable(model_pdtSearch);
 		jtb_pdtSearch.setBounds(1, 27, 450, 0);
-		jtb_pdtSearch
-				.setPreferredScrollableViewportSize(new Dimension(450, 180));
+		jtb_pdtSearch.setPreferredScrollableViewportSize(new Dimension(450, 180));
 
 		// configure the middle panel
 		jp_middle.setBounds(12, 155, 475, 230);
@@ -344,55 +340,45 @@ public class OrderDialog extends JDialog implements ActionListener {
 		jp_down.add(jb_cancel);
 
 		// table listener
-		ListSelectionModel cellSelectionModel_pdtList = jtb_pdtList
-				.getSelectionModel();
-		cellSelectionModel_pdtList
-				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		cellSelectionModel_pdtList
-				.addListSelectionListener(new ListSelectionListener() {
-					// get selected product's id when a product in selected
-					// product
-					// table is selected
-					public void valueChanged(ListSelectionEvent e) {
-						long selectedData = 0;
+		ListSelectionModel cellSelectionModel_pdtList = jtb_pdtList.getSelectionModel();
+		cellSelectionModel_pdtList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		cellSelectionModel_pdtList.addListSelectionListener(new ListSelectionListener() {
+			// get selected product's id when a product in selected
+			// product
+			// table is selected
+			public void valueChanged(ListSelectionEvent e) {
+				long selectedData = 0;
 
-						int[] selectedRow = jtb_pdtList.getSelectedRows();
-						int[] selectedColumns = jtb_pdtList
-								.getSelectedColumns();
-						if (selectedRow.length != 0)
-							selectedData = (long) jtb_pdtList.getValueAt(
-									selectedRow[0], 0);
-						seletedPdtId = selectedData;
-					}
-				});
+				int[] selectedRow = jtb_pdtList.getSelectedRows();
+				int[] selectedColumns = jtb_pdtList.getSelectedColumns();
+				if (selectedRow.length != 0)
+					selectedData = (long) jtb_pdtList.getValueAt(selectedRow[0], 0);
+				seletedPdtId = selectedData;
+			}
+		});
 
 		jtb_pdtSearch.setCellSelectionEnabled(true);
-		ListSelectionModel cellSelectionModel_pdtSearch = jtb_pdtSearch
-				.getSelectionModel();
-		cellSelectionModel_pdtSearch
-				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		cellSelectionModel_pdtSearch
-				.addListSelectionListener(new ListSelectionListener() {
-					// set selected product's id in Add product's text field
-					// when a
-					// product in search result table is selected
-					public void valueChanged(ListSelectionEvent e) {
-						long selectedData = 0;
+		ListSelectionModel cellSelectionModel_pdtSearch = jtb_pdtSearch.getSelectionModel();
+		cellSelectionModel_pdtSearch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		cellSelectionModel_pdtSearch.addListSelectionListener(new ListSelectionListener() {
+			// set selected product's id in Add product's text field
+			// when a
+			// product in search result table is selected
+			public void valueChanged(ListSelectionEvent ev) {
+				long selectedData = 0;
 
-						int[] selectedRow = jtb_pdtSearch.getSelectedRows();
-						int[] selectedColumns = jtb_pdtSearch
-								.getSelectedColumns();
-						if (selectedRow.length != 0) {
-							selectedData = (long) jtb_pdtSearch.getValueAt(
-									selectedRow[0], 0);
-							jtf_pdtId.setText(String.valueOf(selectedData));
-						}
-					}
-				});
+				int[] selectedRow = jtb_pdtSearch.getSelectedRows();
+				int[] selectedColumns = jtb_pdtSearch.getSelectedColumns();
+				if (selectedRow.length != 0) {
+					selectedData = (long) jtb_pdtSearch.getValueAt(selectedRow[0], 0);
+					jtf_pdtId.setText(String.valueOf(selectedData));
+				}
+			}
+		});
 	}
 
 	/**
-	 * Initialization of spinner
+	 * Initialization of spinner.
 	 */
 	public void initSpinner() {
 		// spinner
@@ -409,19 +395,17 @@ public class OrderDialog extends JDialog implements ActionListener {
 		jspinner.addChangeListener(new ChangeListener() {
 
 			@Override
-			public void stateChanged(ChangeEvent e) {
+			public void stateChanged(ChangeEvent ev) {
 				// set text
 				jtf_finalPrice.setText(
-				// parse a double to a string
+						// parse a double to a string
 						String.valueOf(
-						// limit the double to 2 decimal places
-						new BigDecimal(
-						// parse the string in text field to
-						// double and do the calculate
-								Double.parseDouble(jtf_price.getText())
-										* (double) spinnerModel.getValue()
-										* 0.01d).setScale(2,
-								RoundingMode.HALF_UP).doubleValue()));
+								// limit the double to 2 decimal places
+								new BigDecimal(
+										// parse the string in text field to
+										// double and do the calculate
+										Double.parseDouble(jtf_price.getText()) * (double) spinnerModel.getValue()
+												* 0.01d).setScale(2, RoundingMode.HALF_UP).doubleValue()));
 			}
 		});
 
@@ -441,33 +425,29 @@ public class OrderDialog extends JDialog implements ActionListener {
 		if (order != null) {
 			jtf_id.setText(String.valueOf(order.getId()));
 
-			if (order.getIsPaid())
+			if (order.getIsPaid()) {
 				jtf_isPaid.setText("Paid");
-			else
+			} else {
 				jtf_isPaid.setText("Unpaid");
+			}
 			jtf_CltName.setText(order.getClientName());
-			jtf_date.setText(new SimpleDateFormat("dd/MM/YYYY HH:mm:ss")
-					.format(order.getDate()));
-			ProductDAO productDAO = new ProductDAO();
-			for (OrderProduct orderProduct : order.getProductIdList()) {
-				Product pdt = productDAO.getProduct(orderProduct.getId());
-				model_pdtList.addRow(new Object[] { pdt.getId(), pdt.getName(),
-						pdt.getPrice(), orderProduct.getQuantity() });
+			jtf_date.setText(new SimpleDateFormat("dd/MM/YYYY HH:mm:ss").format(order.getDate()));
+			ProductDAO productDao = new ProductDAO();
+			for (OrderProduct orderProduct : order.getProductList()) {
+				Product pdt = productDao.getProduct(orderProduct.getProductId());
+				model_pdtList.addRow(
+						new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), orderProduct.getQuantity() });
 			}
 			jtf_price.setText(String.valueOf(order.getPrice()));
 			jtf_finalPrice.setText(String.valueOf(order.getPriceDiscount()));
-			spinnerModel.setValue(100 * order.getPriceDiscount()
-					/ order.getPrice());
+			spinnerModel.setValue(100 * order.getPriceDiscount() / order.getPrice());
 
 			jb_createOdr.setVisible(false);
-
-		}
-		// new order
-		else {
+		} else {
+			// new order
 			jtf_id.setText(String.valueOf(new OrderDAO().idGeneratorOdr()));
 			jtf_isPaid.setText("Unpaid");
-			jtf_date.setText(new SimpleDateFormat("dd/MM/YYYY HH:mm:ss")
-					.format(date));
+			jtf_date.setText(new SimpleDateFormat("dd/MM/YYYY HH:mm:ss").format(date));
 
 			jb_edit.setVisible(false);
 			jb_cancel.setVisible(false);
@@ -475,63 +455,55 @@ public class OrderDialog extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * action perform if a button on click
+	 * action perform if a button on click.
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent ev) {
 		// add a product button on click
-		if (e.getSource() == jb_addPdt) {
+		if (ev.getSource() == jb_addPdt) {
 			// if is a long
 			if (Regex.isLong(jtf_pdtId.getText())) {
-				Product pdt = new ProductDAO().getProduct(Long
-						.parseLong(jtf_pdtId.getText()));
+				Product pdt = new ProductDAO().getProduct(Long.parseLong(jtf_pdtId.getText()));
 				if (pdt != null) {
 					// add product
 					// if the product is already existed in the added product
 					// list
 					// then add the quantity
-					boolean b = false;
+					boolean bool = false;
 					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-						if ((long) model_pdtList.getValueAt(i, 0) == pdt
-								.getId())
-							b = true;
-					}
-					if (b) {
-						for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-							if ((long) model_pdtList.getValueAt(i, 0) == pdt
-									.getId())
-								model_pdtList
-										.setValueAt((int) model_pdtList
-												.getValueAt(i, 3) + 1, i, 3);
+						if ((long) model_pdtList.getValueAt(i, 0) == pdt.getId()) {
+							bool = true;
 						}
 					}
-					// else add a new line
-					else
-						model_pdtList.addRow(new Object[] { pdt.getId(),
-								pdt.getName(), pdt.getPrice(), 1 });
+					if (bool) {
+						for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+							if ((long) model_pdtList.getValueAt(i, 0) == pdt.getId()) {
+								model_pdtList.setValueAt((int) model_pdtList.getValueAt(i, 3) + 1, i, 3);
+							}
+						}
+					} else {
+						// else add a new line
+						model_pdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
+					}
 
 					// calculate total price
 					double total = 0;
 					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
 						total = total
-								+ ((double) model_pdtList.getValueAt(i, 2))
-								* (int) (model_pdtList.getValueAt(i, 3));
+								+ ((double) model_pdtList.getValueAt(i, 2)) * (int) (model_pdtList.getValueAt(i, 3));
 					}
 					jtf_price.setText(String.valueOf(total));
-					jtf_finalPrice.setText(String.valueOf(total
-							* (double) spinnerModel.getValue() * 0.01));
+					jtf_finalPrice.setText(String.valueOf(total * (double) spinnerModel.getValue() * 0.01));
 				} else {
 					System.out.println("pdt not found");
 				}
 			} else {
 				System.out.println("pdt id wrong type");
-				JOptionPane.showConfirmDialog(null, "Please enter a correct ID",
-						"Opps", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(null, "Please enter a correct ID", "Opps", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.WARNING_MESSAGE);
 			}
-		}
-		// remove a product button on click
-		else if (e.getSource() == jb_removePdt) {
+		} else if (ev.getSource() == jb_removePdt) {
+			// remove a product button on click
 			// remove a product
 			for (int i = 0; i < model_pdtList.getRowCount(); i++) {
 				if ((long) model_pdtList.getValueAt(i, 0) == seletedPdtId) {
@@ -542,15 +514,13 @@ public class OrderDialog extends JDialog implements ActionListener {
 			// calculate total price
 			double total = 0;
 			for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-				total = total + ((double) model_pdtList.getValueAt(i, 2))
-						* (int) (model_pdtList.getValueAt(i, 3));
+				total = total + ((double) model_pdtList.getValueAt(i, 2)) * (int) (model_pdtList.getValueAt(i, 3));
 			}
 			jtf_price.setText(String.valueOf(total));
-			jtf_finalPrice.setText(String.valueOf(total
-					* (double) spinnerModel.getValue() * 0.01));
-		}
-		// search product by name button on click
-		else if (e.getSource() == jb_searchPdt) {
+			jtf_finalPrice.setText(String.valueOf(total * (double) spinnerModel.getValue() * 0.01));
+		} else if (ev.getSource() == jb_searchPdt) {
+			// search product by name button on click
+
 			ArrayList<Product> pdtList = new ProductDAO().getProductList();
 			// remove all row
 			for (int i = model_pdtSearch.getRowCount() - 1; i >= 0; i--) {
@@ -561,85 +531,72 @@ public class OrderDialog extends JDialog implements ActionListener {
 				for (Product pdt : pdtList) {
 					if (pdt.getName().contains(jtf_searchPdt.getText())) {
 						model_pdtSearch
-								.addRow(new Object[] { pdt.getId(),
-										pdt.getName(), pdt.getPrice(),
-										pdt.getStock() });
+								.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), pdt.getStock() });
 					}
 				}
 
 			} else {
 				System.out.println("pdt not found");
 			}
-		}
-		// create the order button on click
-		else if (e.getSource() == jb_createOdr) {
+		} else if (ev.getSource() == jb_createOdr) {
+			// create the order button on click
+
 			// if the selected product table is not empty
 			if (jtb_pdtList.getRowCount() != 0) {
-				OrderDAO orderDAO = new OrderDAO();
+				OrderDAO orderDao = new OrderDAO();
 				// add the selected product in a list
 				ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
 				for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-					productList.add(new OrderProduct((Long) model_pdtList
-							.getValueAt(i, 0), (int) model_pdtList.getValueAt(
-							i, 3)));
+					productList.add(new OrderProduct(orderDao.idGeneratorOdr(), (Long) model_pdtList.getValueAt(i, 0),
+							(int) model_pdtList.getValueAt(i, 3)));
 				}
 				// Create a new order
-				Order newOrder = new Order(orderDAO.idGeneratorOdr(),
-						Double.parseDouble(jtf_price.getText()),
-						Double.parseDouble(jtf_finalPrice.getText()),
-						jtf_CltName.getText(), false, new java.sql.Date(
-								date.getTime()), productList);
+				Order newOrder = new Order(orderDao.idGeneratorOdr(), Double.parseDouble(jtf_price.getText()),
+						Double.parseDouble(jtf_finalPrice.getText()), jtf_CltName.getText(), false,
+						new java.sql.Date(date.getTime()), productList);
 				System.out.println(newOrder.toString());
 				// add order into date base
-				orderDAO.addOrder(newOrder);
-				JOptionPane.showConfirmDialog(null, "Order created.", "OK",
-						JOptionPane.DEFAULT_OPTION,
+				orderDao.addOrder(newOrder);
+				JOptionPane.showConfirmDialog(null, "Order created.", "OK", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 				// if no product selected
 			} else {
 				System.out.println("product list void");
-				JOptionPane.showConfirmDialog(null, "No product selected.",
-						"Opps", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(null, "No product selected.", "Opps", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.WARNING_MESSAGE);
 			}
-		}
-		// edit button on click
-		else if (e.getSource() == jb_edit) {
+		} else if (ev.getSource() == jb_edit) {
+			// edit button on click
+
 			// if table not void
 			if (jtb_pdtList.getRowCount() != 0) {
 				// create new order
-				OrderDAO orderDAO = new OrderDAO();
+				OrderDAO orderDao = new OrderDAO();
 				ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
 				for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-					productList.add(new OrderProduct((Long) model_pdtList
-							.getValueAt(i, 0), (int) model_pdtList.getValueAt(
-							i, 3)));
+					productList.add(new OrderProduct(orderDao.idGeneratorOdr(), (Long) model_pdtList.getValueAt(i, 0),
+							(int) model_pdtList.getValueAt(i, 3)));
 				}
-				Order newOrder = new Order(orderDAO.idGeneratorOdr(),
-						Double.parseDouble(jtf_price.getText()),
-						Double.parseDouble(jtf_finalPrice.getText()),
-						jtf_CltName.getText(), false, new java.sql.Date(
-								date.getTime()), productList);
+				Order newOrder = new Order(orderDao.idGeneratorOdr(), Double.parseDouble(jtf_price.getText()),
+						Double.parseDouble(jtf_finalPrice.getText()), jtf_CltName.getText(), false,
+						new java.sql.Date(date.getTime()), productList);
 				System.out.println(newOrder.toString());
 
 				// TODO orderDAO.updateOrder(newOrder)
 
-				JOptionPane.showConfirmDialog(null, "Order Updated.", "OK",
-						JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(null, "Order Updated.", "OK", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			} else {
 				System.out.println("product list void");
-				JOptionPane.showConfirmDialog(null, "No product selected.",
-						"Opps", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(null, "No product selected.", "Opps", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.WARNING_MESSAGE);
 			}
-		}
-		// cancel button on click
-		else if (e.getSource() == jb_cancel) {
-			if (JOptionPane.showConfirmDialog(null,
-					"Do you really want to cancel this order?", "Comfirm",
+		} else if (ev.getSource() == jb_cancel) {
+			// cancel button on click
+
+			if (JOptionPane.showConfirmDialog(null, "Do you really want to cancel this order?", "Comfirm",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 				// TODO orderDAO.deleteOrder(order.getId());
 			}
@@ -647,15 +604,15 @@ public class OrderDialog extends JDialog implements ActionListener {
 	}
 
 	/**
-	 * main method for testing
+	 * main method for testing.
 	 * 
 	 * @param args
 	 *            for main
 	 */
 	public static void main(String[] args) {
-		OrderProduct orderProduct1 = new OrderProduct(1, 1);
-		OrderProduct orderProduct2 = new OrderProduct(2, 2);
-		OrderProduct orderProduct3 = new OrderProduct(3, 3);
+		OrderProduct orderProduct1 = new OrderProduct(1, 1, 1);
+		OrderProduct orderProduct2 = new OrderProduct(1, 2, 2);
+		OrderProduct orderProduct3 = new OrderProduct(1, 3, 3);
 
 		ArrayList<OrderProduct> orderProductsList = new ArrayList<OrderProduct>();
 		orderProductsList.add(orderProduct1);
@@ -663,14 +620,14 @@ public class OrderDialog extends JDialog implements ActionListener {
 		orderProductsList.add(orderProduct3);
 
 		// 1451606400000 => 01/01/2016
-		Order order = new Order(12, 321.01, 32, "HE Junyang", true,
-				new java.sql.Date(1451606400000l), orderProductsList);
+		Order order = new Order(12, 321.01, 32, "HE Junyang", true, new java.sql.Date(1451606400000L),
+				orderProductsList);
 
 		// test new order
-		// designer mDesigner = new designer(null, true, null);
+		//OrderDialog orderDialog = new OrderDialog(null, true, null);
 
 		// test load order
-		OrderDialog orderDialog = new OrderDialog(null, true, order);
+		OrderDialog orderDialog = new OrderDialog(null, true, new OrderDAO().getOrder(4));
 
 	}
 }

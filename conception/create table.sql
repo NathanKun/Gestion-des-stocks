@@ -107,12 +107,13 @@ INSERT INTO product_pdt (pdt_id, pdt_name, pdt_stock) VALUES (pdtid_seq.NEXTVAL,
 --Insert supplier's product list for testing
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 1, 1, 100.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 1, 2, 222.10);
-INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 2, 3, 33.10);
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 1, 3, 2.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 2, 4, 4.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 2, 5, 55555.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 6, 100.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 7, 222.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 8, 33.10);
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 9, 333.3);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 4, 9, 4.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 4, 10, 55555.10);
 

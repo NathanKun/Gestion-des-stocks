@@ -1,4 +1,7 @@
 package src.gds;
+
+import com.sun.xml.internal.fastinfoset.util.DuplicateAttributeVerifier;
+
 /**
  * class represents a product with a quantity
  * @author HE Junyang - FOTSING KENGNE Junior
@@ -6,33 +9,46 @@ package src.gds;
  */
 public class OrderProduct {
 	/**
+	 * id of the order
+	 */
+	private long orderId;
+	/**
 	 * id of a product of an order
 	 */
-	private long id;
+	private long productId;
 	/**
 	 * quantity of a product in an order
 	 */
 	private int quantity;
+
+	/*public OrderProduct(long productId, int quantity){
+		this.productId = productId;
+		this.quantity = quantity;
+	}*/
 	
-	public OrderProduct(long id, int quantity){
-		this.id = id;
+	public OrderProduct(long orderId, long productId, int quantity){
+		this.orderId = orderId;
+		this.productId = productId;
 		this.quantity = quantity;
 	}
 	
-	/**
-	 * id getter
-	 * @return	id of product
-	 */
-	public long getId() {
-		return id;
+
+	public long getOrderId() {
+		return orderId;
 	}
-	/**
-	 * id setter
-	 * @param id id of product
-	 */
-	public void setId(long id) {
-		this.id = id;
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
 	}
+
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
+
 	/**
 	 * quantity getter
 	 * @return	quantity of product
@@ -52,6 +68,7 @@ public class OrderProduct {
 	 */
 	@Override
 	public String toString() {
-		return "orderProduct [id=" + id + ", quantity=" + quantity + "]";
+		return "OrderProduct [orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity + "]";
 	}
+
 }

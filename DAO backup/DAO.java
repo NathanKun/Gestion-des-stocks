@@ -1,11 +1,5 @@
 package src.dao;
 
-import src.gds.Order;
-import src.gds.OrderProduct;
-import src.gds.Product;
-import src.gds.Supplier;
-import src.gds.User;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,8 +7,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import src.gds.Order;
+import src.gds.OrderProduct;
+import src.gds.Product;
+import src.gds.Supplier;
+import src.gds.User;
+
 /**
- * abstract class for DAO.
+ * abstract class for DAO
  * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *
@@ -22,36 +22,34 @@ import java.util.HashMap;
 abstract class DAO {
 	/**
 	 * connection parameter between oracle URL and the DGB, LOGIN and PASS are
-	 * constants.
+	 * constants
 	 */
 
-	// static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	// static final String LOGIN = "system";
-	// static final String PASS = "bdd";
+	// final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	// final static String LOGIN = "system";
+	// final static String PASS = "bdd";
 
-	// static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	// static final String LOGIN = "BDD6";
-	// static final String PASS = "BDD6";
+	// final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	// final static String LOGIN = "BDD6";
+	// final static String PASS = "BDD6";
 
-	static final String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
-	static final String LOGIN = "c##nathankun";
-	static final String PASS = "83783548jun";
+	final static String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
+	final static String LOGIN = "c##nathankun";
+	final static String PASS = "83783548jun";
 
 	/**
-	 * Constructor.
-	 * 
+	 * Constructor
 	 */
 	protected DAO() {
 		// loading the pilot of DGB
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
-		} catch (ClassNotFoundException exception) {
-			System.err.println("impossible to load the BDD pilot, please make sur you "
-					+ "have import thr .jar folder in the project");
+		} catch (ClassNotFoundException e) {
+			System.err.println(
+					"impossible to load the BDD pilot, please make sur you have import thr .jar folder in the project");
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	protected Object getOne(String type, String sql, Object item) {
 		Object retour = null;
 
@@ -63,11 +61,10 @@ abstract class DAO {
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement(sql);
-			if (!type.contains("User")) {
+			if (!type.contains("User"))
 				ps.setLong(1, (Long) item);
-			} else {
+			else
 				ps.setString(1, (String) item);
-			}
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				switch (type) {
@@ -77,18 +74,18 @@ abstract class DAO {
 					break;
 
 				case "Supplier":
-					long sprId = rs.getLong("spr_id");
-					retour = new Supplier(sprId, rs.getString("spr_name"), (HashMap<Long, Double>) this.getList("spl",
-							"SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?", 1, sprId));
+					long spr_id = rs.getLong("spr_id");
+					retour = new Supplier(spr_id, rs.getString("spr_name"), (HashMap<Long, Double>) this.getList("spl",
+							"SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?", 1, spr_id));
 					break;
 
 				case "Order":
-					long odrId = rs.getLong("odr_id");
+					long odr_id = rs.getLong("odr_id");
 					Boolean isPaid = rs.getInt("odr_ispaid") == 1 ? true : false;
 					retour = new Order(rs.getLong("odr_id"), rs.getDouble("odr_price"), rs.getDouble("odr_pricedis"),
 							rs.getString("odr_clientname"), isPaid, rs.getDate("odr_date"),
 							(ArrayList<OrderProduct>) this.getList("opl",
-									"SELECT * FROM odrpdtlist_opl WHERE opl_odr_id = ?", 1, odrId));
+									"SELECT * FROM odrpdtlist_opl WHERE opl_odr_id = ?", 1, odr_id));
 					break;
 
 				case "User":
@@ -105,32 +102,25 @@ abstract class DAO {
 		} finally {
 			// closing of ResultSet, PreparedStatement and connection
 			try {
-				if (rs != null) {
+				if (rs != null)
 					rs.close();
-				}
-			} catch (Exception ee) {
-				System.out.println("closing problem");
+			} catch (Exception ignore) {
 			}
 			try {
-				if (ps != null) {
+				if (ps != null)
 					ps.close();
-				}
-			} catch (Exception ee) {
-				System.out.println("closing problem");
+			} catch (Exception ignore) {
 			}
 			try {
-				if (con != null) {
+				if (con != null)
 					con.close();
-				}
-			} catch (Exception ee) {
-				System.out.println("closing problem");
+			} catch (Exception ignore) {
 			}
 		}
 
 		return retour;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected Object getList(String type, String sql, int parameterNumber, long id) {
 		HashMap<Long, Double> returnMap = new HashMap<Long, Double>();
 		ArrayList<Object> returnList = new ArrayList<Object>();
@@ -143,9 +133,8 @@ abstract class DAO {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement(sql);
 
-			if (parameterNumber == 1) {
+			if (parameterNumber == 1)
 				ps.setLong(1, id);
-			}
 			// requet execution
 			rs = ps.executeQuery();
 
@@ -159,10 +148,8 @@ abstract class DAO {
 				break;
 
 			case "opl":
-				while (rs.next()) {
-					returnList.add(new OrderProduct(rs.getLong("opl_odr_id"), rs.getLong("opl_pdt_id"),
-							rs.getInt("opl_pdt_quantity")));
-				}
+				while (rs.next())
+					returnList.add(new OrderProduct(rs.getLong("opl_odr_id"), rs.getLong("opl_pdt_id"), rs.getInt("opl_pdt_quantity")));
 				break;
 
 			case "Order":
@@ -187,16 +174,14 @@ abstract class DAO {
 				break;
 
 			case "Product":
-				while (rs.next()) {
+				while (rs.next())
 					returnList.add(new Product(rs.getLong("pdt_id"), rs.getString("pdt_name"), rs.getInt("pdt_stock"),
 							rs.getDouble("pdt_price"), rs.getLong("pdt_spr"), rs.getString("spr_name")));
-				}
 				break;
 
 			case "User":
-				while (rs.next()) {
+				while (rs.next())
 					returnList.add(new User(rs.getString("usr_id"), rs.getString("usr_pw"), rs.getString("usr_name")));
-				}
 				break;
 
 			default:
@@ -208,21 +193,18 @@ abstract class DAO {
 		} finally {
 			// closing rs, PreparedStatement and connection
 			try {
-				if (rs != null) {
+				if (rs != null)
 					rs.close();
-				}
 			} catch (Exception ignore) {
 			}
 			try {
-				if (ps != null) {
+				if (ps != null)
 					ps.close();
-				}
 			} catch (Exception ignore) {
 			}
 			try {
-				if (con != null) {
+				if (con != null)
 					con.close();
-				}
 			} catch (Exception ignore) {
 			}
 		}
@@ -230,9 +212,8 @@ abstract class DAO {
 		if (type.contains("spl")) {
 			// System.out.println("spl : " + returnMap.toString());
 			return returnMap;
-		} else {
+		} else
 			return returnList;
-		}
 	}
 
 	protected int addLine(String type, Object item) {
@@ -271,11 +252,10 @@ abstract class DAO {
 				ps = con.prepareStatement("INSERT INTO order_odr VALUES (odrid_seq.NEXTVAL, ?, ?, ?, ?, ?)");
 				ps.setDouble(1, order.getPrice());
 				ps.setDouble(2, order.getPriceDiscount());
-				if (order.getIsPaid()) {
+				if (order.getIsPaid())
 					ps.setInt(3, 1);
-				} else {
+				else
 					ps.setInt(3, 0);
-				}
 				ps.setString(4, order.getClientName());
 				ps.setDate(5, order.getDate());
 				break;
@@ -306,21 +286,19 @@ abstract class DAO {
 
 			// excecution of the requiere
 			retour = ps.executeUpdate();
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			// close preparedStatement and connexion
 			try {
-				if (ps != null) {
+				if (ps != null)
 					ps.close();
-				}
 			} catch (Exception ignore) {
 				System.out.println("closing problem");
 			}
 			try {
-				if (con != null) {
+				if (con != null)
 					con.close();
-				}
 			} catch (Exception ignore) {
 				System.out.println("closing problem");
 			}
@@ -439,11 +417,10 @@ abstract class DAO {
 						"UPDATE order_odr SET odr_price = ?, odr_pricedis = ?, odr_ispaid = ?, odr_clientname = ?, odr_date = ? WHERE odr_id = ?");
 				ps.setDouble(1, order.getPrice());
 				ps.setDouble(2, order.getPriceDiscount());
-				if (order.getIsPaid()) {
+				if (order.getIsPaid())
 					ps.setInt(3, 1);
-				} else {
+				else
 					ps.setInt(3, 0);
-				}
 				ps.setString(4, order.getClientName());
 				ps.setDate(5, order.getDate());
 				ps.setLong(6, order.getId());
@@ -477,25 +454,24 @@ abstract class DAO {
 
 			// excecution of the requiere
 			retour = ps.executeUpdate();
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			// close preparedStatement and connexion
 			try {
-				if (ps != null) {
+				if (ps != null)
 					ps.close();
-				}
 			} catch (Exception ignore) {
 				System.out.println("closing problem");
 			}
 			try {
-				if (con != null) {
+				if (con != null)
 					con.close();
-				}
 			} catch (Exception ignore) {
 				System.out.println("closing problem");
 			}
 		}
 		return retour;
 	}
+
 }

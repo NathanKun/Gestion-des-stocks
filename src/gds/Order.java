@@ -98,7 +98,7 @@ public class Order {
 	 * product id list getter
 	 * @return product id ArrayList
 	 */
-	public ArrayList<OrderProduct> getProductIdList() {
+	public ArrayList<OrderProduct> getProductList() {
 		return productList;
 	}
 	/**

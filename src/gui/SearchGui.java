@@ -490,7 +490,8 @@ class SearchSupplier extends JDialog {
 							model_sprDetail.addRow(name);
 
 							// set product list table
-							HashMap<Long, Double> pdtList = new SupplierDAO().getSupplierProductList(s.getId());
+							HashMap<Long, Double> pdtList = new SupplierDAO().getSupplierProductMap(s.getId());
+							//System.out.println("s.getId() : " + s.getId());
 							for (int i = jtb_pdtList.getRowCount() - 1; i >= 0; i--) {
 								model_pdtList.removeRow(i);
 							}
@@ -507,6 +508,7 @@ class SearchSupplier extends JDialog {
 								}
 								Object object[] = { key, pdtName, entry.getValue() };
 								model_pdtList.addRow(object);
+								//System.out.println("object : " + object);
 							}
 						}
 					}

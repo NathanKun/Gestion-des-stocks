@@ -1,0 +1,1009 @@
+Found a 18 line (159 tokens) duplication in the following files: 
+Starting at line 575 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 608 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+		else if (e.getSource() == jb_createOdr) {
+			// if the selected product table is not empty
+			if (jtb_pdtList.getRowCount() != 0) {
+				OrderDAO orderDAO = new OrderDAO();
+				// add the selected product in a list
+				ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
+				for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+					productList.add(new OrderProduct(orderDAO.idGeneratorOdr(), (Long) model_pdtList
+							.getValueAt(i, 0), (int) model_pdtList.getValueAt(
+							i, 3)));
+				}
+				// Create a new order
+				Order newOrder = new Order(orderDAO.idGeneratorOdr(),
+						Double.parseDouble(jtf_price.getText()),
+						Double.parseDouble(jtf_finalPrice.getText()),
+						jtf_CltName.getText(), false, new java.sql.Date(
+								date.getTime()), productList);
+				System.out.println(newOrder.toString());
+=====================================================================
+Found a 28 line (113 tokens) duplication in the following files: 
+Starting at line 167 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 78 of F:\编程\Developpement Logiciel\src\dao\ProductDAO.java
+Starting at line 220 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+
+			ps = con.prepareStatement("SELECT MAX(opl_id) FROM odrpdtlist_opl");
+
+			// excecution of the requiere
+			rs = ps.executeQuery();
+			// recuperation of number
+			rs.next();
+			retour = rs.getLong(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connection
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return (retour + 1);
+	}
+	
+	public static void main(String[] args) {
+=====================================================================
+Found a 33 line (104 tokens) duplication in the following files: 
+Starting at line 127 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 180 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+
+			ps = con.prepareStatement("SELECT MAX(odr_id) FROM order_odr");
+
+			// excecution of the requiere
+			rs = ps.executeQuery();
+			// recuperation of number
+			rs.next();
+			retour = rs.getLong(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connection
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return (retour + 1);
+	}
+
+	/**
+	 * generate a new id for the order product list opl_id in odrpdtlist_opl
+	 * 
+	 * @return retour the new id of the order product list
+	 */
+	public long idGeneratorOpl() {
+=====================================================================
+Found a 19 line (104 tokens) duplication in the following files: 
+Starting at line 107 of F:\编程\Developpement Logiciel\src\gui\MainGui.java
+Starting at line 96 of F:\编程\Developpement Logiciel\src\gui\OrderGui.java
+
+		this.setLayout(null);
+		// confirmation when X on click
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				if (JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Comfirm",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
+					// y for 0, n for 1
+					System.exit(0);
+			}
+		});
+		// not resizable, components will use the absolute position
+		this.setResizable(false);
+		this.setVisible(true);
+
+		jp_main.setLayout(null);
+		jp_main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		// setup background
+		jl_bgMain.setIcon(new ImageIcon("data\\bg_main.png"));
+=====================================================================
+Found a 33 line (103 tokens) duplication in the following files: 
+Starting at line 127 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 167 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 78 of F:\编程\Developpement Logiciel\src\dao\ProductDAO.java
+Starting at line 180 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+Starting at line 220 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+
+			ps = con.prepareStatement("SELECT MAX(odr_id) FROM order_odr");
+
+			// excecution of the requiere
+			rs = ps.executeQuery();
+			// recuperation of number
+			rs.next();
+			retour = rs.getLong(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connection
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return (retour + 1);
+	}
+
+	/**
+	 * generate a new id for the order product list opl_id in odrpdtlist_opl
+	 * 
+	 * @return retour the new id of the order product list
+	 */
+	public long idGeneratorOpl() {
+=====================================================================
+Found a 30 line (101 tokens) duplication in the following files: 
+Starting at line 327 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+Starting at line 577 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+		contentPanel.add(jtf_productName);
+
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			/*
+			 * { JButton okButton = new JButton("OK");
+			 * okButton.addActionListener(new ActionListener() { public void
+			 * actionPerformed(ActionEvent e) { } });
+			 * okButton.setActionCommand("OK"); buttonPane.add(okButton);
+			 * getRootPane().setDefaultButton(okButton); }
+			 */
+			{
+				JButton backButton = new JButton("Back");
+				backButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				backButton.setActionCommand("Cancel");
+				buttonPane.add(backButton);
+			}
+		}
+
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setVisible(true);
+	}
+}
+=====================================================================
+Found a 29 line (100 tokens) duplication in the following files: 
+Starting at line 279 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 447 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+				ps.setInt(3, orderProduct.getQuantity());
+				break;
+
+			default:
+				System.out.println("String type error!");
+				break;
+			}
+
+			// excecution of the requiere
+			retour = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connexion
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return retour;
+	}
+=====================================================================
+Found a 27 line (89 tokens) duplication in the following files: 
+Starting at line 283 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 353 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+				System.out.println("String type error!");
+				break;
+			}
+
+			// excecution of the requiere
+			retour = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connexion
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return retour;
+	}
+
+	protected int deleteLine(String type, Object item) {
+=====================================================================
+Found a 10 line (88 tokens) duplication in the following files: 
+Starting at line 514 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 543 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+					double total = 0;
+					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+						total = total
+								+ ((double) model_pdtList.getValueAt(i, 2))
+								* (int) (model_pdtList.getValueAt(i, 3));
+					}
+					jtf_price.setText(String.valueOf(total));
+					jtf_finalPrice.setText(String.valueOf(total
+							* (double) spinnerModel.getValue() * 0.01));
+				} else {
+=====================================================================
+Found a 24 line (87 tokens) duplication in the following files: 
+Starting at line 353 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 451 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+				System.out.println("String type error!!!");
+				break;
+			}
+			// excecution of the requiere
+			retour = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connexion
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return retour;
+	}
+=====================================================================
+Found a 22 line (81 tokens) duplication in the following files: 
+Starting at line 191 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 49 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// closing rs, PreparedStatement and connection
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+
+		if (type.contains("spl")) {
+=====================================================================
+Found a 21 line (80 tokens) duplication in the following files: 
+Starting at line 99 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 190 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+			}
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// closing of ResultSet, PreparedStatement and connection
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+=====================================================================
+Found a 20 line (79 tokens) duplication in the following files: 
+Starting at line 100 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 49 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// closing of ResultSet, PreparedStatement and connection
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+=====================================================================
+Found a 19 line (76 tokens) duplication in the following files: 
+Starting at line 288 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 357 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 456 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 133 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 173 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 84 of F:\编程\Developpement Logiciel\src\dao\ProductDAO.java
+Starting at line 186 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+Starting at line 226 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+
+			retour = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connexion
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return retour;
+=====================================================================
+Found a 9 line (74 tokens) duplication in the following files: 
+Starting at line 252 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 417 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+				ps = con.prepareStatement("INSERT INTO order_odr VALUES (odrid_seq.NEXTVAL, ?, ?, ?, ?, ?)");
+				ps.setDouble(1, order.getPrice());
+				ps.setDouble(2, order.getPriceDiscount());
+				if (order.getIsPaid())
+					ps.setInt(3, 1);
+				else
+					ps.setInt(3, 0);
+				ps.setString(4, order.getClientName());
+				ps.setDate(5, order.getDate());
+=====================================================================
+Found a 24 line (69 tokens) duplication in the following files: 
+Starting at line 98 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+Starting at line 136 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+			ps.setInt(1, pdt_id);
+
+
+			// Execution de la requete
+			retour = ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// fermeture du preparedStatement et de la connexion
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return retour;
+
+	}
+=====================================================================
+Found a 19 line (62 tokens) duplication in the following files: 
+Starting at line 289 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+Starting at line 525 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+		jtf_productName.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				update();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				update();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				update();
+			}
+
+			private void update() {
+				ArrayList<Product> filteredList = new ArrayList<Product>();
+=====================================================================
+Found a 11 line (58 tokens) duplication in the following files: 
+Starting at line 107 of F:\编程\Developpement Logiciel\src\gui\MainGui.java
+Starting at line 96 of F:\编程\Developpement Logiciel\src\gui\OrderGui.java
+Starting at line 77 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+		this.setLayout(null);
+		// confirmation when X on click
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				if (JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Comfirm",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
+					// y for 0, n for 1
+					System.exit(0);
+			}
+		});
+=====================================================================
+Found a 12 line (55 tokens) duplication in the following files: 
+Starting at line 219 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 378 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+	protected int addLine(String type, Object item) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour = 0;
+		// connection to date base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+
+			switch (type) {
+			case "User":
+				User user = (User) item;
+				ps = con.prepareStatement("INSERT INTO user_usr (usr_id, usr_pw, usr_name) VALUES (?,?,?)");
+=====================================================================
+Found a 12 line (55 tokens) duplication in the following files: 
+Starting at line 125 of F:\编程\Developpement Logiciel\src\gui\MainGui.java
+Starting at line 119 of F:\编程\Developpement Logiciel\src\gui\OrderGui.java
+
+		jl_bgMain.setIcon(new ImageIcon("data\\bg_main.png"));
+		jl_bgMain.setBounds(0, 0, 1024, 768);
+		this.getLayeredPane().add(jl_bgMain, new Integer(Integer.MIN_VALUE));
+		jp_main = (JPanel) this.getContentPane();
+		jp_main.setOpaque(false);
+
+	}
+
+	/**
+	 * setup the buttons
+	 */
+	public void setupButtons() {
+=====================================================================
+Found a 14 line (54 tokens) duplication in the following files: 
+Starting at line 595 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 628 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+				JOptionPane.showConfirmDialog(null, "Order created.", "OK",
+						JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				// if no product selected
+			} else {
+				System.out.println("product list void");
+				JOptionPane.showConfirmDialog(null, "No product selected.",
+						"Opps", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.WARNING_MESSAGE);
+			}
+		}
+		// edit button on click
+		else if (e.getSource() == jb_edit) {
+=====================================================================
+Found a 14 line (46 tokens) duplication in the following files: 
+Starting at line 109 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 108 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+Starting at line 145 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+
+		return retour;
+	}
+=====================================================================
+Found a 2 line (45 tokens) duplication in the following files: 
+Starting at line 72 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 178 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+					retour = new Product(rs.getLong("pdt_id"), rs.getString("pdt_name"), rs.getInt("pdt_stock"),
+							rs.getDouble("pdt_price"), rs.getLong("pdt_spr"), rs.getString("spr_name"));
+=====================================================================
+Found a 11 line (43 tokens) duplication in the following files: 
+Starting at line 200 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 58 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+Starting at line 108 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+Starting at line 145 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+=====================================================================
+Found a 10 line (43 tokens) duplication in the following files: 
+Starting at line 239 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+Starting at line 466 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+		listScroller.setSize(364, 276);
+		listScroller.setPreferredSize(new Dimension(364, 323));
+		listScroller.setAlignmentX(LEFT_ALIGNMENT);
+		// contentPanel.add(list);
+		contentPanel.add(listScroller);
+		list = new JList<String>(listModel);
+		listScroller.setViewportView(list);
+
+		// add default data in the list
+		for (Product p : productList) {
+=====================================================================
+Found a 10 line (42 tokens) duplication in the following files: 
+Starting at line 219 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 309 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 378 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+	protected int addLine(String type, Object item) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour = 0;
+		// connection to date base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+
+			switch (type) {
+			case "User":
+=====================================================================
+Found a 9 line (42 tokens) duplication in the following files: 
+Starting at line 288 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 357 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 456 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 102 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+Starting at line 139 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+			retour = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connexion
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+=====================================================================
+Found a 12 line (42 tokens) duplication in the following files: 
+Starting at line 260 of F:\编程\Developpement Logiciel\src\prototype\ProductGui.java
+Starting at line 272 of F:\编程\Developpement Logiciel\src\prototype\ProductGui.java
+
+				List<Product> liste = productDAO.getListeProducts("");
+				// on efface l'ancien contenu de la zone de texte
+				jta_Product.setText("");
+				// on affiche dans la console du client les articles rea搂us
+				for (Product p : liste) {
+					jta_Product.append(p.toString());
+					jta_Product.append("\n");
+					// Pour afficher dans la console :
+					// System.out.println(a.toString());
+				}
+			}
+			else if (ae.getSource() == jbt_getListeProduct_name){
+=====================================================================
+Found a 9 line (39 tokens) duplication in the following files: 
+Starting at line 119 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 159 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 70 of F:\编程\Developpement Logiciel\src\dao\ProductDAO.java
+Starting at line 172 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+Starting at line 212 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+
+	public long idGeneratorOdr() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		long retour = 0;
+		// connection to date base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT MAX(odr_id) FROM order_odr");
+=====================================================================
+Found a 7 line (39 tokens) duplication in the following files: 
+Starting at line 307 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+Starting at line 543 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+				ArrayList<Product> filteredList = new ArrayList<Product>();
+				// clear the list
+				for (int i = listModel.getSize(); i > 0; i--) {
+					((DefaultListModel<String>) listModel).remove(i - 1);
+				}
+				// filter
+				for (Product p : productList) {
+=====================================================================
+Found a 8 line (38 tokens) duplication in the following files: 
+Starting at line 80 of F:\编程\Developpement Logiciel\src\gui\LoginGui.java
+Starting at line 105 of F:\编程\Developpement Logiciel\src\gui\MainGui.java
+
+		this.setSize(800, 400);
+		this.setLocationRelativeTo(null);
+		this.setLayout(null);
+		
+		//X onclick, reopen MainGui, then, dispose LoginGui
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+=====================================================================
+Found a 16 line (38 tokens) duplication in the following files: 
+Starting at line 20 of F:\编程\Developpement Logiciel\src\util\Regex.java
+Starting at line 37 of F:\编程\Developpement Logiciel\src\util\Regex.java
+
+        Pattern pat = Pattern.compile(regEx);
+        Matcher mat = pat.matcher(str);
+        if (mat.find()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+	}
+	
+	/**
+	 * test is a String a long
+	 * @param str String for test
+	 * @return	true if is a long, false if not
+	 */
+	public static boolean isLong(String str){
+=====================================================================
+Found a 3 line (37 tokens) duplication in the following files: 
+Starting at line 494 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 500 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+						if ((long) model_pdtList.getValueAt(i, 0) == pdt
+								.getId())
+=====================================================================
+Found a 9 line (36 tokens) duplication in the following files: 
+Starting at line 56 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 128 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		// connection to the data base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement(sql);
+			if (!type.contains("User"))
+=====================================================================
+Found a 9 line (36 tokens) duplication in the following files: 
+Starting at line 133 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 173 of F:\编程\Developpement Logiciel\src\dao\OrderDAO.java
+Starting at line 84 of F:\编程\Developpement Logiciel\src\dao\ProductDAO.java
+Starting at line 186 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+Starting at line 226 of F:\编程\Developpement Logiciel\src\dao\SupplierDAO.java
+Starting at line 102 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+Starting at line 139 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+			retour = rs.getLong(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// close preparedStatement and connection
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+=====================================================================
+Found a 10 line (36 tokens) duplication in the following files: 
+Starting at line 249 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+Starting at line 475 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+			((DefaultListModel<String>) listModel).addElement(p.getName());
+		}
+
+		// add list on click listener
+		list.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				// if click once
+				if (e.getClickCount() == 1) {
+					// find the product clicked
+					for (Product p : productList) {
+=====================================================================
+Found a 27 line (34 tokens) duplication in the following files: 
+Starting at line 103 of F:\编程\Developpement Logiciel\src\gds\Product.java
+Starting at line 46 of F:\编程\Developpement Logiciel\src\gds\Supplier.java
+
+	}
+	/**
+	 * return product name
+	 * @return string name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * set the name of the product
+	 * @param name the new name of the product
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * return the product Id
+	 * @return String id
+	 */
+	public long getId() {
+		return id;
+	}
+	/**
+	 * return the product price
+	 * @return double price
+	 */
+	public double getPrice() {
+=====================================================================
+Found a 15 line (34 tokens) duplication in the following files: 
+Starting at line 83 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+Starting at line 123 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+	public int supprimerProduct(int pdt_id) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour = 0;
+
+		// connexion a锟? la base de donnees
+		try {
+
+			// tentative de connexion
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			// preparation de l'instruction SQL, chaque ? represente une valeur
+			// a锟? communiquer dans l'insertion
+			// les getters permettent de recuperer les valeurs des attributs
+			// souhaites
+			ps = con.prepareStatement("DELETE FROM product_pdt WHERE pdt_id = ?");
+=====================================================================
+Found a 2 line (33 tokens) duplication in the following files: 
+Starting at line 78 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 169 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+					retour = new Supplier(spr_id, rs.getString("spr_name"), (HashMap<Long, Double>) this.getList("spl",
+							"SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?", 1, spr_id));
+=====================================================================
+Found a 3 line (33 tokens) duplication in the following files: 
+Starting at line 499 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 534 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+					if (b) {
+						for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+							if ((long) model_pdtList.getValueAt(i, 0) == pdt
+=====================================================================
+Found a 2 line (31 tokens) duplication in the following files: 
+Starting at line 85 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 161 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+					retour = new Order(rs.getLong("odr_id"), rs.getDouble("odr_price"), rs.getDouble("odr_pricedis"),
+							rs.getString("odr_clientname"), isPaid, rs.getDate("odr_date"),
+=====================================================================
+Found a 2 line (31 tokens) duplication in the following files: 
+Starting at line 494 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 536 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+						if ((long) model_pdtList.getValueAt(i, 0) == pdt
+=====================================================================
+Found a 7 line (31 tokens) duplication in the following files: 
+Starting at line 233 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+Starting at line 460 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+		contentPanel.add(scrollPane);
+
+		// list
+		listModel = new DefaultListModel<String>();
+		JScrollPane listScroller = new JScrollPane();
+		listScroller.setLocation(10, 35);
+		listScroller.setSize(364, 276);
+=====================================================================
+Found a 6 line (30 tokens) duplication in the following files: 
+Starting at line 82 of F:\编程\Developpement Logiciel\src\gui\LoginGui.java
+Starting at line 96 of F:\编程\Developpement Logiciel\src\gui\OrderGui.java
+
+		this.setLayout(null);
+		
+		//X onclick, reopen MainGui, then, dispose LoginGui
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+=====================================================================
+Found a 7 line (28 tokens) duplication in the following files: 
+Starting at line 219 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 309 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 378 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 83 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+Starting at line 123 of F:\编程\Developpement Logiciel\src\prototype\ProductDAO.java
+
+	protected int addLine(String type, Object item) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour = 0;
+		// connection to date base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+=====================================================================
+Found a 8 line (28 tokens) duplication in the following files: 
+Starting at line 277 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+Starting at line 513 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+						}
+					}
+				}
+			}
+		});
+		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		list.setLayoutOrientation(JList.VERTICAL);
+		list.setVisibleRowCount(10);
+=====================================================================
+Found a 6 line (27 tokens) duplication in the following files: 
+Starting at line 62 of F:\编程\Developpement Logiciel\src\gui\LoginGui.java
+Starting at line 90 of F:\编程\Developpement Logiciel\src\gui\MainGui.java
+
+		initComponents();
+		
+		//Find mouse's position
+		MouseTracker mt = new MouseTracker();
+		mt.setBounds(0, 0, 1024, 768);
+		mt.setOpaque(false);
+=====================================================================
+Found a 2 line (27 tokens) duplication in the following files: 
+Starting at line 454 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 510 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+				model_pdtList.addRow(new Object[] { pdt.getId(), pdt.getName(),
+						pdt.getPrice(), orderProduct.getQuantity() });
+=====================================================================
+Found a 2 line (27 tokens) duplication in the following files: 
+Starting at line 208 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+Starting at line 439 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+		this.getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+=====================================================================
+Found a 6 line (26 tokens) duplication in the following files: 
+Starting at line 82 of F:\编程\Developpement Logiciel\src\gui\LoginGui.java
+Starting at line 77 of F:\编程\Developpement Logiciel\src\gui\SearchGui.java
+
+		this.setLayout(null);
+		
+		//X onclick, reopen MainGui, then, dispose LoginGui
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+=====================================================================
+Found a 2 line (26 tokens) duplication in the following files: 
+Starting at line 454 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 510 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 564 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+				model_pdtList.addRow(new Object[] { pdt.getId(), pdt.getName(),
+						pdt.getPrice(), orderProduct.getQuantity() });
+=====================================================================
+Found a 3 line (25 tokens) duplication in the following files: 
+Starting at line 239 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 399 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+						"INSERT INTO product_pdt (pdt_id, pdt_name, pdt_stock) VALUES(pdtid_seq.NEXTVAL,?,?)");
+				ps.setString(1, product.getName());
+				ps.setInt(2, product.getStock());
+=====================================================================
+Found a 3 line (25 tokens) duplication in the following files: 
+Starting at line 276 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+Starting at line 347 of F:\编程\Developpement Logiciel\src\dao\DAO.java
+
+						"INSERT INTO odrpdtlist_opl (opl_id, opl_odr_id, opl_pdt_id, opl_pdt_quantity) VALUES (oplid_seq.NEXTVAL, ?, ?, ?)");
+				ps.setLong(1, orderProduct.getOrderId());
+				ps.setLong(2, orderProduct.getProductId());
+=====================================================================
+Found a 20 line (25 tokens) duplication in the following files: 
+Starting at line 103 of F:\编程\Developpement Logiciel\src\gds\Product.java
+Starting at line 46 of F:\编程\Developpement Logiciel\src\gds\Supplier.java
+Starting at line 45 of F:\编程\Developpement Logiciel\src\gds\User.java
+
+	}
+	/**
+	 * return product name
+	 * @return string name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * set the name of the product
+	 * @param name the new name of the product
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * return the product Id
+	 * @return String id
+	 */
+	public long getId() {
+=====================================================================
+Found a 8 line (25 tokens) duplication in the following files: 
+Starting at line 352 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+Starting at line 375 of F:\编程\Developpement Logiciel\src\gui\OrderDialog.java
+
+				.addListSelectionListener(new ListSelectionListener() {
+					// get selected product's id when a product in selected
+					// product
+					// table is selected
+					public void valueChanged(ListSelectionEvent e) {
+						long selectedData = 0;
+
+						int[] selectedRow = jtb_pdtList.getSelectedRows();
