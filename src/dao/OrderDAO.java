@@ -1,5 +1,8 @@
 package src.dao;
 
+import src.gds.Order;
+import src.gds.OrderProduct;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -7,8 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import src.gds.Order;
-import src.gds.OrderProduct;
 
 /**
  * Data access object for Order.

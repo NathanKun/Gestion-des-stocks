@@ -1,10 +1,19 @@
 package src.gui;
 
+import src.dao.OrderDAO;
+import src.dao.ProductDAO;
+import src.gds.Order;
+import src.gds.OrderProduct;
+import src.gds.Product;
+import src.util.Regex;
+
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -31,12 +40,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatter;
 
-import src.dao.OrderDAO;
-import src.dao.ProductDAO;
-import src.gds.Order;
-import src.gds.OrderProduct;
-import src.gds.Product;
-import src.util.Regex;
 
 /**
  * OrderDialog class A dialog window to create/edit an order of client
@@ -292,6 +295,16 @@ public class OrderDialog extends JDialog implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(jtb_pdtList);
 		scrollPane.setBounds(0, 21, 452, 212);
 
+		// remove a product from the selected product list when double click on
+		// it
+		jtb_pdtList.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent ev) {
+				if (ev.getClickCount() == 2) {
+					removePdt();
+				}
+			}
+		});
+
 		// configure the bottom panel
 		jp_down.setBounds(12, 395, 475, 316);
 		// jp_down.setLayout(new BoxLayout(jp_down, BoxLayout.Y_AXIS));
@@ -346,13 +359,14 @@ public class OrderDialog extends JDialog implements ActionListener {
 			// get selected product's id when a product in selected
 			// product
 			// table is selected
-			public void valueChanged(ListSelectionEvent e) {
+			public void valueChanged(ListSelectionEvent ev) {
 				long selectedData = 0;
 
 				int[] selectedRow = jtb_pdtList.getSelectedRows();
 				int[] selectedColumns = jtb_pdtList.getSelectedColumns();
-				if (selectedRow.length != 0)
+				if (selectedRow.length != 0) {
 					selectedData = (long) jtb_pdtList.getValueAt(selectedRow[0], 0);
+				}
 				seletedPdtId = selectedData;
 			}
 		});
@@ -372,6 +386,14 @@ public class OrderDialog extends JDialog implements ActionListener {
 				if (selectedRow.length != 0) {
 					selectedData = (long) jtb_pdtSearch.getValueAt(selectedRow[0], 0);
 					jtf_pdtId.setText(String.valueOf(selectedData));
+				}
+			}
+		});
+
+		jtb_pdtSearch.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent ev) {
+				if (ev.getClickCount() == 2) {
+					addProduct();
 				}
 			}
 		});
@@ -455,69 +477,92 @@ public class OrderDialog extends JDialog implements ActionListener {
 	}
 
 	/**
+	 * Remove a product from the selected product table.
+	 * Click on the remove button or double click on the product.
+	 */
+	private void removePdt() {
+		// remove a product
+		for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+			if ((long) model_pdtList.getValueAt(i, 0) == seletedPdtId) {
+				model_pdtList.removeRow(i);
+			}
+		}
+
+		// calculate total price
+		double total = 0;
+		for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+			total = total + ((double) model_pdtList.getValueAt(i, 2)) * (int) (model_pdtList.getValueAt(i, 3));
+		}
+		jtf_price.setText(String.valueOf(total));
+		jtf_finalPrice.setText(String.valueOf(total * (double) spinnerModel.getValue() * 0.01));
+	}
+	
+	/**
+	 * Add a product into the selected product table.
+	 * Click on the add button or double click on the product.
+	 */
+	private void addProduct() {
+		// if is a long
+		if (Regex.isLong(jtf_pdtId.getText())) {
+			Product pdt = new ProductDAO().getProduct(Long.parseLong(jtf_pdtId.getText()));
+			if (pdt != null) {
+				// add product
+				// if the product is already existed in the added product
+				// list
+				// then add the quantity
+				boolean bool = false;
+				for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+					if ((long) model_pdtList.getValueAt(i, 0) == pdt.getId()) {
+						bool = true;
+					}
+				}
+				if (bool) {
+					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+						if ((long) model_pdtList.getValueAt(i, 0) == pdt.getId()) {
+							if (pdt.getStock() > (int)model_pdtList.getValueAt(i, 3)) {
+								model_pdtList.setValueAt((int) model_pdtList.getValueAt(i, 3) + 1, i, 3);
+							} else {
+								System.out.println("Stock not enought");
+								JOptionPane.showConfirmDialog(null, "Stock not enought", "Opps", JOptionPane.DEFAULT_OPTION,
+										JOptionPane.WARNING_MESSAGE);
+							}
+						}
+					}
+				} else {
+					// else add a new line
+					model_pdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
+				}
+
+				// calculate total price
+				double total = 0;
+				for (int i = 0; i < model_pdtList.getRowCount(); i++) {
+					total = total + ((double) model_pdtList.getValueAt(i, 2)) * (int) (model_pdtList.getValueAt(i, 3));
+				}
+				jtf_price.setText(String.valueOf(total));
+				jtf_finalPrice.setText(String.valueOf(total * (double) spinnerModel.getValue() * 0.01));
+			} else {
+				System.out.println("pdt not found");
+			}
+		} else {
+			System.out.println("pdt id wrong type");
+			JOptionPane.showConfirmDialog(null, "Please enter a correct ID", "Opps", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	/**
 	 * action perform if a button on click.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		// add a product button on click
 		if (ev.getSource() == jb_addPdt) {
-			// if is a long
-			if (Regex.isLong(jtf_pdtId.getText())) {
-				Product pdt = new ProductDAO().getProduct(Long.parseLong(jtf_pdtId.getText()));
-				if (pdt != null) {
-					// add product
-					// if the product is already existed in the added product
-					// list
-					// then add the quantity
-					boolean bool = false;
-					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-						if ((long) model_pdtList.getValueAt(i, 0) == pdt.getId()) {
-							bool = true;
-						}
-					}
-					if (bool) {
-						for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-							if ((long) model_pdtList.getValueAt(i, 0) == pdt.getId()) {
-								model_pdtList.setValueAt((int) model_pdtList.getValueAt(i, 3) + 1, i, 3);
-							}
-						}
-					} else {
-						// else add a new line
-						model_pdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
-					}
+			addProduct();
+		} else if (ev.getSource() == jb_removePdt)
 
-					// calculate total price
-					double total = 0;
-					for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-						total = total
-								+ ((double) model_pdtList.getValueAt(i, 2)) * (int) (model_pdtList.getValueAt(i, 3));
-					}
-					jtf_price.setText(String.valueOf(total));
-					jtf_finalPrice.setText(String.valueOf(total * (double) spinnerModel.getValue() * 0.01));
-				} else {
-					System.out.println("pdt not found");
-				}
-			} else {
-				System.out.println("pdt id wrong type");
-				JOptionPane.showConfirmDialog(null, "Please enter a correct ID", "Opps", JOptionPane.DEFAULT_OPTION,
-						JOptionPane.WARNING_MESSAGE);
-			}
-		} else if (ev.getSource() == jb_removePdt) {
+		{
 			// remove a product button on click
-			// remove a product
-			for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-				if ((long) model_pdtList.getValueAt(i, 0) == seletedPdtId) {
-					model_pdtList.removeRow(i);
-				}
-			}
-
-			// calculate total price
-			double total = 0;
-			for (int i = 0; i < model_pdtList.getRowCount(); i++) {
-				total = total + ((double) model_pdtList.getValueAt(i, 2)) * (int) (model_pdtList.getValueAt(i, 3));
-			}
-			jtf_price.setText(String.valueOf(total));
-			jtf_finalPrice.setText(String.valueOf(total * (double) spinnerModel.getValue() * 0.01));
+			this.removePdt();
 		} else if (ev.getSource() == jb_searchPdt) {
 			// search product by name button on click
 
@@ -624,7 +669,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 				orderProductsList);
 
 		// test new order
-		//OrderDialog orderDialog = new OrderDialog(null, true, null);
+		// OrderDialog orderDialog = new OrderDialog(null, true, null);
 
 		// test load order
 		OrderDialog orderDialog = new OrderDialog(null, true, new OrderDAO().getOrder(4));

@@ -1,5 +1,9 @@
 package src.gui;
 
+import src.gds.Order;
+import src.gds.User;
+import src.util.MouseTracker;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import src.gds.Order;
-import src.gds.User;
-import src.util.MouseTracker;
 
 /**
  * graphical user interface of Main window

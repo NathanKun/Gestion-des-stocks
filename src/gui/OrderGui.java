@@ -1,10 +1,17 @@
 package src.gui;
 
+import src.dao.OrderDAO;
+import src.gds.Order;
+import src.gds.User;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,8 +22,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import src.gds.User;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * graphical user interface of Order menu window
@@ -27,53 +37,59 @@ import src.gds.User;
 public class OrderGui extends JFrame implements ActionListener {
 
 	/**
-	 * main container
+	 * main container.
 	 */
 	private JPanel jp_main = new JPanel();
 	/**
-	 * main background
+	 * main background.
 	 */
 	private JLabel jl_bgMain = new JLabel();
 	/**
-	 * Button : Link to main page
+	 * Button : Link to main page.
 	 */
-	private JButton jb_return = new JButton("Return");
+	private JButton jbReturn = new JButton("Return");
 	/**
-	 * Button : Link to create order page
+	 * Button : Link to create order page.
 	 */
-	private JButton jb_new = new JButton("New order");
+	private JButton jbNew = new JButton("New order");
 	/**
-	 * Button : Link to research order page
+	 * Button : Link to research order page.
 	 */
-	private JButton jb_search = new JButton("Search");
+	private JButton jbSearch = new JButton("Search");
 	/**
-	 * Button : Link to edit order page
+	 * Button : Link to edit order page.
 	 */
-	private JButton jb_edit = new JButton("Edit");
+	private JButton jbEdit = new JButton("Edit");
 	/**
-	 * Button : Link to calendar
+	 * Button : Link to edit order page.
 	 */
-	private JButton jb_calendar = new JButton("Calendar");
+	private JButton jbCancel = new JButton("Cancel");
 	/**
-	 *
+	 * Button : Link to calendar.
 	 */
-	private JButton jb_replenishment = new JButton("Replenishment");
+	private JButton jbCalendar = new JButton("Calendar");
+	/**
+	 * Button : Link to replenishment.
+	 */
+	private JButton jbReplenishment = new JButton("Replenishment");
 
 	/**
-	 * big font size for buttons
+	 * big font size for buttons.
 	 */
 	private Font fontBig = new Font(null, 0, 18);
 	/**
-	 * User who logged in
+	 * User who logged in.
 	 */
 	private User user;
-	
-	
-	private final JTable jtb_orderList = new JTable();
-	private final JScrollPane jsp_orderList = new JScrollPane();
+
+	private JTable jtbOrderList = null;
+	private DefaultTableModel tableModel = null;
+	private final JScrollPane jspOrderList = new JScrollPane();
+	private JPanel jpOrderList = new JPanel();
+	private long seletedOrderId = 0;
 
 	/**
-	 * constructor
+	 * constructor.
 	 * 
 	 * @param user
 	 *            The user who logged in
@@ -81,12 +97,12 @@ public class OrderGui extends JFrame implements ActionListener {
 	public OrderGui(User user) {
 		this.user = user;
 		init();
-		setupButtons();
-
+		initButtons();
+		initTable();
 	}
 
 	/**
-	 * initialization init JFrame init JPanel jp_main main container init
+	 * initialization init JFrame init JPanel jp_main main container init.
 	 * background
 	 */
 	public void init() {
@@ -98,14 +114,13 @@ public class OrderGui extends JFrame implements ActionListener {
 		// confirmation when X on click
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				if (JOptionPane
-						.showConfirmDialog(null, "Do you really want to exit?",
-								"Comfirm", JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE) == 0)
+			public void windowClosing(WindowEvent ev) {
+				if (JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Comfirm",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 					// y for 0, n for 1
-					//dispose();
+					// dispose();
 					System.exit(0);
+				}
 			}
 		});
 
@@ -124,43 +139,102 @@ public class OrderGui extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * init buttons
+	 * init buttons.
 	 */
-	public void setupButtons() {
-		jb_new.setBounds(500, 200, 200, 50);
-		jb_edit.setBounds(500, 270, 200, 50);
-		jb_search.setBounds(500, 340, 200, 50);
-		jb_calendar.setBounds(800, 100, 200, 50);
-		jb_replenishment.setBounds(500, 500, 200, 50);
-		jb_return.setBounds(50, 600, 100, 100);
+	public void initButtons() {
+		jbNew.setBounds(630, 350, 200, 50);
+		jbEdit.setBounds(630, 450, 200, 50);
+		jbCancel.setBounds(630, 550, 200, 50);
+		jbSearch.setBounds(630, 250, 200, 50);
+		jbCalendar.setBounds(780, 50, 200, 50);
+		jbReplenishment.setBounds(780, 150, 200, 50);
+		jbReturn.setBounds(50, 600, 100, 100);
 
-		jb_new.setFont(fontBig);
-		jb_edit.setFont(fontBig);
-		jb_search.setFont(fontBig);
-		jb_calendar.setFont(fontBig);
-		jb_replenishment.setFont(fontBig);
-		jb_return.setFont(fontBig);
+		jbNew.setFont(fontBig);
+		jbEdit.setFont(fontBig);
+		jbCancel.setFont(fontBig);
+		jbSearch.setFont(fontBig);
+		jbCalendar.setFont(fontBig);
+		jbReplenishment.setFont(fontBig);
+		jbReturn.setFont(fontBig);
 
-		jb_new.addActionListener(this);
-		jb_edit.addActionListener(this);
-		jb_search.addActionListener(this);
-		jb_calendar.addActionListener(this);
-		jb_replenishment.addActionListener(this);
-		jb_return.addActionListener(this);
+		jbNew.addActionListener(this);
+		jbEdit.addActionListener(this);
+		jbCancel.addActionListener(this);
+		jbSearch.addActionListener(this);
+		jbCalendar.addActionListener(this);
+		jbReplenishment.addActionListener(this);
+		jbReturn.addActionListener(this);
 
-		jp_main.add(jb_new);
-		// jp_main.add(jb_edit);
-		jp_main.add(jb_search);
-		jp_main.add(jb_calendar);
-		jp_main.add(jb_replenishment);
-		jp_main.add(jb_return);
-		
-		JPanel jp_orderList = new JPanel();
-		jp_orderList.setBounds(88, 200, 326, 350);
-		getContentPane().add(jp_orderList);
-		
-		jp_orderList.add(jsp_orderList);
-		jsp_orderList.setViewportView(jtb_orderList);
+		jp_main.add(jbNew);
+		jp_main.add(jbEdit);
+		jp_main.add(jbCancel);
+		jp_main.add(jbSearch);
+		jp_main.add(jbCalendar);
+		jp_main.add(jbReplenishment);
+		jp_main.add(jbReturn);
+
+	}
+
+	/**
+	 * init table an it's panel.
+	 */
+	public void initTable() {
+		// init model and table
+		String[][] datas = {};
+		String[] titles = { "ID", "Client's name", "Date", "Final price" };
+		tableModel = new DefaultTableModel(datas, titles) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		jtbOrderList = new JTable(tableModel);
+		jpOrderList.setBounds(183, 250, 400, 350);
+		getContentPane().add(jpOrderList);
+		jpOrderList.setLayout(null);
+		jspOrderList.setBounds(0, 0, 400, 350);
+		jpOrderList.add(jspOrderList);
+		jspOrderList.setViewportView(jtbOrderList);
+		jtbOrderList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		jtbOrderList.setCellSelectionEnabled(false);
+
+		// get selected order's id when the order is seleted
+		ListSelectionModel cellSelectionModel = jtbOrderList.getSelectionModel();
+		cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent ev) {
+				long selectedData = 0;
+
+				int[] selectedRow = jtbOrderList.getSelectedRows();
+				if (selectedRow.length != 0) {
+					selectedData = (long) jtbOrderList.getValueAt(selectedRow[0], 0);
+				}
+				seletedOrderId = selectedData;
+			}
+		});
+
+		// Edit the order when double click on it
+		jtbOrderList.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent ev) {
+				if (ev.getClickCount() == 2) {
+					showEditOrderDialog();
+				}
+			}
+		});
+	}
+
+	/**
+	 * show Dialog to edit an Order
+	 */
+	private void showEditOrderDialog() {
+		if (seletedOrderId != 0) {
+			new OrderDialog(this, true, new OrderDAO().getOrder(seletedOrderId));
+		} else {
+			System.out.println("No seleted order");
+			JOptionPane.showConfirmDialog(null, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 	/**
@@ -178,17 +252,31 @@ public class OrderGui extends JFrame implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// TODO button on click
-		// return buttton on click
-		if (ae.getSource() == jb_return) {
+		// TODO other buttons on click
+		// return button on click
+		if (ae.getSource() == jbReturn) {
 			new MainGui(user);
 			dispose();
-		}
-		// new order button on click
-		else if (ae.getSource() == jb_new) {
+		} else if (ae.getSource() == jbSearch) {
+			// search order button on click
+			OrderDAO dao = new OrderDAO();
+			ArrayList<Order> list = dao.getOrderList();
+			for (Order order : list) {
+				Object[] objects = { order.getId(), order.getClientName(), order.getDate(), order.getPriceDiscount() };
+				tableModel.addRow(objects);
+			}
+		} else if (ae.getSource() == jbNew) {
+			// new order button on click
 			new OrderDialog(this, true, null);
+		} else if (ae.getSource() == jbEdit) {
+			// edit order button on click
+			showEditOrderDialog();
+		} else if (ae.getSource() == jbCancel) {
+			// cancel order button on click
+
+		} else if (ae.getSource() == jbCalendar) {
+
 		}
 
 	}
 }
-

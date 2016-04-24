@@ -1,7 +1,5 @@
 package src.gds;
 
-import com.sun.xml.internal.fastinfoset.util.DuplicateAttributeVerifier;
-
 /**
  * class represents a product with a quantity
  * @author HE Junyang - FOTSING KENGNE Junior

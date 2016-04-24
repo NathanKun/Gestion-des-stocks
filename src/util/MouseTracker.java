@@ -1,7 +1,14 @@
 package src.util;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  * Mouse Position Tracker
  * usage : 
@@ -54,7 +61,7 @@ public class MouseTracker extends JPanel{
 		this.setPreferredSize(new Dimension(100, 30));
 		jl.setBounds(10, 5, 80, 20);
 		this.add(jl);
-		addMouseMotionListener(new MouseListener());
+		this.addMouseMotionListener((MouseMotionListener) new MouseListener());
 		this.setVisible(true);
 	}
 	/**

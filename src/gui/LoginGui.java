@@ -1,11 +1,12 @@
 package src.gui;
-import src.util.*;
+import src.dao.UserDAO;
+import src.gds.User;
+import src.util.MouseTracker;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,9 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import src.dao.UserDAO;
-import src.gds.User;
-import src.util.MouseTracker;
 /**
  * graphical user interface of login window
  * @author HE Junyang - FOTSING KENGNE Junior
