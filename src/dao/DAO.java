@@ -4,6 +4,7 @@ import src.gds.Order;
 import src.gds.OrderProduct;
 import src.gds.Product;
 import src.gds.Supplier;
+import src.gds.SupplierProductPrice;
 import src.gds.User;
 
 import java.sql.Connection;
@@ -62,11 +63,21 @@ abstract class DAO {
 		// connection to the data base
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement(sql);
-			if (!type.contains("User")) {
-				ps.setLong(1, (Long) item);
-			} else {
+
+			switch (type) {
+			case "User":
 				ps.setString(1, (String) item);
+				break;
+
+			case "SupplierProductPrice":
+				SupplierProductPrice param = (SupplierProductPrice) item;
+				ps.setLong(1, param.getSprId());
+				ps.setLong(2, param.getPdtId());
+				break;
+
+			default:
+				ps.setLong(1, (Long) item);
+				break;
 			}
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -93,6 +104,16 @@ abstract class DAO {
 
 				case "User":
 					retour = new User(rs.getString("usr_id"), rs.getString("usr_pw"), rs.getString("usr_name"));
+					break;
+
+				case "SupplierProductPrice":
+					retour = new SupplierProductPrice(rs.getLong("spl_spr_id"), rs.getLong("spl_pdt_id"),
+							rs.getDouble("spl_pdt_price"));
+					break;
+					
+				case "BestPrice":
+					retour = new SupplierProductPrice(rs.getLong("spl_spr_id"), rs.getLong("spl_pdt_id"),
+							rs.getDouble("MIN(spl_pdt_price)"));
 					break;
 
 				default:

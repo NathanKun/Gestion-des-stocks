@@ -4,6 +4,7 @@ import src.dao.ProductDAO;
 import src.dao.SupplierDAO;
 import src.gds.Product;
 import src.gds.Supplier;
+import src.gds.SupplierProductPrice;
 import src.gds.User;
 
 import java.awt.BorderLayout;
@@ -40,7 +41,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  * The GUI for the search menu.
@@ -178,6 +178,8 @@ class SearchProduct extends JDialog {
 	 * model of the table.
 	 */
 	private DefaultTableModel modelTableList = null;
+	private JButton jbBack;
+	private JButton jbCheapestSupplier;
 
 	/**
 	 * Main method for testing.
@@ -219,6 +221,20 @@ class SearchProduct extends JDialog {
 		lblProductName.setBounds(10, 10, 200, 15);
 		contentPanel.add(lblProductName);
 
+		initTable();
+
+		initProductList();
+
+		initTextField();
+
+		initButtonPane();
+
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setVisible(true);
+	}
+
+	private void initTable() {
 		// table
 		String[][][] datas = {};
 		String[] titles = { "Key", "Value" };
@@ -238,7 +254,9 @@ class SearchProduct extends JDialog {
 		scrollPane.setToolTipText("Product detail");
 		scrollPane.setBounds(10, 321, 364, 197);
 		contentPanel.add(scrollPane);
+	}
 
+	private void initProductList() {
 		// list
 		listModel = new DefaultListModel<String>();
 		JScrollPane listScroller = new JScrollPane();
@@ -289,7 +307,9 @@ class SearchProduct extends JDialog {
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL);
 		list.setVisibleRowCount(10);
+	}
 
+	private void initTextField() {
 		// text field for enter the product's name
 		jtfProductName = new JTextField();
 		// update the list every time when text changed
@@ -332,33 +352,55 @@ class SearchProduct extends JDialog {
 		});
 		jtfProductName.setBounds(121, 7, 253, 21);
 		contentPanel.add(jtfProductName);
+	}
 
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			/*
-			 * { JButton okButton = new JButton("OK");
-			 * okButton.addActionListener(new ActionListener() { public void
-			 * actionPerformed(ActionEvent e) { } });
-			 * okButton.setActionCommand("OK"); buttonPane.add(okButton);
-			 * getRootPane().setDefaultButton(okButton); }
-			 */
-			{
-				JButton backButton = new JButton("Back");
-				backButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent ev) {
-						dispose();
-					}
-				});
-				backButton.setActionCommand("Cancel");
-				buttonPane.add(backButton);
+	private void initButtonPane() {
+		// button pane
+
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		// back button
+
+		jbBack = new JButton("Back");
+		jbBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				dispose();
 			}
-		}
+		});
+		jbBack.setActionCommand("Cancel");
 
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.setVisible(true);
+		// best price button
+
+		jbCheapestSupplier = new JButton("cheapest supplier");
+		jbCheapestSupplier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// Find the best price
+				SupplierProductPrice spp = new SupplierDAO()
+						.getBestPriceOfAProduct((long) modelTableList.getValueAt(0, 1));
+
+				// Construction of the string
+				StringBuffer str = new StringBuffer();
+				str.append("Best price of product ");
+				str.append(String.valueOf(modelTableList.getValueAt(0, 2)));
+				str.append("\n with product ID = ");
+				str.append(String.valueOf(spp.getPdtId()));
+				str.append("\n is ");
+				str.append(String.valueOf(spp.getSprPdtPrice()));
+				str.append("\n By supplier ");
+				str.append(new SupplierDAO().getSupplier(spp.getSprId()).getName());
+				str.append("\n supplier ID =  ");
+				str.append(String.valueOf(spp.getSprId()));
+
+				// show the window
+				JOptionPane.showConfirmDialog(null, str, "Cheapest Supplier", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.WARNING_MESSAGE);
+			}
+		});
+
+		buttonPane.add(jbCheapestSupplier);
+		buttonPane.add(jbBack);
+
 	}
 }
 
@@ -579,7 +621,7 @@ class SearchSupplier extends JDialog {
 		// product list table
 		String[][][] datasPdtList = {};
 		String[] titlesPdtList = { "ID", "Name", "Price" };
-		modelPdtList = new DefaultTableModel(datasPdtList, titlesPdtList){
+		modelPdtList = new DefaultTableModel(datasPdtList, titlesPdtList) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;

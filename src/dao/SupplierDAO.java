@@ -2,6 +2,7 @@ package src.dao;
 
 import src.gds.Product;
 import src.gds.Supplier;
+import src.gds.SupplierProductPrice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -165,6 +166,22 @@ public class SupplierDAO extends DAO {
 		}
 
 		return retour;
+	}
+
+	public SupplierProductPrice getSupplierProductPrice(long sprId, long pdtId) {
+		SupplierProductPrice supplierProductPrice = new SupplierProductPrice(sprId, pdtId, 0d);
+		String sql = "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ? AND spl_pdt_id = ?";
+		return (SupplierProductPrice) this.getOne("SupplierProductPrice", sql, supplierProductPrice);
+	}
+	
+	public SupplierProductPrice getBestPriceOfAProduct (long pdtId){
+		// TODO test these two sql
+		String sql = "SELECT * FROM sprpdtlist_spl "
+				+ "WHERE spl_pdt_id = ? "
+				+ "AND spl_pdt_price = ( SELECT MIN(spr_pdt_price) FROM sprpdtlist_spl "
+				+ "WHERE spl_pdt_id = ?";
+		String sql2 = "SELECT spl_spr_id, spl_pdt_id, MIN(spl_pdt_price) FROM sprpdtlist_spl";
+		return (SupplierProductPrice) this.getOne("BestPrice", sql, pdtId);
 	}
 
 	/**
