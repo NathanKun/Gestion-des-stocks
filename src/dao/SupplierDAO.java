@@ -15,7 +15,7 @@ import java.util.Map.Entry;
  * @author FOTSING KENGNE Junior - HE Junyang
  *
  */
-public class SupplierDAO extends DAO {
+final public class SupplierDAO extends DAO {
 	/**
 	 * add product in the date base.
 	 * 
@@ -168,19 +168,32 @@ public class SupplierDAO extends DAO {
 		return retour;
 	}
 
+	/**
+	 * get one row for the table sprpdtlist_spl, knowing sprId and pdtId.
+	 * 
+	 * @param sprId
+	 *            supplier's id
+	 * @param pdtId
+	 *            pdt's id
+	 * @return SupplierProductPrice, with the price
+	 */
 	public SupplierProductPrice getSupplierProductPrice(long sprId, long pdtId) {
 		SupplierProductPrice supplierProductPrice = new SupplierProductPrice(sprId, pdtId, 0d);
 		String sql = "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ? AND spl_pdt_id = ?";
 		return (SupplierProductPrice) this.getOne("SupplierProductPrice", sql, supplierProductPrice);
 	}
-	
-	public SupplierProductPrice getBestPriceOfAProduct (long pdtId){
-		// TODO test these two sql
-		String sql = "SELECT * FROM sprpdtlist_spl "
-				+ "WHERE spl_pdt_id = ? "
-				+ "AND spl_pdt_price = ( SELECT MIN(spr_pdt_price) FROM sprpdtlist_spl "
-				+ "WHERE spl_pdt_id = ?";
-		String sql2 = "SELECT spl_spr_id, spl_pdt_id, MIN(spl_pdt_price) FROM sprpdtlist_spl";
+
+	/**
+	 * search the best price of a product in all supplier.
+	 * 
+	 * @param pdtId
+	 *            product's id
+	 * @return SupplierProductPrice with supplier's id who give the best price,
+	 *         and the price.
+	 */
+	public SupplierProductPrice getBestPriceOfAProduct(long pdtId) {
+		String sql = "SELECT * FROM sprpdtlist_spl " + "WHERE spl_pdt_id = ? "
+				+ "AND spl_pdt_price = ( SELECT MIN(spl_pdt_price) FROM sprpdtlist_spl " + "WHERE spl_pdt_id = ?)";
 		return (SupplierProductPrice) this.getOne("BestPrice", sql, pdtId);
 	}
 

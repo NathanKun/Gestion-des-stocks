@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
-public class OrderDAO extends DAO {
+final public class OrderDAO extends DAO {
 
 	/**
 	 * Add an order in the order_odr table.

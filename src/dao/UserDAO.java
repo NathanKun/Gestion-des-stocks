@@ -11,7 +11,7 @@ import java.util.List;
  * @author FOTSING KENGNE Junior - HE Junyang
  * @version 1.0
  */
-public class UserDAO extends DAO {
+final public class UserDAO extends DAO {
 
 	/**
 	 * Add a user into the db.

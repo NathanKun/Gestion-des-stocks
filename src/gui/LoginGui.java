@@ -1,4 +1,5 @@
 package src.gui;
+
 import src.dao.UserDAO;
 import src.gds.User;
 import src.util.MouseTracker;
@@ -18,161 +19,162 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
- * graphical user interface of login window
+ * graphical user interface of login window.
+ * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
 public class LoginGui extends JFrame implements ActionListener {
 	/**
-	 * main container
+	 * main container.
 	 */
 	private JPanel jp = new JPanel();
 	/**
-	 * main background
+	 * main background.
 	 */
-	private JLabel jl_bgMain = new JLabel();
+	private JLabel jlBgMain = new JLabel();
 	/**
-	 * label : id
+	 * label : id.
 	 */
-	private JLabel jl_id = new JLabel("ID : ");
+	private JLabel jlId = new JLabel("ID : ");
 	/**
-	 * label : password
+	 * label : password.
 	 */
-	private JLabel jl_pw = new JLabel("Password : ");
+	private JLabel jlPw = new JLabel("Password : ");
 	/**
-	 * text field for id
+	 * text field for id.
 	 */
-	private JTextField jtf_id = new JTextField();
+	private JTextField jtfId = new JTextField();
 	/**
-	 * password field for password
+	 * password field for password.
 	 */
-	private JPasswordField jtf_pw = new JPasswordField();
+	private JPasswordField jtfPw = new JPasswordField();
 	/**
-	 * button : login
+	 * button : login.
 	 */
-	private JButton jb_login = new JButton("Login");
-	
+	private JButton jbLogin = new JButton("Login");
+
 	/**
-	 * constructor 
+	 * constructor.
 	 */
 	public LoginGui() {
 		init();
 		initComponents();
-		
-		//Find mouse's position
-		MouseTracker mt = new MouseTracker();
-		mt.setBounds(0, 0, 1024, 768);
-		mt.setOpaque(false);
-		jp.add(mt);
-		
+
+		// Find mouse's position
+//		MouseTracker mt = new MouseTracker();
+//		mt.setBounds(0, 0, 1024, 768);
+//		mt.setOpaque(false);
+//		jp.add(mt);
+
 	}
-	
+
 	/**
-	 * Initialization principal
-	 * init JFrame
-	 * init jp main container
-	 * setup background
+	 * Initialization principal init JFrame init jp main container setup
+	 * background
 	 */
 	public void init() {
 		this.setTitle("Login");
 		this.setSize(800, 400);
 		this.setLocationRelativeTo(null);
-		this.setLayout(null);
-		
-		//X onclick, reopen MainGui, then, dispose LoginGui
+		getContentPane().setLayout(null);
+
+		// X onclick, reopen MainGui, then, dispose LoginGui
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent ev) {
 				new MainGui(null);
 				dispose();
 			}
 		});
-		
+
 		// not resizable, components will use the absolute position
 		this.setResizable(false);
 		this.setVisible(true);
 
-		jp.setLayout(null);
-		jp.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
 		
-		//TODO put an image at the right side of the window, like IHM
-		jl_bgMain.setIcon(new ImageIcon("data\\bg_login.png"));
-		jl_bgMain.setBounds(0, 0, 800, 400);
-		this.getLayeredPane().add(jl_bgMain, new Integer(Integer.MIN_VALUE));
-		
+	}
+
+	/**
+	 * initialization of components init labels, text fields, buttons.
+	 */
+	public void initComponents() {
 		jp = (JPanel) this.getContentPane();
 		jp.setOpaque(false);
-	}
-	
-	/**
-	 * initialization of components
-	 * init labels, text fields, buttons.
-	 */
-	public void initComponents(){
-		jl_id.setBounds(50, 100, 100, 30);
-		jl_pw.setBounds(50, 200, 100, 30);
-		jtf_id.setBounds(150, 100, 250, 30);
-		jtf_pw.setBounds(150, 200, 250, 30);
-		jb_login.setBounds(350, 280, 100, 50);
+		jp.setLayout(null);
 		
-		jp.add(jl_id);
-		jp.add(jl_pw);
-		jp.add(jtf_id);
-		jp.add(jtf_pw);
-		jp.add(jb_login);
+		jp.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		jlBgMain.setIcon(new ImageIcon("data\\bg_login.jpg"));
+		jlBgMain.setBounds(461, 23, 323, 295);
+		jp.add(jlBgMain, new Integer(Integer.MIN_VALUE));
+
+		jlId.setBounds(50, 150, 100, 30);
+		jlPw.setBounds(50, 200, 100, 30);
+		jtfId.setBounds(150, 150, 250, 30);
+		jtfPw.setBounds(150, 200, 250, 30);
+		jbLogin.setBounds(300, 268, 100, 50);
 		
-		jb_login.addActionListener(this);
+		jp.add(jlId);
+		jp.add(jlPw);
+		jp.add(jtfId);
+		jp.add(jtfPw);
+		jp.add(jbLogin);
+		
+		JLabel jlbIdentificationAdmin = new JLabel("Identification Admin");
+		jlbIdentificationAdmin.setBounds(50, 100, 200, 15);
+		getContentPane().add(jlbIdentificationAdmin);
+
+		jbLogin.addActionListener(this);
 	}
-	
+
 	/**
 	 * Login algorithm
-	 * @return	Objet User who logged in, or null if login field
+	 * 
+	 * @return Objet User who logged in, or null if login field
 	 */
-	public User login(){
+	public User login() {
 		User user;
-		String id = jtf_id.getText();
-		char[] pw = jtf_pw.getPassword();
-		
-		//TODO DAO and Login Algorithm, then dispose()
-		
-		
-		if(id.isEmpty() == true){
-			JOptionPane.showConfirmDialog(null, "ID can't be void!", "Opps",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
-		} else if(pw.length == 0){
-			JOptionPane.showConfirmDialog(null, "Password can't be void!", "Opps",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+		String id = jtfId.getText();
+		char[] pw = jtfPw.getPassword();
+
+		if (id.isEmpty() == true) {
+			JOptionPane.showConfirmDialog(null, "ID can't be void!", "Opps", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.WARNING_MESSAGE);
+		} else if (pw.length == 0) {
+			JOptionPane.showConfirmDialog(null, "Password can't be void!", "Opps", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.WARNING_MESSAGE);
 		} else {
-			UserDAO userDAO = new UserDAO();
-			user = userDAO.getUser(id);
+			UserDAO userDao = new UserDAO();
+			user = userDao.getUser(id);
 			System.out.println("id = " + id);
-			if(user == null){
+			if (user == null) {
 				System.out.println("id wrong");
-				JOptionPane.showConfirmDialog(null, "ID or Password incorrect.", "Opps",
-						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
-			}
-			else {
-				if(user.getPw().equals(new String(pw))){
+				JOptionPane.showConfirmDialog(null, "ID or Password incorrect.", "Opps", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+				if (user.getPw().equals(new String(pw))) {
 					return user;
-				}
-				else{
+				} else {
 					System.out.println("pw wrong");
-					JOptionPane.showConfirmDialog(null, "ID or Password incorrect.", "Opps",
-							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showConfirmDialog(null, "ID or Password incorrect.", "Opps", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		}
 		return null;
 	}
+
 	/**
-	 * action perform if button on click
+	 * action perform if button on click.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		//Login button on click
-		if(ae.getSource() == jb_login){
+		// Login button on click
+		if (ae.getSource() == jbLogin) {
 			User user = login();
-			if(user != null){
+			if (user != null) {
 				new MainGui(user);
 				dispose();
 			}

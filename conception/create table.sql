@@ -88,7 +88,7 @@ INSERT INTO supplier_spr VALUES(sprid_seq.NEXTVAL, '6six6');
 --Insert product for testing
 INSERT INTO product_pdt VALUES (pdtid_seq.NEXTVAL, 'pdt1', 11, 1, 111.11);
 INSERT INTO product_pdt VALUES (pdtid_seq.NEXTVAL, 'pdt2', 22, 2, 22);
-INSERT INTO product_pdt VALUES (pdtid_seq.NEXTVAL, 'pdt5', 55, 1, 5.5);
+INSERT INTO product_pdt VALUES (pdtid_seq.NEXTVAL, 'pdt3', 33, 1, 3.3);
 INSERT INTO product_pdt VALUES (pdtid_seq.NEXTVAL, 'cup', 11, 3, 5);
 INSERT INTO product_pdt VALUES (pdtid_seq.NEXTVAL, 'pen', 22, 3, 2);
 INSERT INTO product_pdt VALUES (pdtid_seq.NEXTVAL, 'screen', 7, 4, 288);
@@ -114,6 +114,12 @@ INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 6, 100.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 7, 222.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 8, 33.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 9, 333.3);
-INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 4, 9, 4.10);
-INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 4, 10, 55555.10);
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 4, 10, 4.10);
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 4, 11, 55555.10);
+
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 1, 5, 1.10);
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 5, 22.10);
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.nextval, 4, 5, 444.10);
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 5, 5, 0.55);
+INSERT INTO sprpdtlist_spl VALUES (splid_seq.nextval, 6, 5, 66666666);
 

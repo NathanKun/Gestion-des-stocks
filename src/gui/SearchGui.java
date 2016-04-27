@@ -42,6 +42,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.org.apache.xml.internal.security.Init;
+
 /**
  * The GUI for the search menu.
  * 
@@ -137,7 +139,6 @@ public class SearchGui extends JFrame implements ActionListener {
 	 *            for main
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		new SearchGui(null);
 	}
 
@@ -149,6 +150,7 @@ public class SearchGui extends JFrame implements ActionListener {
  * @author HE Junyang
  *
  */
+@SuppressWarnings("serial")
 class SearchProduct extends JDialog {
 	/**
 	 * content panel.
@@ -178,22 +180,18 @@ class SearchProduct extends JDialog {
 	 * model of the table.
 	 */
 	private DefaultTableModel modelTableList = null;
-	private JButton jbBack;
-	private JButton jbCheapestSupplier;
-
 	/**
-	 * Main method for testing.
-	 * 
-	 * @param args
-	 *            for main
+	 * button : back to search menu.
 	 */
-	public static void main(String[] args) {
-		try {
-			SearchProduct dialog = new SearchProduct(null, true);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+	private JButton jbBack;
+	/**
+	 * button : find the cheapest supplier for this product.
+	 */
+	private JButton jbCheapestSupplier;
+	/**
+	 * the product currently selected in the list.
+	 */
+	private Product seletedProduct = null;
 
 	/**
 	 * Create the dialog.
@@ -234,6 +232,9 @@ class SearchProduct extends JDialog {
 		this.setVisible(true);
 	}
 
+	/**
+	 * init the table for product's detail.
+	 */
 	private void initTable() {
 		// table
 		String[][][] datas = {};
@@ -256,6 +257,9 @@ class SearchProduct extends JDialog {
 		contentPanel.add(scrollPane);
 	}
 
+	/**
+	 * init the list of product.
+	 */
 	private void initProductList() {
 		// list
 		listModel = new DefaultListModel<String>();
@@ -282,6 +286,7 @@ class SearchProduct extends JDialog {
 					// find the product clicked
 					for (Product p : productList) {
 						if (p.getName() == list.getSelectedValue()) {
+							seletedProduct = p;
 							// clear the table
 							for (int i = table.getRowCount() - 1; i >= 0; i--) {
 								modelTableList.removeRow(i);
@@ -309,6 +314,9 @@ class SearchProduct extends JDialog {
 		list.setVisibleRowCount(10);
 	}
 
+	/**
+	 * init the test field for input product's name.
+	 */
 	private void initTextField() {
 		// text field for enter the product's name
 		jtfProductName = new JTextField();
@@ -354,6 +362,9 @@ class SearchProduct extends JDialog {
 		contentPanel.add(jtfProductName);
 	}
 
+	/**
+	 * init the butten pane at bottom.
+	 */
 	private void initButtonPane() {
 		// button pane
 
@@ -376,14 +387,13 @@ class SearchProduct extends JDialog {
 		jbCheapestSupplier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				// Find the best price
-				SupplierProductPrice spp = new SupplierDAO()
-						.getBestPriceOfAProduct((long) modelTableList.getValueAt(0, 1));
+				SupplierProductPrice spp = new SupplierDAO().getBestPriceOfAProduct(seletedProduct.getId());
 
 				// Construction of the string
 				StringBuffer str = new StringBuffer();
-				str.append("Best price of product ");
-				str.append(String.valueOf(modelTableList.getValueAt(0, 2)));
-				str.append("\n with product ID = ");
+				str.append("Best price of product: ");
+				str.append(seletedProduct.getName());
+				str.append("\n product ID = ");
 				str.append(String.valueOf(spp.getPdtId()));
 				str.append("\n is ");
 				str.append(String.valueOf(spp.getSprPdtPrice()));
@@ -402,6 +412,20 @@ class SearchProduct extends JDialog {
 		buttonPane.add(jbBack);
 
 	}
+
+	/**
+	 * Main method for testing.
+	 * 
+	 * @param args
+	 *            for main
+	 */
+	public static void main(String[] args) {
+		try {
+			SearchProduct dialog = new SearchProduct(null, true);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }
 
 /**
@@ -410,6 +434,7 @@ class SearchProduct extends JDialog {
  * @author HE Junyang
  *
  */
+@SuppressWarnings("serial")
 class SearchSupplier extends JDialog {
 
 	/**
@@ -454,20 +479,6 @@ class SearchSupplier extends JDialog {
 	private DefaultTableModel modelPdtList = null;
 
 	/**
-	 * Main method for testing.
-	 * 
-	 * @param args
-	 *            for main
-	 */
-	public static void main(String[] args) {
-		try {
-			SearchSupplier dialog = new SearchSupplier(null, true);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 * 
 	 * @param owner
@@ -490,29 +501,116 @@ class SearchSupplier extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblSupplierName = new JLabel("Supplier name : ");
-		lblSupplierName.setBounds(10, 10, 200, 15);
-		contentPanel.add(lblSupplierName);
+		initSupplierTable();
 
-		// sprDetail table
-		String[][] datasSprDetail = {};
-		String[] titles = { "Key", "Value" };
-		modelSprDetail = new DefaultTableModel(datasSprDetail, titles) {
+		initSupplierList();
+
+		initTextField();
+
+		initProductListTable();
+
+		initButtonPane();
+
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setVisible(true);
+	}
+
+	/**
+	 * init the button pane at the bottom.
+	 */
+	private final void initButtonPane() {
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+
+		JButton backButton = new JButton("Back");
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				dispose();
+			}
+		});
+		backButton.setActionCommand("Cancel");
+		buttonPane.add(backButton);
+	}
+
+	/**
+	 * init the table of the list of product for a supplier.
+	 */
+	private void initProductListTable() {
+		// product list table
+		String[][][] datasPdtList = {};
+		String[] titlesPdtList = { "ID", "Name", "Price" };
+		modelPdtList = new DefaultTableModel(datasPdtList, titlesPdtList) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 
-		jtbSprDetail = new JTable(modelSprDetail);
-		jtbSprDetail.setPreferredScrollableViewportSize(new Dimension(364, 197));
-		jtbSprDetail.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		jtbSprDetail.setCellSelectionEnabled(false);
-		JScrollPane jspSprDetail = new JScrollPane(jtbSprDetail);
-		jspSprDetail.setToolTipText("Supplier's detail");
-		jspSprDetail.setBounds(10, 185, 364, 92);
-		contentPanel.add(jspSprDetail);
+		jtbPdtList = new JTable(modelPdtList);
+		jtbPdtList.setPreferredScrollableViewportSize(new Dimension(364, 197));
+		JScrollPane jspPdtList = new JScrollPane();
+		jspPdtList.setBounds(10, 312, 364, 216);
+		contentPanel.add(jspPdtList);
 
+		jspPdtList.setViewportView(jtbPdtList);
+		jtbPdtList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	}
+
+	/**
+	 * init the test field for enter supplier's name.
+	 */
+	private void initTextField() {
+		// text field
+		jtfSupplierName = new JTextField();
+		// update the list every time when text changed
+		jtfSupplierName.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent ev) {
+				update();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent ev) {
+				update();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent ev) {
+				update();
+			}
+
+			private void update() {
+				ArrayList<Supplier> filteredList = new ArrayList<Supplier>();
+				for (int i = listModel.getSize(); i > 0; i--) {
+					((DefaultListModel<String>) listModel).remove(i - 1);
+				}
+				for (Supplier s : supplierList) {
+					if (s.getName().contains(jtfSupplierName.getText())) {
+						filteredList.add(s);
+					}
+				}
+				if (!filteredList.isEmpty()) {
+					for (Supplier s : filteredList) {
+						((DefaultListModel<String>) listModel).addElement(s.getName());
+					}
+				}
+			}
+		});
+		jtfSupplierName.setBounds(121, 7, 253, 21);
+		contentPanel.add(jtfSupplierName);
+
+		JLabel lblProductsList = new JLabel("Products list : ");
+		lblProductsList.setBounds(10, 287, 200, 15);
+		contentPanel.add(lblProductsList);
+	}
+
+	/**
+	 * init the list of supplier.
+	 */
+	private void initSupplierList() {
 		// list
 		listModel = new DefaultListModel<String>();
 		JScrollPane listScroller = new JScrollPane();
@@ -573,95 +671,47 @@ class SearchSupplier extends JDialog {
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL);
 		list.setVisibleRowCount(10);
+	}
 
-		// text field
-		jtfSupplierName = new JTextField();
-		// update the list every time when text changed
-		jtfSupplierName.getDocument().addDocumentListener(new DocumentListener() {
+	/**
+	 * init supplier's detail table.
+	 */
+	private void initSupplierTable() {
+		JLabel lblSupplierName = new JLabel("Supplier name : ");
+		lblSupplierName.setBounds(10, 10, 200, 15);
+		contentPanel.add(lblSupplierName);
 
-			@Override
-			public void removeUpdate(DocumentEvent ev) {
-				update();
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent ev) {
-				update();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent ev) {
-				update();
-			}
-
-			private void update() {
-				ArrayList<Supplier> filteredList = new ArrayList<Supplier>();
-				for (int i = listModel.getSize(); i > 0; i--) {
-					((DefaultListModel<String>) listModel).remove(i - 1);
-				}
-				for (Supplier s : supplierList) {
-					if (s.getName().contains(jtfSupplierName.getText())) {
-						filteredList.add(s);
-					}
-				}
-				if (!filteredList.isEmpty()) {
-					for (Supplier s : filteredList) {
-						((DefaultListModel<String>) listModel).addElement(s.getName());
-					}
-				}
-			}
-		});
-		jtfSupplierName.setBounds(121, 7, 253, 21);
-		contentPanel.add(jtfSupplierName);
-
-		JLabel lblProductsList = new JLabel("Products list : ");
-		lblProductsList.setBounds(10, 287, 200, 15);
-		contentPanel.add(lblProductsList);
-
-		// product list table
-		String[][][] datasPdtList = {};
-		String[] titlesPdtList = { "ID", "Name", "Price" };
-		modelPdtList = new DefaultTableModel(datasPdtList, titlesPdtList) {
+		// sprDetail table
+		String[][] datasSprDetail = {};
+		String[] titles = { "Key", "Value" };
+		modelSprDetail = new DefaultTableModel(datasSprDetail, titles) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 
-		jtbPdtList = new JTable(modelPdtList);
-		jtbPdtList.setPreferredScrollableViewportSize(new Dimension(364, 197));
-		JScrollPane jspPdtList = new JScrollPane();
-		jspPdtList.setBounds(10, 312, 364, 216);
-		contentPanel.add(jspPdtList);
+		jtbSprDetail = new JTable(modelSprDetail);
+		jtbSprDetail.setPreferredScrollableViewportSize(new Dimension(364, 197));
+		jtbSprDetail.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		jtbSprDetail.setCellSelectionEnabled(false);
+		JScrollPane jspSprDetail = new JScrollPane(jtbSprDetail);
+		jspSprDetail.setToolTipText("Supplier's detail");
+		jspSprDetail.setBounds(10, 185, 364, 92);
+		contentPanel.add(jspSprDetail);
+	}
 
-		jspPdtList.setViewportView(jtbPdtList);
-		jtbPdtList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			/*
-			 * { JButton okButton = new JButton("OK");
-			 * okButton.addActionListener(new ActionListener() { public void
-			 * actionPerformed(ActionEvent e) { } });
-			 * okButton.setActionCommand("OK"); buttonPane.add(okButton);
-			 * getRootPane().setDefaultButton(okButton); }
-			 */
-			{
-				JButton backButton = new JButton("Back");
-				backButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent ev) {
-						dispose();
-					}
-				});
-				backButton.setActionCommand("Cancel");
-				buttonPane.add(backButton);
-			}
+	/**
+	 * Main method for testing.
+	 * 
+	 * @param args
+	 *            for main
+	 */
+	public static void main(String[] args) {
+		try {
+			SearchSupplier dialog = new SearchSupplier(null, true);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.setVisible(true);
 	}
 }

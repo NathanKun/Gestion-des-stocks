@@ -238,6 +238,39 @@ public class OrderGui extends JFrame implements ActionListener {
 	}
 
 	/**
+	 * Search order.
+	 */
+	private void searchButtonOnClick() {
+		// clear the table first
+		for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
+			tableModel.removeRow(i);
+		}
+		// add new data
+		OrderDAO dao = new OrderDAO();
+		ArrayList<Order> list = dao.getOrderList();
+		for (Order order : list) {
+			Object[] objects = { order.getId(), order.getClientName(), order.getDate(), order.getPriceDiscount() };
+			tableModel.addRow(objects);
+		}
+	}
+	
+	private void cancelButtonOnClick(){
+		if (seletedOrderId != 0) {
+			if (JOptionPane.showConfirmDialog(null,
+					"Do you really want to Cancel this order?\nIt means DELETE this order from our database and it can not redo!",
+					"Comfirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+				// y for 0, n for 1
+				new OrderDAO().deleteOrder(seletedOrderId);
+				this.searchButtonOnClick();
+			}
+		} else{
+			System.out.println("No seleted order");
+			JOptionPane.showConfirmDialog(null, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	/**
 	 * main methode of class, use for testing
 	 * 
 	 * @param args
@@ -252,19 +285,13 @@ public class OrderGui extends JFrame implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// TODO other buttons on click
-		// return button on click
 		if (ae.getSource() == jbReturn) {
+			// return button on click
 			new MainGui(user);
 			dispose();
 		} else if (ae.getSource() == jbSearch) {
 			// search order button on click
-			OrderDAO dao = new OrderDAO();
-			ArrayList<Order> list = dao.getOrderList();
-			for (Order order : list) {
-				Object[] objects = { order.getId(), order.getClientName(), order.getDate(), order.getPriceDiscount() };
-				tableModel.addRow(objects);
-			}
+			this.searchButtonOnClick();
 		} else if (ae.getSource() == jbNew) {
 			// new order button on click
 			new OrderDialog(this, true, null);
@@ -273,7 +300,7 @@ public class OrderGui extends JFrame implements ActionListener {
 			showEditOrderDialog();
 		} else if (ae.getSource() == jbCancel) {
 			// cancel order button on click
-
+			cancelButtonOnClick();
 		} else if (ae.getSource() == jbCalendar) {
 
 		}

@@ -4,7 +4,6 @@ import src.gds.Product;
 
 import java.util.ArrayList;
 
-
 //import projetDeveloppementLogiciel.Product;
 /**
  * class ProductDAO
@@ -12,7 +11,7 @@ import java.util.ArrayList;
  * @author Junior FOTSING KENGNE - HE Junyang
  * @version 1.0
  */
-public class ProductDAO extends DAO {
+final public class ProductDAO extends DAO {
 
 	/**
 	 * add product in the date base.
@@ -65,7 +64,9 @@ public class ProductDAO extends DAO {
 
 	/**
 	 * Main method for testing.
-	 * @param args for main
+	 * 
+	 * @param args
+	 *            for main
 	 */
 	public static void main(String[] args) {
 		ProductDAO dao = new ProductDAO();

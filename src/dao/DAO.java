@@ -63,7 +63,7 @@ abstract class DAO {
 		// connection to the data base
 		try {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-
+			ps = con.prepareStatement(sql);
 			switch (type) {
 			case "User":
 				ps.setString(1, (String) item);
@@ -73,6 +73,11 @@ abstract class DAO {
 				SupplierProductPrice param = (SupplierProductPrice) item;
 				ps.setLong(1, param.getSprId());
 				ps.setLong(2, param.getPdtId());
+				break;
+
+			case "BestPrice":
+				ps.setLong(1, (long) item);
+				ps.setLong(2, (long) item);
 				break;
 
 			default:
@@ -110,10 +115,10 @@ abstract class DAO {
 					retour = new SupplierProductPrice(rs.getLong("spl_spr_id"), rs.getLong("spl_pdt_id"),
 							rs.getDouble("spl_pdt_price"));
 					break;
-					
+
 				case "BestPrice":
 					retour = new SupplierProductPrice(rs.getLong("spl_spr_id"), rs.getLong("spl_pdt_id"),
-							rs.getDouble("MIN(spl_pdt_price)"));
+							rs.getDouble("spl_pdt_price"));
 					break;
 
 				default:

@@ -4,6 +4,7 @@ import src.gds.Order;
 import src.gds.User;
 import src.util.MouseTracker;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,164 +28,195 @@ import javax.swing.JPanel;
 public class MainGui extends JFrame implements ActionListener {
 
 	/**
-	 * main content panel
+	 * main content panel.
 	 */
-	private JPanel jp_main = new JPanel();
+	private JPanel jpMain = new JPanel();
 	/**
-	 * background of main page
+	 * background of main page.
 	 */
-	private JLabel jl_bgMain = new JLabel();
+	private JLabel jlBgMain = new JLabel();
 	/**
-	 * button : link to order menu
+	 * button : link to order menu.
 	 */
-	private JButton jb_main_menuOrder = new JButton("Order");
+	private JButton jbMenuOrder = new JButton("Order");
 	/**
-	 * button : link to search menu
+	 * button : link to search menu.
 	 */
-	private JButton jb_main_menuSearch = new JButton("Search");
+	private JButton jbMainSearch = new JButton("Search");
 	/**
-	 * button : link to settle and shipment page
+	 * button : link to settle and shipment page.
 	 */
-	private JButton jb_main_settleShipment = new JButton("Settle & Shipment");
+	private JButton jbSettleShipment = new JButton("Settle & Shipment");
 	/**
-	 * button : link to login windows
+	 * button : link to login windows.
 	 */
-	private JButton jb_main_login = new JButton("Admin Login");
+	private JButton jbLogin = new JButton("Admin Login");
 	/**
-	 * button : User log out
+	 * button : User log out.
 	 */
-	private JButton jb_main_logout = new JButton("Logout");
+	private JButton jbLogout = new JButton("Logout");
 	/**
-	 * button : link to help page
+	 * button : link to help page.
 	 */
-	private JButton jb_main_help = new JButton("HELP");
+	private JButton jbHelp = new JButton("HELP");
 	/**
-	 * button : link to product management page
+	 * button : link to product management page.
 	 */
-	private JButton jb_main_productMng = new JButton("Product management");
+	private JButton jbProductMng = new JButton("Product management");
 	/**
-	 * button : link to supplier management page
+	 * button : link to supplier management page.
 	 */
-	private JButton jb_main_supplierMng = new JButton("Supplier management");
+	private JButton jbSupplierMng = new JButton("Supplier management");
 
 	/**
-	 * the user who logged in, null if nobody logged in
+	 * Lable : Espace Administrateur. Show after admin logged in
+	 */
+	private JLabel jlEspaceAdmin = new JLabel("Espace Administrateur");
+	/**
+	 * Lable : Welcome user_name. Show after admin logged in
+	 */
+	private JLabel jlWelcomeAdmin = new JLabel();
+
+	/**
+	 * the user who logged in, null if nobody logged in.
 	 */
 	private User user;
 
 	/**
-	 * font : big size, for big buttons in the main page
+	 * font : big size, for big buttons in the main page.
 	 */
 	private Font fontBig = new Font(null, 0, 18);
 
 	/**
-	 * Constructor of MainGui
+	 * Constructor of MainGui.
 	 * 
 	 * @param user
 	 *            the user who logged in, null if nobody logged in
 	 */
 	public MainGui(User user) {
 		this.user = user;
-		setupMain();
-		setupButtons();
+		initMain();
+		initButtons();
 		setupAdminsComponents();
 
 		// Find mouse's position
 		MouseTracker mt = new MouseTracker();
 		mt.setBounds(0, 0, 1024, 768);
 		mt.setOpaque(false);
-		jp_main.add(mt);
+		jpMain.add(mt);
 
 	}
 
 	/**
-	 * Initiate JFrame, setup main container, setup background
+	 * Initiate JFrame, setup main container, setup background.
 	 */
-	public void setupMain() {
+	public void initMain() {
 		this.setTitle("Gestion de stocks");
 		this.setSize(1024, 768);
 		this.setLocationRelativeTo(null);
-		this.setLayout(null);
+		getContentPane().setLayout(null);
 		// confirmation when X on click
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent ev) {
 				if (JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Comfirm",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 					// y for 0, n for 1
 					System.exit(0);
+				}
 			}
 		});
 		// not resizable, components will use the absolute position
 		this.setResizable(false);
 		this.setVisible(true);
 
-		jp_main.setLayout(null);
-		jp_main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		jpMain.setLayout(null);
+		jpMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		// setup background
-		jl_bgMain.setIcon(new ImageIcon("data\\bg_main.png"));
-		jl_bgMain.setBounds(0, 0, 1024, 768);
-		this.getLayeredPane().add(jl_bgMain, new Integer(Integer.MIN_VALUE));
-		jp_main = (JPanel) this.getContentPane();
-		jp_main.setOpaque(false);
+		jlBgMain.setIcon(new ImageIcon("data\\bg_main.jpg"));
+		jlBgMain.setBounds(0, 0, 1024, 768);
+		this.getLayeredPane().add(jlBgMain, new Integer(Integer.MIN_VALUE));
+		jpMain = (JPanel) this.getContentPane();
+		jpMain.setOpaque(false);
 
 	}
 
 	/**
-	 * setup the buttons
+	 * Init the buttons.
 	 */
-	public void setupButtons() {
-		jb_main_menuOrder.setBounds(700, 180, 250, 50);
-		jb_main_menuSearch.setBounds(700, 240, 250, 50);
-		jb_main_settleShipment.setBounds(700, 300, 250, 50);
-		jb_main_login.setBounds(60, 640, 150, 60);
-		jb_main_logout.setBounds(60, 640, 150, 60);
-		jb_main_help.setBounds(850, 600, 100, 100);
-		jb_main_productMng.setBounds(387, 500, 250, 50);
-		jb_main_supplierMng.setBounds(387, 600, 250, 50);
+	public void initButtons() {
+		jbMenuOrder.setBounds(700, 240, 250, 50);
+		jbMainSearch.setBounds(700, 300, 250, 50);
+		jbSettleShipment.setBounds(700, 360, 250, 50);
+		jbLogin.setBounds(60, 640, 150, 60);
+		jbLogout.setBounds(60, 640, 150, 60);
+		jbHelp.setBounds(850, 600, 100, 100);
+		jbProductMng.setBounds(387, 500, 250, 50);
+		jbSupplierMng.setBounds(387, 600, 250, 50);
 
-		jb_main_menuOrder.setFont(fontBig);
-		jb_main_settleShipment.setFont(fontBig);
-		jb_main_menuSearch.setFont(fontBig);
-		jb_main_login.setFont(fontBig);
-		jb_main_logout.setFont(fontBig);
-		jb_main_help.setFont(fontBig);
-		jb_main_productMng.setFont(fontBig);
-		jb_main_supplierMng.setFont(fontBig);
+		jbMenuOrder.setFont(fontBig);
+		jbSettleShipment.setFont(fontBig);
+		jbMainSearch.setFont(fontBig);
+		jbLogin.setFont(fontBig);
+		jbLogout.setFont(fontBig);
+		jbHelp.setFont(fontBig);
+		jbProductMng.setFont(fontBig);
+		jbSupplierMng.setFont(fontBig);
 
-		jp_main.add(jb_main_menuOrder);
-		jp_main.add(jb_main_menuSearch);
-		jp_main.add(jb_main_settleShipment);
-		jp_main.add(jb_main_login);
-		jp_main.add(jb_main_logout);
-		jp_main.add(jb_main_help);
-		jp_main.add(jb_main_productMng);
-		jp_main.add(jb_main_supplierMng);
+		jpMain.add(jbMenuOrder);
+		jpMain.add(jbMainSearch);
+		jpMain.add(jbSettleShipment);
+		jpMain.add(jbLogin);
+		jpMain.add(jbLogout);
+		jpMain.add(jbHelp);
+		jpMain.add(jbProductMng);
+		jpMain.add(jbSupplierMng);
 
-		jb_main_menuOrder.addActionListener(this);
-		jb_main_settleShipment.addActionListener(this);
-		jb_main_menuSearch.addActionListener(this);
-		jb_main_login.addActionListener(this);
-		jb_main_logout.addActionListener(this);
-		jb_main_help.addActionListener(this);
-		jb_main_productMng.addActionListener(this);
-		jb_main_supplierMng.addActionListener(this);
+		jbMenuOrder.addActionListener(this);
+		jbSettleShipment.addActionListener(this);
+		jbMainSearch.addActionListener(this);
+		jbLogin.addActionListener(this);
+		jbLogout.addActionListener(this);
+		jbHelp.addActionListener(this);
+		jbProductMng.addActionListener(this);
+		jbSupplierMng.addActionListener(this);
 	}
 
 	/**
-	 * Divisible the buttons for admin if no admin logged in
+	 * init admin labels.
+	 */
+	private void initAdminLabels() {
+		jlWelcomeAdmin.setText("Welcome " + user.getName());
+		jlEspaceAdmin.setBounds(345, 430, 400, 30);
+		jlWelcomeAdmin.setBounds(120, 125, 500, 30);
+		Font font = new Font(null, Font.BOLD, 30);
+		jlEspaceAdmin.setFont(font);
+		jlWelcomeAdmin.setFont(font);
+		jlEspaceAdmin.setForeground(Color.WHITE);
+		jlWelcomeAdmin.setForeground(Color.WHITE);
+		this.add(jlEspaceAdmin);
+		this.add(jlWelcomeAdmin);
+	}
+
+	/**
+	 * set visibility of the buttons after login and logout.
 	 */
 	public void setupAdminsComponents() {
 		if (this.user == null) {
-			jb_main_productMng.setVisible(false);
-			jb_main_supplierMng.setVisible(false);
-			jb_main_login.setVisible(true);
-			jb_main_logout.setVisible(false);
+			jbProductMng.setVisible(false);
+			jbSupplierMng.setVisible(false);
+			jbLogin.setVisible(true);
+			jbLogout.setVisible(false);
+			jlEspaceAdmin.setVisible(false);
+			jlWelcomeAdmin.setVisible(false);
 		} else {
-			jb_main_productMng.setVisible(true);
-			jb_main_supplierMng.setVisible(true);
-			jb_main_login.setVisible(false);
-			jb_main_logout.setVisible(true);
+			jbProductMng.setVisible(true);
+			jbSupplierMng.setVisible(true);
+			jbLogin.setVisible(false);
+			jbLogout.setVisible(true);
+			initAdminLabels();
+			jlEspaceAdmin.setVisible(true);
+			jlWelcomeAdmin.setVisible(true);
 		}
 	}
 
@@ -193,51 +225,44 @@ public class MainGui extends JFrame implements ActionListener {
 	 * actions perform after a button on click
 	 */
 	public void actionPerformed(ActionEvent ae) {
-		// TODO action for buttons
 		// help button on click
-		if (ae.getSource() == jb_main_help) {
-
-		}
-		// admin login button on click
-		else if (ae.getSource() == jb_main_login) {
+		if (ae.getSource() == jbHelp) {
+			// help button on click
+		} else if (ae.getSource() == jbLogin) {
+			// admin login button on click
 			new LoginGui();
 			dispose();
-		}
-		// logout button on click
-		else if (ae.getSource() == jb_main_logout) {
+		} else if (ae.getSource() == jbLogout) {
+			// logout button on click
 			this.user = null;
 			setupAdminsComponents();
-		}
-		// order button on click
-		else if (ae.getSource() == jb_main_menuOrder) {
+		} else if (ae.getSource() == jbMenuOrder) {
+			// order button on click
 			new OrderGui(user);
 			dispose();
-		}
-		// search button on click
-		else if (ae.getSource() == jb_main_menuSearch) {
+		} else if (ae.getSource() == jbMainSearch) {
+			// search button on click
 			new SearchGui(this.user);
 			dispose();
-		}
-		// settle&shipment button on click
-		else if (ae.getSource() == jb_main_settleShipment) {
+		} else if (ae.getSource() == jbSettleShipment) {
+			// settle&shipment button on click
 
-		}
-		// product management button on click
-		else if (ae.getSource() == jb_main_productMng) {
+		} else if (ae.getSource() == jbProductMng) {
+			// product management button on click
 
-		}
-		// supplier management button on click
-		else if (ae.getSource() == jb_main_supplierMng) {
+		} else if (ae.getSource() == jbSupplierMng) {
+			// supplier management button on click
 
 		}
 	}
 
 	/**
-	 * main methode of MainGui, for test
+	 * main methode of MainGui, for test.
 	 * 
 	 * @param args
 	 *            for main
 	 */
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		MainGui mainGui = new MainGui(null);
 	}

@@ -105,7 +105,7 @@ public class Order {
 	 * productIdList setter
 	 * @param productIdList new product Id List
 	 */
-	public void setProductIdList(ArrayList<OrderProduct> productIdList) {
+	public void setProductList(ArrayList<OrderProduct> productIdList) {
 		this.productList = productIdList;
 	}
 	/**
@@ -133,7 +133,7 @@ public class Order {
 	 * priceDiscount setter
 	 * @param priceDiscount - contain the new order discount value
 	 */
-	public void setPriceDiscount(int priceDiscount) {
+	public void setPriceDiscount(double priceDiscount) {
 		this.priceDiscount = priceDiscount;
 	}
 	/**
