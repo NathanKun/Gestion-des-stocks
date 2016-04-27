@@ -16,6 +16,7 @@ public class Product {
 	private String name;
 	/**
 	 * containt product price
+	 * hj
 	 */
 	private double price;
 	/**
