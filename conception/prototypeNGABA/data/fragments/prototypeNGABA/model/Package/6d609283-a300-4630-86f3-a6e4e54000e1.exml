@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="prototypengaba" version="4">
+  <OBJECT>
+    <ID name="prototypengaba" mc="Standard.Package" uid="6d609283-a300-4630-86f3-a6e4e54000e1"/>
+    <PID name="prototypeNGABA" mc="Standard.Project" uid="926818e1-0ccd-48c9-8812-f80ac0b382cd"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[prototypengaba]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Product">
+        <COMPID name="overview diagram" mc="Standard.ClassDiagram" uid="bd0f3102-9051-45ff-bd4e-9a8e901b7450"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="prototypeNGABA" version="4">
+  <OBJECT>
+    <ID name="prototypeNGABA" mc="Standard.AnalystProject" uid="37bb7be1-fded-4e98-a90f-e7e9526071e8"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[prototypeNGABA]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="PropertyRoot">
+        <COMPID name="prototypeNGABA" mc="Standard.PropertyContainer" uid="751f75e7-2257-4d53-9180-70274e4503bc"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
