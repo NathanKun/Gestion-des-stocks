@@ -116,10 +116,36 @@ INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 8, 33.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 9, 333.3);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 4, 10, 4.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 4, 11, 55555.10);
-
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 1, 5, 1.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 3, 5, 22.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.nextval, 4, 5, 444.10);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.NEXTVAL, 5, 5, 0.55);
 INSERT INTO sprpdtlist_spl VALUES (splid_seq.nextval, 6, 5, 66666666);
+
+--Insert order and odrpdtlist_opl
+INSERT INTO order_odr VALUES (odrid_seq.nextval, 165.01, 82.5, 0, 'client A', SYSDATE);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 1, 1, 1);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 1, 2, 2);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 1, 3, 3);
+
+INSERT INTO order_odr VALUES (odrid_seq.nextval, 380.63, 190.31, 1, 'client B', SYSDATE);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 2, 3, 1);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 2, 2, 2);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 2, 1, 3);
+
+INSERT INTO order_odr VALUES (odrid_seq.nextval, 70000255, 56000204, 0, 'client 3', SYSDATE);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 3, 5, 6);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 3, 9, 7);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 3, 12, 1);
+
+INSERT INTO order_odr VALUES (odrid_seq.nextval, 10008397, 500419.85, 0, 'client 4', SYSDATE);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 4, 10, 1);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 4, 9, 1);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 4, 8, 1);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 4, 7, 1);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 4, 6, 1);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 4, 5, 1);
+
+INSERT INTO order_odr VALUES (odrid_seq.nextval, 2, 1.98, 1, 'client FIVE', SYSDATE);
+INSERT INTO odrpdtlist_opl VALUES (oplid_seq.nextval, 5, 5, 1);
 
