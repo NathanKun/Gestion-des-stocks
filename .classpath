@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="DAO backup/|doc/|reports/|data/|conception/|lib/" kind="src" path=""/>
+	<classpathentry excluding="DAO backup/|doc/|reports/|conception/|lib/" kind="src" path=""/>
 	<classpathentry kind="lib" path="lib/ojdbc7_g.jar"/>
+	<classpathentry kind="lib" path="lib/swingx-all-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/swingx-all-1.6.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/swingx-all-1.6.4-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

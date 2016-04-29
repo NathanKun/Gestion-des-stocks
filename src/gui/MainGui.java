@@ -1,6 +1,5 @@
 package src.gui;
 
-import src.gds.Order;
 import src.gds.User;
 import src.util.MouseTracker;
 
@@ -133,7 +132,7 @@ public class MainGui extends JFrame implements ActionListener {
 		jpMain.setLayout(null);
 		jpMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		// setup background
-		jlBgMain.setIcon(new ImageIcon("data\\bg_main.jpg"));
+		jlBgMain.setIcon(new ImageIcon("data/bg_main.jpg"));
 		jlBgMain.setBounds(0, 0, 1024, 768);
 		this.getLayeredPane().add(jlBgMain, new Integer(Integer.MIN_VALUE));
 		jpMain = (JPanel) this.getContentPane();
