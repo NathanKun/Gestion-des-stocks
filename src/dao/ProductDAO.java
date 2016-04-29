@@ -20,6 +20,7 @@ final public class ProductDAO extends DAO {
 	 *            - product to add
 	 * @return the number of line add in the product list
 	 */
+	// TODO Should verify the product's name is unique
 	public int addProduct(Product product) {
 		return this.addLine("Product", product);
 	}

@@ -106,7 +106,7 @@ public class LoginGui extends JFrame implements ActionListener {
 		
 		jp.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		jlBgMain.setIcon(new ImageIcon("data\\bg_login.jpg"));
+		jlBgMain.setIcon(new ImageIcon("data/bg_login.jpg"));
 		jlBgMain.setBounds(461, 23, 323, 295);
 		jp.add(jlBgMain, new Integer(Integer.MIN_VALUE));
 
