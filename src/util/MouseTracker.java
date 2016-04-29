@@ -1,4 +1,4 @@
-package src.util;
+package util;
 
 import java.awt.Container;
 import java.awt.Dimension;

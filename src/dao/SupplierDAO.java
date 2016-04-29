@@ -1,8 +1,8 @@
-package src.dao;
+package dao;
 
-import src.gds.Product;
-import src.gds.Supplier;
-import src.gds.SupplierProductPrice;
+import gds.Product;
+import gds.Supplier;
+import gds.SupplierProductPrice;
 
 import java.util.ArrayList;
 import java.util.HashMap;

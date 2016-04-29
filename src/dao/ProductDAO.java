@@ -1,6 +1,6 @@
-package src.dao;
+package dao;
 
-import src.gds.Product;
+import gds.Product;
 
 import java.util.ArrayList;
 

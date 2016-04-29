@@ -1,4 +1,4 @@
-package src.prototype;
+package prototype;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,7 +31,7 @@ public class ProductDAO {
 		ResultSet rs = null;
 		List<Product> retour = new ArrayList<Product>();
 		ArrayList<Product>  list = new ArrayList<Product>();
-		// connexion a� la base de donnees
+		// connexion a锟� la base de donnees
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
@@ -85,13 +85,13 @@ public class ProductDAO {
 		PreparedStatement ps = null;
 		int retour = 0;
 
-		// connexion a� la base de donnees
+		// connexion a锟� la base de donnees
 		try {
 
 			// tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			// preparation de l'instruction SQL, chaque ? represente une valeur
-			// a� communiquer dans l'insertion
+			// a锟� communiquer dans l'insertion
 			// les getters permettent de recuperer les valeurs des attributs
 			// souhaites
 			ps = con.prepareStatement("DELETE FROM product_pdt WHERE pdt_id = ?");

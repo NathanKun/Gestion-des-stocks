@@ -1,4 +1,4 @@
-package src.gds;
+package gds;
 
 /**
  * class product, represents a product 

@@ -1,11 +1,11 @@
-package src.gui;
+package gui;
 
-import src.dao.OrderDAO;
-import src.dao.ProductDAO;
-import src.gds.Order;
-import src.gds.OrderProduct;
-import src.gds.Product;
-import src.util.Regex;
+import dao.OrderDAO;
+import dao.ProductDAO;
+import gds.Order;
+import gds.OrderProduct;
+import gds.Product;
+import util.Regex;
 
 import java.awt.Dimension;
 import java.awt.Frame;

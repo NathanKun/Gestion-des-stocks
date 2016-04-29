@@ -1,4 +1,4 @@
-package src.prototype;
+package prototype;
 import java.sql.Date;
 
 public class Product {

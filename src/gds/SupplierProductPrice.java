@@ -1,4 +1,4 @@
-package src.gds;
+package gds;
 
 public class SupplierProductPrice {
 	private long sprId;

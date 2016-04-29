@@ -1,4 +1,4 @@
-package src.gds;
+package gds;
 
 /**
  * User class, represents an user

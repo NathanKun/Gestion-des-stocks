@@ -1,6 +1,6 @@
-package src.dao;
+package dao;
 
-import src.gds.User;
+import gds.User;
 
 import java.util.List;
 
