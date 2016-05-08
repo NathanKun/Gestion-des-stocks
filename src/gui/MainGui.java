@@ -4,6 +4,7 @@ import gds.User;
 import gui.LoginGui;
 import gui.OrderGui;
 import gui.SearchGui;
+import util.FirstConnectDataBaseThread;
 import util.MouseTracker;
 
 import java.awt.Color;
@@ -265,26 +266,11 @@ public class MainGui extends JFrame implements ActionListener {
 					MainGui mainGui = new MainGui(null);
 					mainGui.setVisible(true);
 
-					FirstConnectDataBaseThread firstConnectDataBaseThread = new FirstConnectDataBaseThread();
-					firstConnectDataBaseThread.start();
+					new FirstConnectDataBaseThread().start();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 		});
-	}
-}
-
-/**
- * For some reason, first time the application connects to the data base, it
- * will stuck for a few second. This class will connect to the data base in the
- * backstage, so the GUI won't stuck anymore.
- * 
- * @author HE Junyang
- *
- */
-class FirstConnectDataBaseThread extends Thread {
-	public void run() {
-		new UserDAO().getUser("a");
 	}
 }

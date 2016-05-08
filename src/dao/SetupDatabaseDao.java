@@ -13,12 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.security.auth.login.FailedLoginException;
+
 public final class SetupDatabaseDao {
 
 	static String URL;
 	static String LOGIN;
 	static String PASS;
 
+	static final String fileDrop = "src/resources/drop.sql";
+	static final String fileCreate = "src/resources/create.sql";
+	static final String fileInsert = "src/resources/insert.sql";
+
+	/**
+	 * Constructor, load the JDBC driver.
+	 */
 	public SetupDatabaseDao() {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -28,6 +37,12 @@ public final class SetupDatabaseDao {
 		}
 	}
 
+	/**
+	 * Switch url, login and pass by user.
+	 * 
+	 * @param user
+	 *            user
+	 */
 	public static void switchStaticFields(String user) {
 		switch (user) {
 		case "Junyang":
@@ -74,6 +89,13 @@ public final class SetupDatabaseDao {
 		}
 	}
 
+	/**
+	 * Read the .sql file and separate the request one by one in a list.
+	 * 
+	 * @param fileName
+	 *            the name of the .sql file
+	 * @return the list with requests
+	 */
 	public static List<String> readSqlFile(String fileName) {
 		List<String> sqlList = new ArrayList<String>();
 		File myFile = new File(fileName);
@@ -88,43 +110,92 @@ public final class SetupDatabaseDao {
 				temp.append(str);
 			}
 			in.close();
-		} catch (Exception e) {
-			e.getStackTrace();
+		} catch (Exception ex) {
+			ex.getStackTrace();
 		}
-		String sqls[] = temp.toString().split(";");
+		String[] sqls = temp.toString().split(";");
 		for (String sql : sqls) {
 			sqlList.add(sql);
 		}
 		return sqlList;
 	}
 
-	public static void createTable() {
-
-		String content = null;
-		Scanner scanner = null;
-		int[] retour = null;
+	/**
+	 * Process one line of SQL code.
+	 * 
+	 * @param sql
+	 *            SQL code
+	 */
+	public static int updateOne(String sql) {
 		Connection con = null;
 		PreparedStatement ps = null;
+		int retour = 0;
 		try {
-			// scanner = new Scanner(new
-			// File("src/resources/create_table.sql"));
-			// content = scanner.useDelimiter("\\Z").next();
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			// ps = con.prepareStatement(content);
-			// retour = ps.executeUpdate();
-			List<String> sqlList = readSqlFile("src/resources/create_table.sql");
+			ps = con.prepareStatement(sql);
+			retour = ps.executeUpdate();
+		} catch (Exception ex) {
+			System.out.println("Failed : " + sql);
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return retour;
+	}
+
+	/**
+	 * Drop all tables and sequences of G.D.S.
+	 */
+	public static void dropAll() {
+		for (String sql : readSqlFile(fileDrop)) {
+			updateOne(sql);
+		}
+		System.out.println("Drop Finished.");
+	}
+
+	private static void batch(String fileName) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		List<String> sqlList = readSqlFile(fileName);
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			Statement smt = con.createStatement();
 
 			for (String sql : sqlList) {
 				smt.addBatch(sql);
 			}
-			retour = smt.executeBatch();
+			smt.executeBatch();
 
+			if (fileName.equals(fileCreate)) {
+				System.out.println("Create successfully");
+			} else if (fileName.equals(fileInsert)) {
+				System.out.println("Insert successfully");
+			} else {
+				System.out.println("Success, but what file is it?");
+			}
 		} catch (Exception ex) {
-			// TODO Auto-generated catch block
 			ex.printStackTrace();
+			if (fileName.equals(fileCreate)) {
+				System.out.println("Create failed");
+			} else if (fileName.equals(fileInsert)) {
+				System.out.println("Insert failed");
+			} else {
+				System.out.println("Failed, what file is it?");
+			}
 		} finally {
-//			scanner.close();
+			// scanner.close();
 			try {
 				if (ps != null) {
 					ps.close();
@@ -140,19 +211,33 @@ public final class SetupDatabaseDao {
 				System.out.println("closing problem");
 			}
 		}
-		// System.out.println(content);
-		for (int i = 0; i < retour.length; i++){
-			System.out.println(retour[i]);
-		}
 	}
 
+	/**
+	 * Create the tables in database.
+	 */
+	public static void createTable() {
+		batch(fileCreate);
+	}
+
+	/**
+	 * Insert data for testing in database.
+	 */
+	public static void insertData() {
+		batch(fileInsert);
+	}
+
+	/**
+	 * Main method for testing
+	 * 
+	 * @param args
+	 *            for main.
+	 */
 	public static void main(String[] args) {
-		 SetupDatabaseDao.switchStaticFields("Junyang");
-		 SetupDatabaseDao.createTable();
-		// List<String> list = readSqlFile("src/resources/create_table.sql");
-		// for (String str : list) {
-		// System.out.println(str);
-		// }
+		SetupDatabaseDao.switchStaticFields("Junyang");
+		SetupDatabaseDao.dropAll();
+		SetupDatabaseDao.createTable();
+		SetupDatabaseDao.insertData();
 	}
 
 }

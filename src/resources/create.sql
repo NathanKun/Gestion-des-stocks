@@ -1,15 +1,3 @@
-DROP TABLE odrpdtlist_opl;
-DROP TABLE sprpdtlist_spl;
-DROP TABLE order_odr;
-DROP TABLE product_pdt;
-DROP TABLE supplier_spr;
-DROP TABLE user_usr;
-DROP SEQUENCE sprid_seq;
-DROP SEQUENCE pdtid_seq;
-DROP SEQUENCE usrid_seq;
-DROP SEQUENCE odrid_seq;
-DROP SEQUENCE oplid_seq;
-DROP SEQUENCE splid_seq;
 CREATE SEQUENCE sprid_seq MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 5;
 CREATE SEQUENCE pdtid_seq MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 5;
 CREATE SEQUENCE usrid_seq MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 5;
@@ -56,5 +44,5 @@ CREATE TABLE sprpdtlist_spl (
     spl_pdt_price NUMBER(10,2) NOT NULL,
     CONSTRAINT fk_spl_sprid FOREIGN KEY (spl_spr_id) REFERENCES supplier_spr (spr_id) ON DELETE CASCADE,
     CONSTRAINT fk_spl_pdtid FOREIGN KEY (spl_pdt_id) REFERENCES product_pdt (pdt_id) ON DELETE CASCADE
-  
 );
+INSERT INTO user_usr VALUES ('a', 'a', 'tester');
