@@ -23,8 +23,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import dao.UserDAO;
+
 /**
- * graphical user interface of Main window
+ * graphical user interface of Main window.
  * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *
@@ -98,7 +100,6 @@ public class MainGui extends JFrame implements ActionListener {
 		initMain();
 		initButtons();
 		setupAdminsComponents();
-
 		// // Find mouse's position
 		// MouseTracker mt = new MouseTracker();
 		// mt.setBounds(0, 0, 1024, 768);
@@ -242,10 +243,12 @@ public class MainGui extends JFrame implements ActionListener {
 			dispose();
 		} else if (ae.getSource() == jbProductMng) {
 			// product management button on click
-
+			new ManageProductGui(this.user);
+			dispose();
 		} else if (ae.getSource() == jbSupplierMng) {
 			// supplier management button on click
-
+			new ManageSupplierGui(this.user);
+			dispose();
 		}
 	}
 
@@ -261,10 +264,27 @@ public class MainGui extends JFrame implements ActionListener {
 				try {
 					MainGui mainGui = new MainGui(null);
 					mainGui.setVisible(true);
+
+					FirstConnectDataBaseThread firstConnectDataBaseThread = new FirstConnectDataBaseThread();
+					firstConnectDataBaseThread.start();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 		});
+	}
+}
+
+/**
+ * For some reason, first time the application connects to the data base, it
+ * will stuck for a few second. This class will connect to the data base in the
+ * backstage, so the GUI won't stuck anymore.
+ * 
+ * @author HE Junyang
+ *
+ */
+class FirstConnectDataBaseThread extends Thread {
+	public void run() {
+		new UserDAO().getUser("a");
 	}
 }

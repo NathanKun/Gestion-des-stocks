@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sun.glass.ui.CommonDialogs.Type;
+
 /**
  * abstract class for DAO.
  * 
@@ -26,18 +28,17 @@ abstract class DAO {
 	 * constants.
 	 */
 
-//	 static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-//	 static final String LOGIN = "system";
-//	 static final String PASS = "bdd";
+	// static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	// static final String LOGIN = "system";
+	// static final String PASS = "bdd";
 
-//	 static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-//	 static final String LOGIN = "BDD5";
-//	 static final String PASS = "BDD5";
+	// static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	// static final String LOGIN = "BDD5";
+	// static final String PASS = "BDD5";
 
 	static final String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
 	static final String LOGIN = "c##nathankun";
 	static final String PASS = "83783548jun";
-
 
 	/**
 	 * Constructor.
@@ -48,11 +49,22 @@ abstract class DAO {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException exception) {
-			System.err.println("impossible to load the BDD pilot, please make sur you "
-					+ "have import thr .jar folder in the project");
+			System.err.println("impossible to load the database driver, please make sur you "
+					+ "have import the .jar file in the project");
 		}
 	}
 
+	/**
+	 * get an object from the data base.
+	 * 
+	 * @param type
+	 *            the type of object
+	 * @param sql
+	 *            the SQL code
+	 * @param item
+	 *            the parameter
+	 * @return the object got from data base
+	 */
 	@SuppressWarnings("unchecked")
 	protected Object getOne(String type, String sql, Object item) {
 		Object retour = null;
@@ -157,6 +169,19 @@ abstract class DAO {
 		return retour;
 	}
 
+	/**
+	 * get a list of a type of object.
+	 * 
+	 * @param type
+	 *            the type of object
+	 * @param sql
+	 *            SQL code
+	 * @param parameterNumber
+	 *            numbers of parameter
+	 * @param id
+	 *            the parameter
+	 * @return A list of object
+	 */
 	@SuppressWarnings("unchecked")
 	protected Object getList(String type, String sql, int parameterNumber, long id) {
 		HashMap<Long, Double> returnMap = new HashMap<Long, Double>();
@@ -194,20 +219,20 @@ abstract class DAO {
 
 			case "Order":
 				while (rs.next()) {
-					long odr_id = rs.getLong("odr_id");
+					long odrId = rs.getLong("odr_id");
 					ArrayList<OrderProduct> pdtList = (ArrayList<OrderProduct>) this.getList("opl",
-							"SELECT * FROM odrpdtlist_opl WHERE opl_odr_id = ?", 1, odr_id);
+							"SELECT * FROM odrpdtlist_opl WHERE opl_odr_id = ?", 1, odrId);
 					Boolean isPaid = rs.getInt("odr_ispaid") == 1 ? true : false;
-					returnList.add(new Order(odr_id, rs.getDouble("odr_price"), rs.getDouble("odr_pricedis"),
+					returnList.add(new Order(odrId, rs.getDouble("odr_price"), rs.getDouble("odr_pricedis"),
 							rs.getString("odr_clientname"), isPaid, rs.getDate("odr_date"), pdtList));
 				}
 				break;
 
 			case "Supplier":
 				while (rs.next()) {
-					long spr_id = rs.getLong("spr_id");
-					returnList.add(new Supplier(spr_id, rs.getString("spr_name"), (HashMap<Long, Double>) this
-							.getList("spl", "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?", 1, spr_id)));
+					long sprId = rs.getLong("spr_id");
+					returnList.add(new Supplier(sprId, rs.getString("spr_name"), (HashMap<Long, Double>) this
+							.getList("spl", "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?", 1, sprId)));
 					// System.out.println("Supplier List 0: " +
 					// returnList.get(0).toString());
 				}
@@ -239,18 +264,21 @@ abstract class DAO {
 					rs.close();
 				}
 			} catch (Exception ignore) {
+				System.out.println("closing problem");
 			}
 			try {
 				if (ps != null) {
 					ps.close();
 				}
 			} catch (Exception ignore) {
+				System.out.println("closing problem");
 			}
 			try {
 				if (con != null) {
 					con.close();
 				}
 			} catch (Exception ignore) {
+				System.out.println("closing problem");
 			}
 		}
 
@@ -262,9 +290,19 @@ abstract class DAO {
 		}
 	}
 
+	/**
+	 * Add a line in data base.
+	 * 
+	 * @param type
+	 *            type of object
+	 * @param item
+	 *            the object
+	 * @return numbers of line added.
+	 */
 	protected int addLine(String type, Object item) {
 		Connection con = null;
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		int retour = 0;
 		// connection to date base
 		try {
@@ -281,40 +319,54 @@ abstract class DAO {
 
 			case "Product":
 				Product product = (Product) item;
-				ps = con.prepareStatement(
-						"INSERT INTO product_pdt (pdt_id, pdt_name, pdt_stock) VALUES(pdtid_seq.NEXTVAL,?,?)");
-				ps.setString(1, product.getName());
-				ps.setInt(2, product.getStock());
+				ps = con.prepareStatement("INSERT INTO product_pdt (pdt_id, pdt_name, pdt_stock) VALUES(?,?,?)");
+				ps.setLong(1, product.getId());
+				ps.setString(2, product.getName());
+				ps.setInt(3, product.getStock());
 				break;
 
 			case "Supplier":
 				Supplier supplier = (Supplier) item;
-				ps = con.prepareStatement("INSERT INTO supplier_spr (spr_id, spr_name) VALUES(sprid_seq.NEXTVAL,?)");
-				ps.setString(1, supplier.getName());
+				ps = con.prepareStatement("INSERT INTO supplier_spr (spr_id, spr_name) VALUES(?,?)");
+				ps.setLong(1, supplier.getId());
+				ps.setString(2, supplier.getName());
 				break;
 
 			case "Order":
 				Order order = (Order) item;
-				ps = con.prepareStatement("INSERT INTO order_odr VALUES (odrid_seq.NEXTVAL, ?, ?, ?, ?, ?)");
-				ps.setDouble(1, order.getPrice());
-				ps.setDouble(2, order.getPriceDiscount());
+				ps = con.prepareStatement("INSERT INTO order_odr VALUES (?, ?, ?, ?, ?, ?)");
+				ps.setDouble(1, order.getId());
+				ps.setDouble(2, order.getPrice());
+				ps.setDouble(3, order.getPriceDiscount());
 				if (order.getIsPaid()) {
-					ps.setInt(3, 1);
+					ps.setInt(4, 1);
 				} else {
-					ps.setInt(3, 0);
+					ps.setInt(4, 0);
 				}
-				ps.setString(4, order.getClientName());
-				ps.setDate(5, order.getDate());
+				ps.setString(5, order.getClientName());
+				ps.setDate(6, order.getDate());
 				break;
 
 			case "spl":
 				double[] param = (double[]) item;
 				ps = con.prepareStatement(
-						"INSERT INTO sprpdtlist_spl (spl_id, spl_spr_id, spl_pdt_id, spl_pdt_price) VALUES(splid_seq.NEXTVAL,?,?,?)");
-				// ps.setLong(1, idGenerator_Sprpdtlist_spl());
+						"SELECT COUNT(*) FROM sprpdtlist_spl WHERE spl_spr_id = ? AND spl_pdt_id = ?");
 				ps.setLong(1, (long) param[0]);
 				ps.setLong(2, (long) param[1]);
-				ps.setDouble(3, param[2]);
+				rs = ps.executeQuery();
+				rs.next();
+				if (rs.getInt(1) == 0) {
+					ps.close();
+					ps = con.prepareStatement(
+							"INSERT INTO sprpdtlist_spl (spl_id, spl_spr_id, spl_pdt_id, spl_pdt_price) VALUES(splid_seq.NEXTVAL,?,?,?)");
+					// ps.setLong(1, idGenerator_Sprpdtlist_spl());
+					ps.setLong(1, (long) param[0]);
+					ps.setLong(2, (long) param[1]);
+					ps.setDouble(3, param[2]);
+				} else {
+					con.close();
+					return 0;
+				}
 				break;
 
 			case "opl":
@@ -341,20 +393,29 @@ abstract class DAO {
 				if (ps != null) {
 					ps.close();
 				}
-			} catch (Exception ignore) {
+			} catch (Exception ex) {
 				System.out.println("closing problem");
 			}
 			try {
 				if (con != null) {
 					con.close();
 				}
-			} catch (Exception ignore) {
+			} catch (Exception ex) {
 				System.out.println("closing problem");
 			}
 		}
 		return retour;
 	}
 
+	/**
+	 * Delete a line in database.
+	 * 
+	 * @param type
+	 *            type of object
+	 * @param item
+	 *            the object
+	 * @return numbers of line deleted
+	 */
 	protected int deleteLine(String type, Object item) {
 
 		Connection con = null;
@@ -404,19 +465,21 @@ abstract class DAO {
 			}
 			// excecution of the requiere
 			retour = ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		} finally {
 			// close preparedStatement and connexion
 			try {
-				if (ps != null)
+				if (ps != null) {
 					ps.close();
+				}
 			} catch (Exception ignore) {
 				System.out.println("closing problem");
 			}
 			try {
-				if (con != null)
+				if (con != null) {
 					con.close();
+				}
 			} catch (Exception ignore) {
 				System.out.println("closing problem");
 			}
@@ -424,6 +487,15 @@ abstract class DAO {
 		return retour;
 	}
 
+	/**
+	 * Update a line in database.
+	 * 
+	 * @param type
+	 *            type of object
+	 * @param item
+	 *            the object
+	 * @return numbers of line updated
+	 */
 	protected int updateLine(String type, Object item) {
 
 		Connection con = null;
@@ -448,7 +520,13 @@ abstract class DAO {
 						"UPDATE product_pdt SET pdt_name = ?, pdt_stock = ?, pdt_spr = ?, pdt_price = ? WHERE pdt_id = ?");
 				ps.setString(1, product.getName());
 				ps.setInt(2, product.getStock());
-				ps.setLong(3, product.getSupplierId());
+
+				long pdtSpr = product.getSupplierId();
+				if (pdtSpr == 0) {
+					ps.setNull(3, java.sql.Types.INTEGER);
+				} else {
+					ps.setLong(3, pdtSpr);
+				}
 				ps.setDouble(4, product.getPrice());
 				ps.setLong(5, product.getId());
 				break;
@@ -502,12 +580,12 @@ abstract class DAO {
 				break;
 			}
 
-			// excecution of the requiere
+			// Execution of the require
 			retour = ps.executeUpdate();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			// close preparedStatement and connexion
+			// close preparedStatement and connection
 			try {
 				if (ps != null) {
 					ps.close();
@@ -524,5 +602,65 @@ abstract class DAO {
 			}
 		}
 		return retour;
+	}
+
+	protected static long nextId(String type) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		long retour = 0;
+		// connection to date base
+		try {
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			switch (type) {
+			case "Order":
+				ps = con.prepareStatement("SELECT odrid_seq.NEXTVAL FROM dual");
+				break;
+
+			case "opl":
+				ps = con.prepareStatement("SELECT oplid_seq.NEXTVAL FROM dual");
+				break;
+
+			case "Supplier":
+				ps = con.prepareStatement("SELECT sprid_seq.NEXTVAL FROM dual");
+				break;
+
+			case "spl":
+				ps = con.prepareStatement("SELECT splid_seq.NEXTVAL FROM dual");
+				break;
+
+			case "Product":
+				ps = con.prepareStatement("SELECT pdtid_seq.NEXTVAL FROM dual");
+				break;
+
+			default:
+				break;
+			}
+
+			// excecution of the requiere
+			rs = ps.executeQuery();
+			// recuperation of number
+			rs.next();
+			retour = rs.getLong(1);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// close preparedStatement and connection
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+			try {
+				if (con != null) {
+					con.close();
+				}
+			} catch (Exception ignore) {
+				System.out.println("closing problem");
+			}
+		}
+		return (retour + 1);
 	}
 }

@@ -1,8 +1,12 @@
 package gui;
 
 import dao.OrderDAO;
+import dao.ProductDAO;
 import gds.Order;
+import gds.OrderProduct;
+import gds.Product;
 import gds.User;
+import util.Regex;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -22,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -71,7 +76,7 @@ public class OrderGui extends JFrame implements ActionListener {
 	/**
 	 * Button : Link to replenishment.
 	 */
-	private JButton jbReplenishment = new JButton("Replenishment");
+	private JButton jbReplenish = new JButton("Replenish");
 	/**
 	 * Button : Settle an order.
 	 */
@@ -159,21 +164,21 @@ public class OrderGui extends JFrame implements ActionListener {
 	 * init buttons.
 	 */
 	public void initButtons() {
-		jbNew.setBounds(780, 350, 200, 50);
-		jbEdit.setBounds(780, 450, 200, 50);
-		jbCancel.setBounds(780, 650, 200, 50);
-		jbDisplayAllOrder.setBounds(780, 250, 200, 50);
-		jbCalendar.setBounds(780, 50, 200, 50);
-		jbReplenishment.setBounds(780, 150, 200, 50);
+		jbNew.setBounds(780, 250, 200, 50);
+		jbEdit.setBounds(780, 350, 200, 50);
+		jbCancel.setBounds(780, 550, 200, 50);
+		jbDisplayAllOrder.setBounds(780, 150, 200, 50);
+		jbCalendar.setBounds(805, 50, 150, 50);
+		jbReplenish.setBounds(805, 650, 150, 50);
 		jbReturn.setBounds(50, 600, 100, 100);
-		jbSettle.setBounds(780, 550, 200, 50);
+		jbSettle.setBounds(780, 450, 200, 50);
 
 		jbNew.setFont(fontBig);
 		jbEdit.setFont(fontBig);
 		jbCancel.setFont(fontBig);
 		jbDisplayAllOrder.setFont(fontBig);
 		jbCalendar.setFont(fontBig);
-		jbReplenishment.setFont(fontBig);
+		jbReplenish.setFont(fontBig);
 		jbReturn.setFont(fontBig);
 		jbSettle.setFont(fontBig);
 
@@ -182,7 +187,7 @@ public class OrderGui extends JFrame implements ActionListener {
 		jbCancel.addActionListener(this);
 		jbDisplayAllOrder.addActionListener(this);
 		jbCalendar.addActionListener(this);
-		jbReplenishment.addActionListener(this);
+		jbReplenish.addActionListener(this);
 		jbReturn.addActionListener(this);
 		jbSettle.addActionListener(this);
 
@@ -191,7 +196,7 @@ public class OrderGui extends JFrame implements ActionListener {
 		jpMain.add(jbCancel);
 		jpMain.add(jbDisplayAllOrder);
 		jpMain.add(jbCalendar);
-		jpMain.add(jbReplenishment);
+		jpMain.add(jbReplenish);
 		jpMain.add(jbReturn);
 		jpMain.add(jbSettle);
 
@@ -222,6 +227,15 @@ public class OrderGui extends JFrame implements ActionListener {
 		jtbOrderList.setCellSelectionEnabled(false);
 
 		getContentPane().add(jbSettle);
+
+		JLabel lblThisIsFor = new JLabel("The Replenish button is for replenish manually.");
+		lblThisIsFor.setBounds(256, 685, 316, 15);
+		getContentPane().add(lblThisIsFor);
+
+		JLabel lblTheSystemWill = new JLabel(
+				"Tips : The system will replenish automaticly when the stock of a product < 15.");
+		lblTheSystemWill.setBounds(256, 660, 514, 15);
+		getContentPane().add(lblTheSystemWill);
 
 		// get selected order's id when the order is seleted
 		ListSelectionModel cellSelectionModel = jtbOrderList.getSelectionModel();
@@ -274,7 +288,7 @@ public class OrderGui extends JFrame implements ActionListener {
 		ArrayList<Order> list = dao.getOrderList();
 		for (Order order : list) {
 			String str = order.getIsPaid() == true ? "Paid" : "Unpaid";
-			Object[] objects = { order.getId(), order.getClientName(), order.getDate(), order.getPriceDiscount(), str};
+			Object[] objects = { order.getId(), order.getClientName(), order.getDate(), order.getPriceDiscount(), str };
 			tableModel.addRow(objects);
 		}
 	}
@@ -302,29 +316,135 @@ public class OrderGui extends JFrame implements ActionListener {
 	 * settle the selected order.
 	 */
 	private void settleOrder() {
-		OrderDAO dao = new OrderDAO();
-		Order order = dao.getOrder(seletedOrderId);
-		if (!order.getIsPaid()) {
-			if (JOptionPane.showConfirmDialog(null, "Settle this order ?", "Comfirm", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE) == 0) {
-				// y for 0, n for 1
-				order.setIsPaid(true);
-				if (dao.updateOrder(order) == 1) {
-					JOptionPane.showConfirmDialog(null, "Done!", "Settle Order", JOptionPane.DEFAULT_OPTION,
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showConfirmDialog(null, "Something wrong. Look at the console.", "Oops",
-							JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					System.out.println(order);
+		if (seletedOrderId != 0) {
+			OrderDAO dao = new OrderDAO();
+			Order order = dao.getOrder(seletedOrderId);
+			if (!order.getIsPaid()) {
+				// check stock
+				ProductDAO productDao = new ProductDAO();
+				boolean isStockEnought = true;
+				StringBuilder text = new StringBuilder();
+				text.append("Stock not enought.\n");
+				for (OrderProduct op : order.getProductList()) {
+					Product product = productDao.getProduct(op.getProductId());
+					if (product.getStock() < op.getQuantity()) {
+						isStockEnought = false;
+						text.append("Product <<");
+						text.append(product.getName());
+						text.append(">> id = ");
+						text.append(String.valueOf(product.getName()));
+						text.append(" need a quantity of ");
+						text.append(String.valueOf(op.getQuantity()));
+						text.append("\n");
+					}
 				}
+
+				if (isStockEnought) {
+					if (JOptionPane.showConfirmDialog(null, "Settle this order ?", "Comfirm", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == 0) {
+						// update order state
+						order.setIsPaid(true);
+						if (dao.updateOrder(order) == 1) {
+							JOptionPane.showConfirmDialog(null, "Order settled!", "Settle Order",
+									JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							JOptionPane.showConfirmDialog(null, "Something wrong. Look at the console.", "Oops",
+									JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+							System.out.println(order);
+						}
+
+						// update stocks
+						int loopCounter = 0;
+						int updateCounter = 0;
+						for (OrderProduct op : order.getProductList()) {
+							Product product = productDao.getProduct(op.getProductId());
+							product.reduceStock(op.getQuantity());
+							updateCounter = updateCounter + productDao.updateProduct(product);
+							loopCounter++;
+						}
+						if (loopCounter != updateCounter) {
+							JOptionPane.showConfirmDialog(null, "Something wrong. Look at the console.", "Oops",
+									JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						} else {
+							JOptionPane.showConfirmDialog(null, "Products' stocks updated!", "Settle Order",
+									JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						}
+
+						// replenishment automatic
+						replenishAutomatic(order);
+					}
+				} else {
+					JOptionPane.showConfirmDialog(null, text, "Oops", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
+			} else {
+				JOptionPane.showConfirmDialog(null, "This order has already been paid.", "Oops",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
+
+			// refresh the table
+			searchButtonOnClick();
 		} else {
-			JOptionPane.showConfirmDialog(null, "This order has already been paid.", "Oops", JOptionPane.DEFAULT_OPTION,
-					JOptionPane.ERROR_MESSAGE);
+			System.out.println("No seleted order");
+			JOptionPane.showConfirmDialog(null, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.WARNING_MESSAGE);
 		}
-		
-		//refresh the table
-		searchButtonOnClick();
+
+	}
+
+	/**
+	 * replenish automatic after an order is create.
+	 * 
+	 * @param order
+	 *            the order settled.
+	 */
+	private void replenishAutomatic(Order order) {
+		/*
+		 * Known problem: If a client made an order which a product has a
+		 * quantity > 15, that order couldn't be settled until a replenishment
+		 * manually is made.
+		 */
+		StringBuffer text = new StringBuffer();
+
+		ProductDAO productDao = new ProductDAO();
+		boolean isReplenished = false;
+		for (OrderProduct orderProduct : order.getProductList()) {
+			Product pdt = productDao.getProduct(orderProduct.getProductId());
+			if (pdt.getStock() < 15) {
+				isReplenished = true;
+				int replenishQuantity = replenishFromSupplier(orderProduct.getProductId());
+				pdt.addStock(replenishQuantity);
+				productDao.updateProduct(pdt);
+
+				text.append("Product <<");
+				text.append(pdt.getName());
+				text.append(">> with id = ");
+				text.append(String.valueOf(pdt.getId()));
+				text.append(" replenished quantity ");
+				text.append(String.valueOf(replenishQuantity));
+				text.append(". Quantity is now ");
+				text.append(String.valueOf(pdt.getStock()));
+				text.append("\n");
+			}
+		}
+		if (isReplenished) {
+			JOptionPane.showConfirmDialog(null, text, "Replenished automatic", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+
+	private void replenishManually() {
+
+	}
+
+	private int replenishFromSupplier(long productId) {
+		// Do something here
+		// such as connect the supplier and send him the product id / name
+		// etc.
+		// then return the quantity of product for replenishment
+
+		// in case of testing, I set return 50.
+		return 50;
 	}
 
 	/**
@@ -355,6 +475,10 @@ public class OrderGui extends JFrame implements ActionListener {
 		} else if (ae.getSource() == jbSettle) {
 			// settle button on click
 			settleOrder();
+		} else if (ae.getSource() == jbReplenish) {
+			// replenish button on click
+			new ReplenishManuallyGui(this);
+			this.setVisible(false);
 		}
 
 	}
@@ -368,5 +492,102 @@ public class OrderGui extends JFrame implements ActionListener {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		OrderGui orderGui = new OrderGui(null);
+	}
+}
+
+/**
+ * The replenish manually gui.
+ * 
+ * @author HE Junyang
+ *
+ */
+class ReplenishManuallyGui extends SearchProductGui {
+	/**
+	 * text field for enter the quantity for replenishment.
+	 */
+	private JTextField jtfQuantity;
+	/**
+	 * label : replenish quantity.
+	 */
+	private JLabel jlReplenishQuantity;
+	/**
+	 * button for replenish.
+	 */
+	private JButton jbReplenish;
+
+	/**
+	 * Constructor of gui.
+	 */
+	public ReplenishManuallyGui(OrderGui owner) {
+		this.setSize(400, 640);
+		this.setResizable(false);
+		this.setTitle("Replenish");
+		this.getContentPane().setLayout(null);
+
+		jbBack.setSize(104, 28);
+		jbCheapestSupplier.setLocation(102, 38);
+		jbBack.setLocation(270, 38);
+		jpButtonPane.setBounds(10, 538, 374, 73);
+
+		jtfQuantity = new JTextField();
+		jtfQuantity.setBounds(156, 4, 103, 22);
+		jpButtonPane.add(jtfQuantity);
+		jtfQuantity.setColumns(10);
+
+		jlReplenishQuantity = new JLabel("Replenish Quantity:");
+		jlReplenishQuantity.setBounds(0, 6, 164, 18);
+		jpButtonPane.add(jlReplenishQuantity);
+
+		jbReplenish = new JButton("Replenish");
+		jbReplenish.setBounds(271, 1, 103, 28);
+		jpButtonPane.add(jbReplenish);
+		jbReplenish.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				// check isInteger
+				if (Regex.isInteger(jtfQuantity.getText())) {
+					if (Integer.parseInt(jtfQuantity.getText()) + selectedProduct.getStock() < 999) {
+						selectedProduct.addStock(Integer.parseInt(jtfQuantity.getText()));
+						dao.updateProduct(selectedProduct);
+						JOptionPane.showConfirmDialog(null, "Product replenished.", "Confirm",
+								JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
+						refreshTable();
+
+					} else {
+						JOptionPane.showConfirmDialog(null, "Stock shouldn't over 999.", "Errors",
+								JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showConfirmDialog(null, "Please enter an integer.", "Error", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		jbBack.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				dispose();
+				owner.setVisible(true);
+			}
+		});
+
+		jbCheapestSupplier.setVisible(false);
+
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+	}
+
+	/**
+	 * Main method for testing
+	 * 
+	 * @param args
+	 *            for main.
+	 */
+	public static void main(String[] args) {
+		new ReplenishManuallyGui(null);
 	}
 }

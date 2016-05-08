@@ -59,8 +59,24 @@ final public class ProductDAO extends DAO {
 		return this.deleteLine("Product", id);
 	}
 
+	/**
+	 * update a product.
+	 * 
+	 * @param product
+	 *            the product for update
+	 * @return numbers of line updated
+	 */
 	public int updateProduct(Product product) {
 		return this.updateLine("Product", product);
+	}
+
+	/**
+	 * get the next product id.
+	 * 
+	 * @return next product id
+	 */
+	public static long nextPdtId() {
+		return DAO.nextId("Product");
 	}
 
 	/**
@@ -81,8 +97,11 @@ final public class ProductDAO extends DAO {
 		// System.out.println(dao.addProduct(new Product("aaasssddd")));
 		// System.out.println("Delete Product : ");
 		// System.out.println(dao.deleteProduct(1));
-		System.out.println("Update Product : ");
-		System.out.println(dao.updateProduct(new Product(1, "updatedName", 999, 1.11, 2, "123")));
+		// System.out.println("Update Product : ");
+		// System.out.println(dao.updateProduct(new Product(1, "updatedName",
+		// 999, 1.11, 2, "123")));
+		System.out.println("Next pdt id : ");
+		System.out.println(ProductDAO.nextPdtId());
 
 	}
 }

@@ -62,15 +62,15 @@ public class LoginGui extends JFrame implements ActionListener {
 		initComponents();
 
 		// Find mouse's position
-//		MouseTracker mt = new MouseTracker();
-//		mt.setBounds(0, 0, 1024, 768);
-//		mt.setOpaque(false);
-//		jp.add(mt);
+		// MouseTracker mt = new MouseTracker();
+		// mt.setBounds(0, 0, 1024, 768);
+		// mt.setOpaque(false);
+		// jp.add(mt);
 
 	}
 
 	/**
-	 * Initialization principal init JFrame init jp main container setup
+	 * Initialization principal init JFrame init jp main container setup.
 	 * background
 	 */
 	public void init() {
@@ -92,8 +92,6 @@ public class LoginGui extends JFrame implements ActionListener {
 		this.setResizable(false);
 		this.setVisible(true);
 
-
-		
 	}
 
 	/**
@@ -103,10 +101,11 @@ public class LoginGui extends JFrame implements ActionListener {
 		jp = (JPanel) this.getContentPane();
 		jp.setOpaque(false);
 		jp.setLayout(null);
-		
+
 		jp.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		jlBgMain.setIcon(new ImageIcon(getClass().getResource("/resources/bg_login.jpg")));;
+		jlBgMain.setIcon(new ImageIcon(getClass().getResource("/resources/bg_login.jpg")));
+		;
 		jlBgMain.setBounds(461, 23, 323, 295);
 		jp.add(jlBgMain, new Integer(Integer.MIN_VALUE));
 
@@ -115,13 +114,13 @@ public class LoginGui extends JFrame implements ActionListener {
 		jtfId.setBounds(150, 150, 250, 30);
 		jtfPw.setBounds(150, 200, 250, 30);
 		jbLogin.setBounds(300, 268, 100, 50);
-		
+
 		jp.add(jlId);
 		jp.add(jlPw);
 		jp.add(jtfId);
 		jp.add(jtfPw);
 		jp.add(jbLogin);
-		
+
 		JLabel jlbIdentificationAdmin = new JLabel("Identification Admin");
 		jlbIdentificationAdmin.setBounds(50, 100, 200, 15);
 		getContentPane().add(jlbIdentificationAdmin);

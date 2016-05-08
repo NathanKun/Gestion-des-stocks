@@ -31,7 +31,7 @@ final public class OrderDAO extends DAO {
 
 		// insert ordpdtlist_opl
 		ArrayList<OrderProduct> orderProductList = order.getProductList();
-		long odrId = this.idGeneratorOdr() - 1;
+		long odrId = order.getId();
 		for (OrderProduct orderProduct : orderProductList) {
 			orderProduct.setOrderId(odrId);
 			addOrderProduct(orderProduct);
@@ -161,45 +161,21 @@ final public class OrderDAO extends DAO {
 	}
 
 	/**
-	 * generate a new id for an order.
+	 * get the next id for an order.
 	 * 
-	 * @return retour the new id of the order
+	 * @return retour the next id of the order
 	 */
-	public long idGeneratorOdr() {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		long retour = 0;
-		// connection to date base
-		try {
-			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("SELECT MAX(odr_id) FROM order_odr");
+	public static long nextOdrId() {
+		return DAO.nextId("Order");
+	}
 
-			// excecution of the requiere
-			rs = ps.executeQuery();
-			// recuperation of number
-			rs.next();
-			retour = rs.getLong(1);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			// close preparedStatement and connection
-			try {
-				if (ps != null) {
-					ps.close();
-				}
-			} catch (Exception ignore) {
-				System.out.println("closing problem");
-			}
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (Exception ignore) {
-				System.out.println("closing problem");
-			}
-		}
-		return (retour + 1);
+	/**
+	 * get the next id for the order product list.
+	 * 
+	 * @return retour the next id of the the order product list
+	 */
+	public static long nextOplId() {
+		return DAO.nextId("opl");
 	}
 
 	/**
@@ -240,6 +216,10 @@ final public class OrderDAO extends DAO {
 		// System.out.println(dao.updateOrderProductList(list, 3));
 		// System.out.println("Update Order : ");
 		// System.out.println(dao.updateOrder(order));
+		System.out.println("Next opl id : ");
+		System.out.println(OrderDAO.nextOplId());
+		System.out.println("Next odr id : ");
+		System.out.println(OrderDAO.nextOdrId());
 
 	}
 }

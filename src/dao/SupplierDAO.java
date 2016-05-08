@@ -226,8 +226,16 @@ final public class SupplierDAO extends DAO {
 		return this.deleteLine("spl", param);
 	}
 
-	public int updateSupplierProduct(Supplier supplier) {
-		return updateLine("Supplier", supplier);
+	// public int updateSupplierProduct(Supplier supplier) {
+	// return updateLine("Supplier", supplier);
+	// }
+
+	public static long nextSprId() {
+		return DAO.nextId("Supplier");
+	}
+
+	public static long nextSplId() {
+		return DAO.nextId("spl");
 	}
 
 	/**
@@ -260,17 +268,23 @@ final public class SupplierDAO extends DAO {
 		// System.out.println(dao.addSupplierProduct(1, (Long)5l, (Double)55d));
 		// System.out.println("Delete Supplier");
 		// System.out.println(dao.deleteSupplier(1));
-		System.out.println("Update Supplier 1");
-		HashMap<Long, Double> oldmap = dao.getSupplierProductMap(1);
-		oldmap.remove(7L);
-		oldmap.remove(6L);
-		oldmap.put(3L, 3d);
-		oldmap.put(4L, 4d);
-		oldmap.put(5L, 5d);
-		oldmap.put(2L, 2.22d);
-		oldmap.put(1L, 1.1d);
-		System.out.println(dao.updateSupplier(new Supplier(1, "UpdatedNameOOOO", oldmap)));
+		// System.out.println("Update Supplier 1");
+		// HashMap<Long, Double> oldmap = dao.getSupplierProductMap(1);
+		// oldmap.remove(7L);
+		// oldmap.remove(6L);
+		// oldmap.put(3L, 3d);
+		// oldmap.put(4L, 4d);
+		// oldmap.put(5L, 5d);
+		// oldmap.put(2L, 2.22d);
+		// oldmap.put(1L, 1.1d);
+		// System.out.println(dao.updateSupplier(new Supplier(1,
+		// "UpdatedNameOOOO", oldmap)));
 
 		// System.out.println(dao.updateSupplierProductRow(1l, 3l, 111.11d));
+
+		System.out.println("Next spr id : ");
+		System.out.println(SupplierDAO.nextSprId());
+		System.out.println("Next spl id : ");
+		System.out.println(SupplierDAO.nextSplId());
 	}
 }

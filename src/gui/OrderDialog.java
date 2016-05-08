@@ -2,6 +2,7 @@ package gui;
 
 import dao.OrderDAO;
 import dao.ProductDAO;
+import dao.UserDAO;
 import gds.Order;
 import gds.OrderProduct;
 import gds.Product;
@@ -383,7 +384,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 		jlbFinalPrice.setBounds(0, 285, 100, 18);
 		jpDown.add(jlbFinalPrice);
 
-		jbSave.setBounds(266, 282, 81, 23);
+		jbSave.setBounds(272, 282, 81, 23);
 		jpDown.add(jbSave);
 
 		jbCancel.setBounds(359, 282, 95, 23);
@@ -507,7 +508,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 			jbCreateOdr.setVisible(false);
 		} else {
 			// new order
-			jtfId.setText(String.valueOf(new OrderDAO().idGeneratorOdr()));
+			jtfId.setText(String.valueOf(OrderDAO.nextOdrId()));
 			jtfIsPaid.setText("Unpaid");
 			jtfDate.setText(new SimpleDateFormat("dd/MM/YYYY HH:mm:ss").format(date));
 
@@ -570,7 +571,13 @@ public class OrderDialog extends JDialog implements ActionListener {
 					}
 				} else {
 					// else add a new line
-					modelPdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
+					if (pdt.getStock() != 0) {
+						modelPdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
+					} else {
+						System.out.println("Stock not enought");
+						JOptionPane.showConfirmDialog(null, "Stock not enought", "Opps", JOptionPane.DEFAULT_OPTION,
+								JOptionPane.WARNING_MESSAGE);
+					}
 				}
 
 				// calculate total price
@@ -622,11 +629,11 @@ public class OrderDialog extends JDialog implements ActionListener {
 			// add the selected product in a list
 			ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
 			for (int i = 0; i < modelPdtList.getRowCount(); i++) {
-				productList.add(new OrderProduct(orderDao.idGeneratorOdr(), (Long) modelPdtList.getValueAt(i, 0),
+				productList.add(new OrderProduct(Long.parseLong(jtfId.getText()), (Long) modelPdtList.getValueAt(i, 0),
 						(int) modelPdtList.getValueAt(i, 3)));
 			}
 			// Create a new order
-			final Order newOrder = new Order(orderDao.idGeneratorOdr(), Double.parseDouble(jtfPrice.getText()),
+			final Order newOrder = new Order(Long.parseLong(jtfId.getText()), Double.parseDouble(jtfPrice.getText()),
 					Double.parseDouble(jtfFinalPrice.getText()), jtfCltName.getText(), false,
 					new java.sql.Date(date.getTime()), productList);
 			System.out.println(newOrder.toString());
