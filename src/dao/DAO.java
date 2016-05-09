@@ -36,9 +36,9 @@ abstract class DAO {
 	// static final String LOGIN = "BDD5";
 	// static final String PASS = "BDD5";
 
-	static final String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
-	static final String LOGIN = "c##nathankun";
-	static final String PASS = "83783548jun";
+	static String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
+	static String LOGIN = "c##nathankun";
+	static String PASS = "83783548jun";
 
 	/**
 	 * Constructor.

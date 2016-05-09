@@ -97,6 +97,7 @@ public class MainGui extends JFrame implements ActionListener {
 	 *            the user who logged in, null if nobody logged in
 	 */
 	public MainGui(User user) {
+		new FirstConnectDataBaseThread().start();
 		this.user = user;
 		initMain();
 		initButtons();
@@ -266,7 +267,7 @@ public class MainGui extends JFrame implements ActionListener {
 					MainGui mainGui = new MainGui(null);
 					mainGui.setVisible(true);
 
-					new FirstConnectDataBaseThread().start();
+//					new FirstConnectDataBaseThread().start();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

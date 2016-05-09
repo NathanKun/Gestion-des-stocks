@@ -2,24 +2,15 @@ package dao;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-import javax.security.auth.login.FailedLoginException;
 
 public final class SetupDatabaseDao {
-
-	static String URL;
-	static String LOGIN;
-	static String PASS;
 
 	static final String fileDrop = "src/resources/drop.sql";
 	static final String fileCreate = "src/resources/create.sql";
@@ -38,7 +29,7 @@ public final class SetupDatabaseDao {
 	}
 
 	/**
-	 * Switch url, login and pass by user.
+	 * Switch DAO.URL, DAO.LOGIN and DAO.PASS by user.
 	 * 
 	 * @param user
 	 *            user
@@ -46,47 +37,50 @@ public final class SetupDatabaseDao {
 	public static void switchStaticFields(String user) {
 		switch (user) {
 		case "Junyang":
-			URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
-			LOGIN = "c##nathankun";
-			PASS = "83783548jun";
+			DAO.URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
+			DAO.LOGIN = "c##nathankun";
+			DAO.PASS = "83783548jun";
 			break;
 		case "Junior":
-			URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			LOGIN = "system";
-			PASS = "bdd";
+			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			DAO.LOGIN = "system";
+			DAO.PASS = "bdd";
 			break;
 		case "BDD3":
-			URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			LOGIN = "BDD3";
-			PASS = "BDD3";
+			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			DAO.LOGIN = "BDD3";
+			DAO.PASS = "BDD3";
 			break;
 		case "BDD5":
-			URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			LOGIN = "BDD5";
-			PASS = "BDD5";
+			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			DAO.LOGIN = "BDD5";
+			DAO.PASS = "BDD5";
 			break;
 		case "BDD6":
-			URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			LOGIN = "BDD6";
-			PASS = "BDD6";
+			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			DAO.LOGIN = "BDD6";
+			DAO.PASS = "BDD6";
 			break;
 		case "BDD7":
-			URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			LOGIN = "BDD7";
-			PASS = "BDD7";
+			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			DAO.LOGIN = "BDD7";
+			DAO.PASS = "BDD7";
 			break;
 		case "BDD8":
-			URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			LOGIN = "BDD8";
-			PASS = "BDD8";
+			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			DAO.LOGIN = "BDD8";
+			DAO.PASS = "BDD8";
 			break;
 
 		default:
-			URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			LOGIN = "system";
-			PASS = "bdd";
+			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			DAO.LOGIN = "system";
+			DAO.PASS = "bdd";
 			break;
 		}
+		System.out.println("URL = " + DAO.URL);
+		System.out.println("LOGIN = " + DAO.LOGIN);
+		System.out.println("PASS = " + DAO.PASS);
 	}
 
 	/**
@@ -131,7 +125,7 @@ public final class SetupDatabaseDao {
 		PreparedStatement ps = null;
 		int retour = 0;
 		try {
-			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			con = DriverManager.getConnection(DAO.URL, DAO.LOGIN, DAO.PASS);
 			ps = con.prepareStatement(sql);
 			retour = ps.executeUpdate();
 		} catch (Exception ex) {
@@ -170,7 +164,7 @@ public final class SetupDatabaseDao {
 		PreparedStatement ps = null;
 		List<String> sqlList = readSqlFile(fileName);
 		try {
-			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			con = DriverManager.getConnection(DAO.URL, DAO.LOGIN, DAO.PASS);
 			Statement smt = con.createStatement();
 
 			for (String sql : sqlList) {

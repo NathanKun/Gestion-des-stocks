@@ -1,5 +1,6 @@
 package util;
 
+import dao.SetupDatabaseDao;
 import dao.UserDAO;
 
 /**

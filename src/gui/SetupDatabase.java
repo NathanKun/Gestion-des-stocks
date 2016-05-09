@@ -155,7 +155,6 @@ public class SetupDatabase extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new FirstConnectDataBaseThread().start();
 					SetupDatabase frame = new SetupDatabase();
 					frame.setVisible(true);
 				} catch (Exception ex) {
