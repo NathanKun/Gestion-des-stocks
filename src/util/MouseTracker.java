@@ -22,40 +22,47 @@ import javax.swing.JPanel;
  */
 
 /**
- * My mouse motion listener
+ * My mouse motion listener.
+ * 
  * @author HE Junyang
  *
  */
 class MouseListener implements MouseMotionListener {
 	/**
-	 * mouse moved event
+	 * mouse moved event.
 	 */
-	public void mouseMoved(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		String s = "now:" + x + ',' + y;
-		MouseTracker.jl.setText(s);
+	@Override
+	public void mouseMoved(MouseEvent ev) {
+		int xpoint = ev.getX();
+		int ypoint = ev.getY();
+		String str = "now:" + xpoint + ',' + ypoint;
+		MouseTracker.jl.setText(str);
 	}
-	/**
-	 * mouse dragged event
-	 */
-	public void mouseDragged(MouseEvent e) {
-	};
+
+	@Override
+	public void mouseDragged(MouseEvent ev) {
+
+	}
 }
 
 /**
- * My Mouse Tracker, show the position of mouse
- * use to position a component
+ * My Mouse Tracker, show the position of mouse use to position a component.
+ * 
  * @author HE Junyang
  *
  */
-public class MouseTracker extends JPanel{
+public class MouseTracker extends JPanel {
 	/**
-	 * label of position of mouse
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * label of position of mouse.
 	 */
 	public static JLabel jl = new JLabel();
+
 	/**
-	 * constructor
+	 * constructor.
 	 */
 	public MouseTracker() {
 		this.setPreferredSize(new Dimension(100, 30));
@@ -64,9 +71,12 @@ public class MouseTracker extends JPanel{
 		this.addMouseMotionListener((MouseMotionListener) new MouseListener());
 		this.setVisible(true);
 	}
+
 	/**
-	 * main method, use to testing
-	 * @param args for main
+	 * main method, use to testing.
+	 * 
+	 * @param args
+	 *            for main
 	 */
 	public static void main(String[] args) {
 		JFrame fm = new JFrame("test");

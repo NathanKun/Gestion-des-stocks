@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="dao/|gds/|gui/|prototype/|resources/|util/" kind="src" path="src"/>
+	<classpathentry excluding="prototype/" including="dao/|gds/|gui/|resources/|util/" kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/ojdbc7_g.jar"/>
 	<classpathentry kind="lib" path="lib/swingx-all-1.6.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

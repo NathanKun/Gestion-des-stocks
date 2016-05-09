@@ -1,12 +1,11 @@
 package gui;
 
-import dao.OrderDAO;
-import dao.ProductDAO;
+import dao.OrderDao;
+import dao.ProductDao;
 import gds.Order;
 import gds.OrderProduct;
 import gds.Product;
 import gds.User;
-import util.Regex;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -26,12 +25,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  * graphical user interface of Order menu window.
@@ -41,6 +38,10 @@ import javax.swing.table.TableModel;
  */
 public class OrderGui extends JFrame implements ActionListener {
 
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = 2723427906401070121L;
 	/**
 	 * main container.
 	 */
@@ -211,6 +212,7 @@ public class OrderGui extends JFrame implements ActionListener {
 		String[][] datas = {};
 		String[] titles = { "ID", "Client's name", "Date", "Final price", "State" };
 		tableModel = new DefaultTableModel(datas, titles) {
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -267,7 +269,7 @@ public class OrderGui extends JFrame implements ActionListener {
 	 */
 	private void showEditOrderDialog() {
 		if (seletedOrderId != 0) {
-			new OrderDialog(this, true, new OrderDAO().getOrder(seletedOrderId));
+			new OrderDialog(this, true, OrderDao.getOrder(seletedOrderId));
 		} else {
 			System.out.println("No seleted order");
 			JOptionPane.showConfirmDialog(null, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
@@ -284,8 +286,7 @@ public class OrderGui extends JFrame implements ActionListener {
 			tableModel.removeRow(i);
 		}
 		// add new data
-		OrderDAO dao = new OrderDAO();
-		ArrayList<Order> list = dao.getOrderList();
+		ArrayList<Order> list = OrderDao.getOrderList();
 		for (Order order : list) {
 			String str = order.getIsPaid() == true ? "Paid" : "Unpaid";
 			Object[] objects = { order.getId(), order.getClientName(), order.getDate(), order.getPriceDiscount(), str };
@@ -302,7 +303,7 @@ public class OrderGui extends JFrame implements ActionListener {
 					"Do you really want to Cancel this order?\nIt means DELETE this order from our database and it can not redo!",
 					"Comfirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 				// y for 0, n for 1
-				new OrderDAO().deleteOrder(seletedOrderId);
+				OrderDao.deleteOrder(seletedOrderId);
 				this.searchButtonOnClick();
 			}
 		} else {
@@ -317,16 +318,14 @@ public class OrderGui extends JFrame implements ActionListener {
 	 */
 	private void settleOrder() {
 		if (seletedOrderId != 0) {
-			OrderDAO dao = new OrderDAO();
-			Order order = dao.getOrder(seletedOrderId);
+			Order order = OrderDao.getOrder(seletedOrderId);
 			if (!order.getIsPaid()) {
 				// check stock
-				ProductDAO productDao = new ProductDAO();
 				boolean isStockEnought = true;
 				StringBuilder text = new StringBuilder();
 				text.append("Stock not enought.\n");
 				for (OrderProduct op : order.getProductList()) {
-					Product product = productDao.getProduct(op.getProductId());
+					Product product = ProductDao.getProduct(op.getProductId());
 					if (product.getStock() < op.getQuantity()) {
 						isStockEnought = false;
 						text.append("Product <<");
@@ -344,7 +343,7 @@ public class OrderGui extends JFrame implements ActionListener {
 							JOptionPane.QUESTION_MESSAGE) == 0) {
 						// update order state
 						order.setIsPaid(true);
-						if (dao.updateOrder(order) == 1) {
+						if (OrderDao.updateOrder(order) == 1) {
 							JOptionPane.showConfirmDialog(null, "Order settled!", "Settle Order",
 									JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 						} else {
@@ -357,9 +356,9 @@ public class OrderGui extends JFrame implements ActionListener {
 						int loopCounter = 0;
 						int updateCounter = 0;
 						for (OrderProduct op : order.getProductList()) {
-							Product product = productDao.getProduct(op.getProductId());
+							Product product = ProductDao.getProduct(op.getProductId());
 							product.reduceStock(op.getQuantity());
-							updateCounter = updateCounter + productDao.updateProduct(product);
+							updateCounter = updateCounter + ProductDao.updateProduct(product);
 							loopCounter++;
 						}
 						if (loopCounter != updateCounter) {
@@ -406,15 +405,14 @@ public class OrderGui extends JFrame implements ActionListener {
 		 */
 		StringBuffer text = new StringBuffer();
 
-		ProductDAO productDao = new ProductDAO();
 		boolean isReplenished = false;
 		for (OrderProduct orderProduct : order.getProductList()) {
-			Product pdt = productDao.getProduct(orderProduct.getProductId());
+			Product pdt = ProductDao.getProduct(orderProduct.getProductId());
 			if (pdt.getStock() < 15) {
 				isReplenished = true;
 				int replenishQuantity = replenishFromSupplier(orderProduct.getProductId());
 				pdt.addStock(replenishQuantity);
-				productDao.updateProduct(pdt);
+				ProductDao.updateProduct(pdt);
 
 				text.append("Product <<");
 				text.append(pdt.getName());
@@ -433,10 +431,14 @@ public class OrderGui extends JFrame implements ActionListener {
 		}
 	}
 
-	private void replenishManually() {
-
-	}
-
+	/**
+	 * Replenish from a supplier. This method may connect to a server of a
+	 * supplier, then make an order to replenish.
+	 * 
+	 * @param productId
+	 *            id of product to replenish.
+	 * @return quantity of product replenished.
+	 */
 	private int replenishFromSupplier(long productId) {
 		// Do something here
 		// such as connect the supplier and send him the product id / name
@@ -492,102 +494,5 @@ public class OrderGui extends JFrame implements ActionListener {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		OrderGui orderGui = new OrderGui(null);
-	}
-}
-
-/**
- * The replenish manually gui.
- * 
- * @author HE Junyang
- *
- */
-class ReplenishManuallyGui extends SearchProductGui {
-	/**
-	 * text field for enter the quantity for replenishment.
-	 */
-	private JTextField jtfQuantity;
-	/**
-	 * label : replenish quantity.
-	 */
-	private JLabel jlReplenishQuantity;
-	/**
-	 * button for replenish.
-	 */
-	private JButton jbReplenish;
-
-	/**
-	 * Constructor of gui.
-	 */
-	public ReplenishManuallyGui(OrderGui owner) {
-		this.setSize(400, 640);
-		this.setResizable(false);
-		this.setTitle("Replenish");
-		this.getContentPane().setLayout(null);
-
-		jbBack.setSize(104, 28);
-		jbCheapestSupplier.setLocation(102, 38);
-		jbBack.setLocation(270, 38);
-		jpButtonPane.setBounds(10, 538, 374, 73);
-
-		jtfQuantity = new JTextField();
-		jtfQuantity.setBounds(156, 4, 103, 22);
-		jpButtonPane.add(jtfQuantity);
-		jtfQuantity.setColumns(10);
-
-		jlReplenishQuantity = new JLabel("Replenish Quantity:");
-		jlReplenishQuantity.setBounds(0, 6, 164, 18);
-		jpButtonPane.add(jlReplenishQuantity);
-
-		jbReplenish = new JButton("Replenish");
-		jbReplenish.setBounds(271, 1, 103, 28);
-		jpButtonPane.add(jbReplenish);
-		jbReplenish.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent ev) {
-				// check isInteger
-				if (Regex.isInteger(jtfQuantity.getText())) {
-					if (Integer.parseInt(jtfQuantity.getText()) + selectedProduct.getStock() < 999) {
-						selectedProduct.addStock(Integer.parseInt(jtfQuantity.getText()));
-						dao.updateProduct(selectedProduct);
-						JOptionPane.showConfirmDialog(null, "Product replenished.", "Confirm",
-								JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
-						refreshTable();
-
-					} else {
-						JOptionPane.showConfirmDialog(null, "Stock shouldn't over 999.", "Errors",
-								JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					}
-				} else {
-					JOptionPane.showConfirmDialog(null, "Please enter an integer.", "Error", JOptionPane.DEFAULT_OPTION,
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-
-		jbBack.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent ev) {
-				dispose();
-				owner.setVisible(true);
-			}
-		});
-
-		jbCheapestSupplier.setVisible(false);
-
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-	}
-
-	/**
-	 * Main method for testing
-	 * 
-	 * @param args
-	 *            for main.
-	 */
-	public static void main(String[] args) {
-		new ReplenishManuallyGui(null);
 	}
 }

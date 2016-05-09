@@ -5,7 +5,6 @@ import gui.LoginGui;
 import gui.OrderGui;
 import gui.SearchGui;
 import util.FirstConnectDataBaseThread;
-import util.MouseTracker;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -14,8 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.URL;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,8 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import dao.UserDAO;
 
 /**
  * graphical user interface of Main window.
@@ -34,6 +29,10 @@ import dao.UserDAO;
  */
 public class MainGui extends JFrame implements ActionListener {
 
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = -4146054556416981855L;
 	/**
 	 * main content panel.
 	 */
@@ -267,7 +266,7 @@ public class MainGui extends JFrame implements ActionListener {
 					MainGui mainGui = new MainGui(null);
 					mainGui.setVisible(true);
 
-//					new FirstConnectDataBaseThread().start();
+					// new FirstConnectDataBaseThread().start();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

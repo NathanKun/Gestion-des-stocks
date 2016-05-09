@@ -1,46 +1,17 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import gds.User;
+
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
-
-import dao.ProductDAO;
-import dao.SupplierDAO;
-import gds.Product;
-import gds.Supplier;
-import gds.SupplierProductPrice;
-import gds.User;
 
 /**
  * The GUI for the search menu.
@@ -50,6 +21,10 @@ import gds.User;
  */
 public class SearchGui extends JFrame implements ActionListener {
 
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = -6702257643391803027L;
 	/**
 	 * Button : search a product.
 	 */

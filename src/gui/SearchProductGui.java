@@ -1,19 +1,14 @@
 package gui;
 
-import dao.ProductDAO;
-import dao.SupplierDAO;
+import dao.ProductDao;
+import dao.SupplierDao;
 import gds.Product;
 import gds.SupplierProductPrice;
-import oracle.net.ano.SupervisorService;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Comparator;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -33,7 +28,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JRadioButton;
 
 /**
  * Class GUI for the search product Dialog.
@@ -42,6 +36,10 @@ import javax.swing.JRadioButton;
  *
  */
 public class SearchProductGui extends JFrame {
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = 7093497964493964146L;
 	/**
 	 * content panel.
 	 */
@@ -86,10 +84,6 @@ public class SearchProductGui extends JFrame {
 	 * the panel contains buttons.
 	 */
 	protected JPanel jpButtonPane;
-	/**
-	 * product DAO.
-	 */
-	protected ProductDAO dao;
 
 	/**
 	 * Create the dialog.
@@ -105,8 +99,7 @@ public class SearchProductGui extends JFrame {
 		jpMain.setLayout(null);
 
 		// get all product in the list
-		dao = new ProductDAO();
-		productList = dao.getProductList();
+		productList = ProductDao.getProductList();
 
 		JLabel jlProductName = new JLabel("Product name : ");
 		jlProductName.setBounds(10, 10, 200, 15);
@@ -274,7 +267,7 @@ public class SearchProductGui extends JFrame {
 			public void actionPerformed(ActionEvent ev) {
 				// Find the best price
 				if (selectedProduct != null) {
-					SupplierProductPrice spp = new SupplierDAO().getBestPriceOfAProduct(selectedProduct.getId());
+					SupplierProductPrice spp = SupplierDao.getBestPriceOfAProduct(selectedProduct.getId());
 
 					if (spp != null) {
 						// Construction of the string
@@ -286,7 +279,7 @@ public class SearchProductGui extends JFrame {
 						str.append("\n is ");
 						str.append(String.valueOf(spp.getSprPdtPrice()));
 						str.append("\n By supplier ");
-						str.append(new SupplierDAO().getSupplier(spp.getSprId()).getName());
+						str.append(SupplierDao.getSupplier(spp.getSprId()).getName());
 						str.append("\n supplier ID =  ");
 						str.append(String.valueOf(spp.getSprId()));
 
@@ -314,7 +307,7 @@ public class SearchProductGui extends JFrame {
 	 * Refresh the jList of products.
 	 */
 	protected void refreshList() {
-		productList = dao.getProductList();
+		productList = ProductDao.getProductList();
 		productList.sort((o1, o2) -> o1.compareTo(o2));
 		// clear the list
 
@@ -364,7 +357,7 @@ public class SearchProductGui extends JFrame {
 	 */
 	public static void main(String[] args) {
 		try {
-			SearchProductGui dialog = new SearchProductGui();
+			new SearchProductGui();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

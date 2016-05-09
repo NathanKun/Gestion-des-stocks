@@ -1,13 +1,13 @@
 package gui;
 
-import org.jdesktop.swingx.JXDatePicker;
-
-import dao.OrderDAO;
-import dao.ProductDAO;
+import dao.OrderDao;
+import dao.ProductDao;
 import gds.Order;
 import gds.OrderProduct;
 import gds.Product;
 import gds.User;
+
+import org.jdesktop.swingx.JXDatePicker;
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -44,6 +44,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class CalendarGui extends JFrame {
 
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = 2663196609962279698L;
 	/**
 	 * check box is checked, means All product.
 	 */
@@ -242,7 +246,7 @@ public class CalendarGui extends JFrame {
 		jtfPdtFilter.setBounds(0, 35, 216, 25);
 
 		// add products' name in the list
-		productList = new ProductDAO().getProductList();
+		productList = ProductDao.getProductList();
 		modelProductList = new DefaultListModel<String>();
 		for (Product pdt : productList) {
 			((DefaultListModel<String>) modelProductList).addElement(pdt.getName());
@@ -362,7 +366,7 @@ public class CalendarGui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
 				if (orderList == null) {
-					orderList = new OrderDAO().getOrderList();
+					orderList = OrderDao.getOrderList();
 				}
 				orderListFilteredByDate = new ArrayList<Order>();
 				orderListFilteredByProduct = new ArrayList<Order>();
@@ -436,15 +440,14 @@ public class CalendarGui extends JFrame {
 			// filter the orders by selected product if check box is unchecked
 			private void filterByProduct() {
 				if (checkBoxState == ONEPRODUCT) {
-					OrderDAO orderDao = new OrderDAO();
 					long selectedProductId = 0L;
-					for (Product pdt : new ProductDAO().getProductList()) {
+					for (Product pdt : ProductDao.getProductList()) {
 						if (pdt.getName().equals(selectedProductName)) {
 							selectedProductId = pdt.getId();
 						}
 					}
 					for (Order order : orderListFilteredByDate) {
-						ArrayList<OrderProduct> orderProductList = orderDao.getOrderProductList(order.getId());
+						ArrayList<OrderProduct> orderProductList = OrderDao.getOrderProductList(order.getId());
 						boolean containsProduct = false;
 						for (OrderProduct orderProduct : orderProductList) {
 							if (orderProduct.getProductId() == selectedProductId) {
@@ -558,7 +561,7 @@ public class CalendarGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CalendarGui frame = new CalendarGui(null);
+					new CalendarGui(null);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

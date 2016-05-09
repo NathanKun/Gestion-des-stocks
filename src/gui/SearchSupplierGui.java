@@ -1,23 +1,17 @@
 package gui;
 
-import dao.ProductDAO;
-import dao.SupplierDAO;
+import dao.ProductDao;
+import dao.SupplierDao;
 import gds.Product;
 import gds.Supplier;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -45,6 +39,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SearchSupplierGui extends JFrame {
 
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = -6367709012239646920L;
 	/**
 	 * content panel.
 	 */
@@ -97,10 +95,6 @@ public class SearchSupplierGui extends JFrame {
 	 * the supplier selected.
 	 */
 	protected Supplier selectedSupplier;
-	/**
-	 * supplier DAO.
-	 */
-	protected SupplierDAO supplierDao;
 
 	/**
 	 * Create the dialog.
@@ -111,9 +105,8 @@ public class SearchSupplierGui extends JFrame {
 		this.setResizable(false);
 		contentPanel = (JPanel) getContentPane();
 		// get all product and supplier from the database
-		supplierDao = new SupplierDAO();
-		supplierList = supplierDao.getSupplierList();
-		productList = new ProductDAO().getProductList();
+		supplierList = SupplierDao.getSupplierList();
+		productList = ProductDao.getProductList();
 		// sort supplier list by name by alphabet
 		// productList.sort((o1, o2) -> o1.compareTo(o2));
 		supplierList.sort((o1, o2) -> o1.compareTo(o2));
@@ -147,6 +140,7 @@ public class SearchSupplierGui extends JFrame {
 	/**
 	 * init the table of the list of product for a supplier.
 	 */
+	@SuppressWarnings("serial")
 	private void initProductListTable() {
 		// product list table
 		String[][][] datasPdtList = {};
@@ -169,17 +163,17 @@ public class SearchSupplierGui extends JFrame {
 		jpButtonPane = new JPanel();
 		jpButtonPane.setBounds(0, 536, 394, 65);
 		contentPanel.add(jpButtonPane);
-		
-				jbBack = new JButton("Back");
-				jbBack.setBounds(284, 0, 100, 23);
-				jbBack.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent ev) {
-						dispose();
-					}
-				});
-				jpButtonPane.setLayout(null);
-				jbBack.setActionCommand("Cancel");
-				jpButtonPane.add(jbBack);
+
+		jbBack = new JButton("Back");
+		jbBack.setBounds(284, 0, 100, 23);
+		jbBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				dispose();
+			}
+		});
+		jpButtonPane.setLayout(null);
+		jbBack.setActionCommand("Cancel");
+		jpButtonPane.add(jbBack);
 	}
 
 	/**
@@ -290,7 +284,7 @@ public class SearchSupplierGui extends JFrame {
 	 */
 	public void chargeProductListTable() {
 		// set product list table
-		HashMap<Long, Double> pdtList = supplierDao.getSupplierProductMap(selectedSupplier.getId());
+		HashMap<Long, Double> pdtList = SupplierDao.getSupplierProductMap(selectedSupplier.getId());
 		// System.out.println("s.getId() : " + s.getId());
 		for (int i = jtbPdtList.getRowCount() - 1; i >= 0; i--) {
 			modelPdtList.removeRow(i);
@@ -316,6 +310,7 @@ public class SearchSupplierGui extends JFrame {
 	/**
 	 * init supplier's detail table.
 	 */
+	@SuppressWarnings("serial")
 	private void initSupplierTable() {
 		contentPanel.setLayout(null);
 		JLabel lblSupplierName = new JLabel("Supplier name : ");
@@ -350,7 +345,7 @@ public class SearchSupplierGui extends JFrame {
 	 */
 	public static void main(String[] args) {
 		try {
-			SearchSupplierGui dialog = new SearchSupplierGui();
+			new SearchSupplierGui();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

@@ -1,8 +1,7 @@
 package gui;
 
-import dao.OrderDAO;
-import dao.ProductDAO;
-import dao.UserDAO;
+import dao.OrderDao;
+import dao.ProductDao;
 import gds.Order;
 import gds.OrderProduct;
 import gds.Product;
@@ -20,7 +19,6 @@ import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -50,6 +48,10 @@ import javax.swing.text.DefaultFormatter;
 
 public class OrderDialog extends JDialog implements ActionListener {
 
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = -755686942852009654L;
 	/**
 	 * table of products added.
 	 */
@@ -495,9 +497,8 @@ public class OrderDialog extends JDialog implements ActionListener {
 			}
 			jtfCltName.setText(order.getClientName());
 			jtfDate.setText(new SimpleDateFormat("dd/MM/YYYY HH:mm:ss").format(order.getDate()));
-			ProductDAO productDao = new ProductDAO();
 			for (OrderProduct orderProduct : order.getProductList()) {
-				Product pdt = productDao.getProduct(orderProduct.getProductId());
+				Product pdt = ProductDao.getProduct(orderProduct.getProductId());
 				modelPdtList.addRow(
 						new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), orderProduct.getQuantity() });
 			}
@@ -508,7 +509,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 			jbCreateOdr.setVisible(false);
 		} else {
 			// new order
-			jtfId.setText(String.valueOf(OrderDAO.nextOdrId()));
+			jtfId.setText(String.valueOf(OrderDao.nextOdrId()));
 			jtfIsPaid.setText("Unpaid");
 			jtfDate.setText(new SimpleDateFormat("dd/MM/YYYY HH:mm:ss").format(date));
 
@@ -545,7 +546,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 	private void addProduct() {
 		// if is a long
 		if (Regex.isLong(jtfPdtId.getText())) {
-			Product pdt = new ProductDAO().getProduct(Long.parseLong(jtfPdtId.getText()));
+			Product pdt = ProductDao.getProduct(Long.parseLong(jtfPdtId.getText()));
 			if (pdt != null) {
 				// add product
 				// if the product is already existed in the added product
@@ -601,7 +602,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 	 * Search a product by name.
 	 */
 	private void searchProductByName() {
-		ArrayList<Product> pdtList = new ProductDAO().getProductList();
+		ArrayList<Product> pdtList = ProductDao.getProductList();
 		// remove all row
 		for (int i = modelPdtSearch.getRowCount() - 1; i >= 0; i--) {
 			modelPdtSearch.removeRow(i);
@@ -625,7 +626,6 @@ public class OrderDialog extends JDialog implements ActionListener {
 	private void createOrder() {
 		// if the selected product table is not empty
 		if (jtbPdtList.getRowCount() != 0) {
-			OrderDAO orderDao = new OrderDAO();
 			// add the selected product in a list
 			ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
 			for (int i = 0; i < modelPdtList.getRowCount(); i++) {
@@ -638,7 +638,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 					new java.sql.Date(date.getTime()), productList);
 			System.out.println(newOrder.toString());
 			// add order into date base
-			orderDao.addOrder(newOrder);
+			OrderDao.addOrder(newOrder);
 			JOptionPane.showConfirmDialog(null, "Order created.", "OK", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			dispose();
@@ -657,7 +657,6 @@ public class OrderDialog extends JDialog implements ActionListener {
 		// if table not void
 		if (jtbPdtList.getRowCount() != 0) {
 			// create new order object
-			final OrderDAO orderDao = new OrderDAO();
 			ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
 			for (int i = 0; i < modelPdtList.getRowCount(); i++) {
 				productList.add(new OrderProduct(order.getId(), (Long) modelPdtList.getValueAt(i, 0),
@@ -670,7 +669,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 
 			System.out.println(order.toString());
 
-			orderDao.updateOrder(order);
+			OrderDao.updateOrder(order);
 
 			JOptionPane.showConfirmDialog(null, "Order Updated.", "OK", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
@@ -690,7 +689,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 				"Do you really want to Cancel this order?\nIt means DELETE this order from our database and it can not redo!",
 				"Comfirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 			// y for 0, n for 1
-			new OrderDAO().deleteOrder(order.getId());
+			OrderDao.deleteOrder(order.getId());
 			JOptionPane.showConfirmDialog(null, "Order deleted", "OK", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			this.dispose();
@@ -748,7 +747,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 		// OrderDialog orderDialog = new OrderDialog(null, true, null);
 
 		// test load order
-		OrderDialog orderDialog = new OrderDialog(null, true, new OrderDAO().getOrder(4));
+		OrderDialog orderDialog = new OrderDialog(null, true, OrderDao.getOrder(4));
 
 	}
 }

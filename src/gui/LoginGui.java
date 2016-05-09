@@ -1,8 +1,7 @@
 package gui;
 
-import dao.UserDAO;
+import dao.UserDao;
 import gds.User;
-import util.MouseTracker;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +24,10 @@ import javax.swing.JTextField;
  *
  */
 public class LoginGui extends JFrame implements ActionListener {
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = -6563939679166989347L;
 	/**
 	 * main container.
 	 */
@@ -129,7 +132,7 @@ public class LoginGui extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Login algorithm
+	 * Login algorithm.
 	 * 
 	 * @return Objet User who logged in, or null if login field
 	 */
@@ -145,8 +148,8 @@ public class LoginGui extends JFrame implements ActionListener {
 			JOptionPane.showConfirmDialog(null, "Password can't be void!", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		} else {
-			UserDAO userDao = new UserDAO();
-			user = userDao.getUser(id);
+
+			user = UserDao.getUser(id);
 			System.out.println("id = " + id);
 			if (user == null) {
 				System.out.println("id wrong");

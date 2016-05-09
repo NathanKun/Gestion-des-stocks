@@ -1,7 +1,6 @@
 package util;
 
-import dao.SetupDatabaseDao;
-import dao.UserDAO;
+import dao.UserDao;
 
 /**
  * For some reason, first time the application connects to the data base, it
@@ -13,6 +12,6 @@ import dao.UserDAO;
  */
 public class FirstConnectDataBaseThread extends Thread {
 	public void run() {
-		new UserDAO().getUser("a");
+		UserDao.getUser("a");
 	}
 }

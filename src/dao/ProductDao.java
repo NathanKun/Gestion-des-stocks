@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Junior FOTSING KENGNE - HE Junyang
  * @version 1.0
  */
-final public class ProductDAO extends DAO {
+public abstract class ProductDao extends Dao {
 
 	/**
 	 * add product in the date base.
@@ -21,8 +21,8 @@ final public class ProductDAO extends DAO {
 	 * @return the number of line add in the product list
 	 */
 	// TODO Should verify the product's name is unique
-	public int addProduct(Product product) {
-		return this.addLine("Product", product);
+	public static int addProduct(Product product) {
+		return Dao.addLine("Product", product);
 	}
 
 	/**
@@ -32,9 +32,9 @@ final public class ProductDAO extends DAO {
 	 *            identifiant of the product
 	 * @return retourn - the product
 	 */
-	public Product getProduct(long id) {
+	public static Product getProduct(long id) {
 		String sql = "SELECT * FROM product_pdt LEFT JOIN supplier_spr ON pdt_spr = spr_id WHERE pdt_id = ? ";
-		return (Product) this.getOne("Product", sql, id);
+		return (Product) Dao.getOne("Product", sql, id);
 	}
 
 	/**
@@ -43,9 +43,9 @@ final public class ProductDAO extends DAO {
 	 * @return the list of all the products in the data base
 	 */
 	@SuppressWarnings("unchecked")
-	public ArrayList<Product> getProductList() {
+	public static ArrayList<Product> getProductList() {
 		String sql = "SELECT * FROM product_pdt LEFT JOIN supplier_spr on spr_id = pdt_spr";
-		return (ArrayList<Product>) this.getList("Product", sql, 0, 0L);
+		return (ArrayList<Product>) Dao.getList("Product", sql, 0, 0L);
 	}
 
 	/**
@@ -55,8 +55,8 @@ final public class ProductDAO extends DAO {
 	 *            contain the id of the product we want to delete
 	 * @return the number of line delete
 	 */
-	public int deleteProduct(long id) {
-		return this.deleteLine("Product", id);
+	public static int deleteProduct(long id) {
+		return Dao.deleteLine("Product", id);
 	}
 
 	/**
@@ -66,8 +66,8 @@ final public class ProductDAO extends DAO {
 	 *            the product for update
 	 * @return numbers of line updated
 	 */
-	public int updateProduct(Product product) {
-		return this.updateLine("Product", product);
+	public static int updateProduct(Product product) {
+		return Dao.updateLine("Product", product);
 	}
 
 	/**
@@ -76,7 +76,7 @@ final public class ProductDAO extends DAO {
 	 * @return next product id
 	 */
 	public static long nextPdtId() {
-		return DAO.nextId("Product");
+		return Dao.nextId("Product");
 	}
 
 	/**
@@ -86,13 +86,12 @@ final public class ProductDAO extends DAO {
 	 *            for main
 	 */
 	public static void main(String[] args) {
-		ProductDAO dao = new ProductDAO();
 		// System.out.println("id gen next pdt_id = " + dao.idGenerator());
 
 		// System.out.println("Get Product Id 2 : ");
-		// System.out.println(dao.getProduct(2).toString());
-		// System.out.println("Get List : ");
-		// System.out.println(dao.getProductList().toString());
+		// System.out.println(ProductDAO.getProduct(2).toString());
+		System.out.println("Get List : ");
+		System.out.println(ProductDao.getProductList().toString());
 		// System.out.println("Add Product : ");
 		// System.out.println(dao.addProduct(new Product("aaasssddd")));
 		// System.out.println("Delete Product : ");
@@ -100,8 +99,8 @@ final public class ProductDAO extends DAO {
 		// System.out.println("Update Product : ");
 		// System.out.println(dao.updateProduct(new Product(1, "updatedName",
 		// 999, 1.11, 2, "123")));
-		System.out.println("Next pdt id : ");
-		System.out.println(ProductDAO.nextPdtId());
+		// System.out.println("Next pdt id : ");
+		// System.out.println(ProductDAO.nextPdtId());
 
 	}
 }

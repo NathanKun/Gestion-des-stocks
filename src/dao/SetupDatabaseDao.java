@@ -37,50 +37,50 @@ public final class SetupDatabaseDao {
 	public static void switchStaticFields(String user) {
 		switch (user) {
 		case "Junyang":
-			DAO.URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
-			DAO.LOGIN = "c##nathankun";
-			DAO.PASS = "83783548jun";
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
+			Dao.LOGIN = "c##nathankun";
+			Dao.PASS = "83783548jun";
 			break;
 		case "Junior":
-			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			DAO.LOGIN = "system";
-			DAO.PASS = "bdd";
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			Dao.LOGIN = "system";
+			Dao.PASS = "bdd";
 			break;
 		case "BDD3":
-			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			DAO.LOGIN = "BDD3";
-			DAO.PASS = "BDD3";
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			Dao.LOGIN = "BDD3";
+			Dao.PASS = "BDD3";
 			break;
 		case "BDD5":
-			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			DAO.LOGIN = "BDD5";
-			DAO.PASS = "BDD5";
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			Dao.LOGIN = "BDD5";
+			Dao.PASS = "BDD5";
 			break;
 		case "BDD6":
-			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			DAO.LOGIN = "BDD6";
-			DAO.PASS = "BDD6";
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			Dao.LOGIN = "BDD6";
+			Dao.PASS = "BDD6";
 			break;
 		case "BDD7":
-			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			DAO.LOGIN = "BDD7";
-			DAO.PASS = "BDD7";
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			Dao.LOGIN = "BDD7";
+			Dao.PASS = "BDD7";
 			break;
 		case "BDD8":
-			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			DAO.LOGIN = "BDD8";
-			DAO.PASS = "BDD8";
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			Dao.LOGIN = "BDD8";
+			Dao.PASS = "BDD8";
 			break;
 
 		default:
-			DAO.URL = "jdbc:oracle:thin:@localhost:1521:xe";
-			DAO.LOGIN = "system";
-			DAO.PASS = "bdd";
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			Dao.LOGIN = "system";
+			Dao.PASS = "bdd";
 			break;
 		}
-		System.out.println("URL = " + DAO.URL);
-		System.out.println("LOGIN = " + DAO.LOGIN);
-		System.out.println("PASS = " + DAO.PASS);
+		System.out.println("URL = " + Dao.URL);
+		System.out.println("LOGIN = " + Dao.LOGIN);
+		System.out.println("PASS = " + Dao.PASS);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public final class SetupDatabaseDao {
 		PreparedStatement ps = null;
 		int retour = 0;
 		try {
-			con = DriverManager.getConnection(DAO.URL, DAO.LOGIN, DAO.PASS);
+			con = DriverManager.getConnection(Dao.URL, Dao.LOGIN, Dao.PASS);
 			ps = con.prepareStatement(sql);
 			retour = ps.executeUpdate();
 		} catch (Exception ex) {
@@ -164,7 +164,7 @@ public final class SetupDatabaseDao {
 		PreparedStatement ps = null;
 		List<String> sqlList = readSqlFile(fileName);
 		try {
-			con = DriverManager.getConnection(DAO.URL, DAO.LOGIN, DAO.PASS);
+			con = DriverManager.getConnection(Dao.URL, Dao.LOGIN, Dao.PASS);
 			Statement smt = con.createStatement();
 
 			for (String sql : sqlList) {

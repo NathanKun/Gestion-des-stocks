@@ -14,15 +14,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.sun.glass.ui.CommonDialogs.Type;
-
 /**
  * abstract class for DAO.
  * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
-abstract class DAO {
+abstract class Dao {
 	/**
 	 * connection parameter between oracle URL and the DGB, LOGIN and PASS are
 	 * constants.
@@ -41,10 +39,9 @@ abstract class DAO {
 	static String PASS = "83783548jun";
 
 	/**
-	 * Constructor.
-	 * 
+	 * Constructor. Load JDBC driver.
 	 */
-	protected DAO() {
+	protected Dao() {
 		// loading the pilot of DGB
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -66,7 +63,7 @@ abstract class DAO {
 	 * @return the object got from data base
 	 */
 	@SuppressWarnings("unchecked")
-	protected Object getOne(String type, String sql, Object item) {
+	protected static Object getOne(String type, String sql, Object item) {
 		Object retour = null;
 
 		Connection con = null;
@@ -107,7 +104,7 @@ abstract class DAO {
 
 				case "Supplier":
 					long sprId = rs.getLong("spr_id");
-					retour = new Supplier(sprId, rs.getString("spr_name"), (HashMap<Long, Double>) this.getList("spl",
+					retour = new Supplier(sprId, rs.getString("spr_name"), (HashMap<Long, Double>) Dao.getList("spl",
 							"SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?", 1, sprId));
 					break;
 
@@ -116,7 +113,7 @@ abstract class DAO {
 					Boolean isPaid = rs.getInt("odr_ispaid") == 1 ? true : false;
 					retour = new Order(rs.getLong("odr_id"), rs.getDouble("odr_price"), rs.getDouble("odr_pricedis"),
 							rs.getString("odr_clientname"), isPaid, rs.getDate("odr_date"),
-							(ArrayList<OrderProduct>) this.getList("opl",
+							(ArrayList<OrderProduct>) Dao.getList("opl",
 									"SELECT * FROM odrpdtlist_opl WHERE opl_odr_id = ?", 1, odrId));
 					break;
 
@@ -183,7 +180,7 @@ abstract class DAO {
 	 * @return A list of object
 	 */
 	@SuppressWarnings("unchecked")
-	protected Object getList(String type, String sql, int parameterNumber, long id) {
+	protected static Object getList(String type, String sql, int parameterNumber, long id) {
 		HashMap<Long, Double> returnMap = new HashMap<Long, Double>();
 		ArrayList<Object> returnList = new ArrayList<Object>();
 
@@ -220,7 +217,7 @@ abstract class DAO {
 			case "Order":
 				while (rs.next()) {
 					long odrId = rs.getLong("odr_id");
-					ArrayList<OrderProduct> pdtList = (ArrayList<OrderProduct>) this.getList("opl",
+					ArrayList<OrderProduct> pdtList = (ArrayList<OrderProduct>) Dao.getList("opl",
 							"SELECT * FROM odrpdtlist_opl WHERE opl_odr_id = ?", 1, odrId);
 					Boolean isPaid = rs.getInt("odr_ispaid") == 1 ? true : false;
 					returnList.add(new Order(odrId, rs.getDouble("odr_price"), rs.getDouble("odr_pricedis"),
@@ -231,7 +228,7 @@ abstract class DAO {
 			case "Supplier":
 				while (rs.next()) {
 					long sprId = rs.getLong("spr_id");
-					returnList.add(new Supplier(sprId, rs.getString("spr_name"), (HashMap<Long, Double>) this
+					returnList.add(new Supplier(sprId, rs.getString("spr_name"), (HashMap<Long, Double>) Dao
 							.getList("spl", "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?", 1, sprId)));
 					// System.out.println("Supplier List 0: " +
 					// returnList.get(0).toString());
@@ -299,7 +296,7 @@ abstract class DAO {
 	 *            the object
 	 * @return numbers of line added.
 	 */
-	protected int addLine(String type, Object item) {
+	protected static int addLine(String type, Object item) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -416,7 +413,7 @@ abstract class DAO {
 	 *            the object
 	 * @return numbers of line deleted
 	 */
-	protected int deleteLine(String type, Object item) {
+	protected static int deleteLine(String type, Object item) {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -496,7 +493,7 @@ abstract class DAO {
 	 *            the object
 	 * @return numbers of line updated
 	 */
-	protected int updateLine(String type, Object item) {
+	protected static int updateLine(String type, Object item) {
 
 		Connection con = null;
 		PreparedStatement ps = null;

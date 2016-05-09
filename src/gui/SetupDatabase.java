@@ -1,7 +1,6 @@
 package gui;
 
 import dao.SetupDatabaseDao;
-import util.FirstConnectDataBaseThread;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -16,6 +15,10 @@ import javax.swing.border.EmptyBorder;
 
 public class SetupDatabase extends JFrame implements ActionListener {
 
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = 6207107139661053454L;
 	private JPanel contentPane;
 	private JButton btnDrop;
 	private JButton btnCreate;

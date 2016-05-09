@@ -15,7 +15,7 @@ import java.util.Map.Entry;
  * @author FOTSING KENGNE Junior - HE Junyang
  *
  */
-final public class SupplierDAO extends DAO {
+public abstract class SupplierDao extends Dao {
 	/**
 	 * add product in the date base.
 	 * 
@@ -23,8 +23,8 @@ final public class SupplierDAO extends DAO {
 	 *            contain the new supplier o add
 	 * @return retour 1 if the adding is ok and 0 if not
 	 */
-	public int addSupplier(Supplier supplier) {
-		return this.addLine("Supplier", supplier);
+	public static int addSupplier(Supplier supplier) {
+		return Dao.addLine("Supplier", supplier);
 	}
 
 	/**
@@ -34,9 +34,9 @@ final public class SupplierDAO extends DAO {
 	 *            identifiant of the supplier
 	 * @return the supplier
 	 */
-	public Supplier getSupplier(long id) {
+	public static Supplier getSupplier(long id) {
 		String sql = "SELECT *FROM supplier_spr WHERE spr_id = ?";
-		return (Supplier) this.getOne("Supplier", sql, id);
+		return (Supplier) Dao.getOne("Supplier", sql, id);
 	}
 
 	/**
@@ -45,9 +45,9 @@ final public class SupplierDAO extends DAO {
 	 * @return the list of all the suppliers in the data base
 	 */
 	@SuppressWarnings("unchecked")
-	public ArrayList<Supplier> getSupplierList() {
+	public static ArrayList<Supplier> getSupplierList() {
 		String sql = "SELECT *FROM Supplier_spr";
-		return (ArrayList<Supplier>) this.getList("Supplier", sql, 0, 0L);
+		return (ArrayList<Supplier>) Dao.getList("Supplier", sql, 0, 0L);
 	}
 
 	/**
@@ -57,8 +57,8 @@ final public class SupplierDAO extends DAO {
 	 *            contain the id of the supplier we want to delete
 	 * @return the number of line delete
 	 */
-	public int deleteSupplier(long id) {
-		return this.deleteLine("Supplier", id);
+	public static int deleteSupplier(long id) {
+		return Dao.deleteLine("Supplier", id);
 	}
 
 	/**
@@ -68,7 +68,7 @@ final public class SupplierDAO extends DAO {
 	 *            supplier with new data
 	 * @return number of line updated
 	 */
-	public int updateSupplier(Supplier supplier) {
+	public static int updateSupplier(Supplier supplier) {
 		// Update Supplier
 		int retour = updateLine("Supplier", supplier);
 		// Update Supplier Product Map
@@ -86,10 +86,10 @@ final public class SupplierDAO extends DAO {
 	 *            id of the supplier
 	 * @return number of line updated
 	 */
-	public int updateSupplierProductMap(HashMap<Long, Double> mapNew, long sprId) {
+	public static int updateSupplierProductMap(HashMap<Long, Double> mapNew, long sprId) {
 		int rowUpdated = 0;
 		// Update Supplier Product Map
-		HashMap<Long, Double> mapOld = this.getSupplier(sprId).getProductList();
+		HashMap<Long, Double> mapOld = SupplierDao.getSupplier(sprId).getProductList();
 		Iterator<Entry<Long, Double>> iteratorOld = mapOld.entrySet().iterator();
 		Iterator<Entry<Long, Double>> iteratorNew = mapNew.entrySet().iterator();
 		// add new row
@@ -97,13 +97,13 @@ final public class SupplierDAO extends DAO {
 			Entry<Long, Double> entry = (Entry<Long, Double>) iteratorNew.next();
 			Long key = entry.getKey();
 			if (!mapOld.containsKey(key)) {
-				this.addSupplierProduct(sprId, entry.getKey(), entry.getValue());
+				SupplierDao.addSupplierProduct(sprId, entry.getKey(), entry.getValue());
 				rowUpdated++;
 			} else {
 				// update changed row
 				// just update price of product in supplier product list
 				if (!mapOld.get(key).equals(mapNew.get(key))) {
-					this.updateSupplierProductRow(sprId, key, mapNew.get(key));
+					SupplierDao.updateSupplierProductRow(sprId, key, mapNew.get(key));
 					rowUpdated++;
 				}
 			}
@@ -112,7 +112,7 @@ final public class SupplierDAO extends DAO {
 		while (iteratorOld.hasNext()) {
 			Entry<Long, Double> entry = (Entry<Long, Double>) iteratorOld.next();
 			if (!mapNew.containsKey(entry.getKey())) {
-				this.deleteSupplierProduct(sprId, entry.getKey());
+				SupplierDao.deleteSupplierProduct(sprId, entry.getKey());
 				rowUpdated++;
 			}
 		}
@@ -130,11 +130,11 @@ final public class SupplierDAO extends DAO {
 	 *            price of the product for this supplier
 	 * @return number of line updated
 	 */
-	public int updateSupplierProductRow(long sprId, long pdtId, double price) {
+	public static int updateSupplierProductRow(long sprId, long pdtId, double price) {
 		// just update price
 		int retour;
 		double[] param = { (double) sprId, (double) pdtId, price };
-		retour = this.updateLine("spl", param);
+		retour = Dao.updateLine("spl", param);
 		return retour;
 	}
 
@@ -152,16 +152,15 @@ final public class SupplierDAO extends DAO {
 	// TODO if return 0 means this product is already existed
 	// in the list of this supplier
 	// Should show a warning panel
-	public int addSupplierProduct(long sprId, long pdtId, Double price) {
+	public static int addSupplierProduct(long sprId, long pdtId, Double price) {
 		double[] param = { Double.valueOf(sprId), Double.valueOf(pdtId), price };
 		int retour = 0;
-		retour = this.addLine("spl", param);
+		retour = Dao.addLine("spl", param);
 		// update the product
-		ProductDAO dao = new ProductDAO();
-		Product product = dao.getProduct(pdtId);
+		Product product = ProductDao.getProduct(pdtId);
 		product.setSupplierId(sprId);
-		product.setSupplierName(new SupplierDAO().getSupplier(sprId).getName());
-		if (dao.updateProduct(product) != 1) {
+		product.setSupplierName(SupplierDao.getSupplier(sprId).getName());
+		if (ProductDao.updateProduct(product) != 1) {
 			System.out.println("Update product failed");
 		}
 
@@ -177,10 +176,10 @@ final public class SupplierDAO extends DAO {
 	 *            pdt's id
 	 * @return SupplierProductPrice, with the price
 	 */
-	public SupplierProductPrice getSupplierProductPrice(long sprId, long pdtId) {
+	public static SupplierProductPrice getSupplierProductPrice(long sprId, long pdtId) {
 		SupplierProductPrice supplierProductPrice = new SupplierProductPrice(sprId, pdtId, 0d);
 		String sql = "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ? AND spl_pdt_id = ?";
-		return (SupplierProductPrice) this.getOne("SupplierProductPrice", sql, supplierProductPrice);
+		return (SupplierProductPrice) Dao.getOne("SupplierProductPrice", sql, supplierProductPrice);
 	}
 
 	/**
@@ -191,10 +190,10 @@ final public class SupplierDAO extends DAO {
 	 * @return SupplierProductPrice with supplier's id who give the best price,
 	 *         and the price.
 	 */
-	public SupplierProductPrice getBestPriceOfAProduct(long pdtId) {
+	public static SupplierProductPrice getBestPriceOfAProduct(long pdtId) {
 		String sql = "SELECT * FROM sprpdtlist_spl " + "WHERE spl_pdt_id = ? "
 				+ "AND spl_pdt_price = ( SELECT MIN(spl_pdt_price) FROM sprpdtlist_spl " + "WHERE spl_pdt_id = ?)";
-		return (SupplierProductPrice) this.getOne("BestPrice", sql, pdtId);
+		return (SupplierProductPrice) Dao.getOne("BestPrice", sql, pdtId);
 	}
 
 	/**
@@ -205,9 +204,9 @@ final public class SupplierDAO extends DAO {
 	 * @return the list of product of the supplier
 	 */
 	@SuppressWarnings("unchecked")
-	public HashMap<Long, Double> getSupplierProductMap(long sprId) {
+	public static HashMap<Long, Double> getSupplierProductMap(long sprId) {
 		String sql = "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?";
-		HashMap<Long, Double> sprpdtlist = (HashMap<Long, Double>) this.getList("spl", sql, 1, sprId);
+		HashMap<Long, Double> sprpdtlist = (HashMap<Long, Double>) Dao.getList("spl", sql, 1, sprId);
 		return sprpdtlist;
 	}
 
@@ -220,10 +219,10 @@ final public class SupplierDAO extends DAO {
 	 *            id of product for delete
 	 * @return the number of line deleted
 	 */
-	public int deleteSupplierProduct(long sprId, long pdtId) {
+	public static int deleteSupplierProduct(long sprId, long pdtId) {
 		// need to pass two param
 		long[] param = { sprId, pdtId };
-		return this.deleteLine("spl", param);
+		return Dao.deleteLine("spl", param);
 	}
 
 	// public int updateSupplierProduct(Supplier supplier) {
@@ -231,11 +230,11 @@ final public class SupplierDAO extends DAO {
 	// }
 
 	public static long nextSprId() {
-		return DAO.nextId("Supplier");
+		return Dao.nextId("Supplier");
 	}
 
 	public static long nextSplId() {
-		return DAO.nextId("spl");
+		return Dao.nextId("spl");
 	}
 
 	/**
@@ -245,15 +244,14 @@ final public class SupplierDAO extends DAO {
 	 *            for main
 	 */
 	public static void main(String[] args) {
-		SupplierDAO dao = new SupplierDAO();
 		// System.out.println("id gen next spl_id = " +
 		// dao.idGenerator_Sprpdtlist_spl());
 		// System.out.println("id gen next spr_id = " +
 		// dao.idGenerator_Supplier_spr());
 		// dao.addSupplier(new Supplier("sprrrrrr"));
 
-		// System.out.println("Get List : ");
-		// System.out.println(dao.getSupplierList().toString());
+		System.out.println("Get List : ");
+		System.out.println(SupplierDao.getSupplierList().toString());
 		// System.out.println("Get Supplier id 2");
 		// System.out.println(dao.getSupplier(2).toString());
 		// System.out.println("Get Supplier Product Map of spr 2");
@@ -281,10 +279,10 @@ final public class SupplierDAO extends DAO {
 		// "UpdatedNameOOOO", oldmap)));
 
 		// System.out.println(dao.updateSupplierProductRow(1l, 3l, 111.11d));
-
-		System.out.println("Next spr id : ");
-		System.out.println(SupplierDAO.nextSprId());
-		System.out.println("Next spl id : ");
-		System.out.println(SupplierDAO.nextSplId());
+		//
+		// System.out.println("Next spr id : ");
+		// System.out.println(SupplierDAO.nextSprId());
+		// System.out.println("Next spl id : ");
+		// System.out.println(SupplierDAO.nextSplId());
 	}
 }
