@@ -142,10 +142,10 @@ public class LoginGui extends JFrame implements ActionListener {
 		char[] pw = jtfPw.getPassword();
 
 		if (id.isEmpty() == true) {
-			JOptionPane.showConfirmDialog(null, "ID can't be void!", "Opps", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "ID can't be void!", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		} else if (pw.length == 0) {
-			JOptionPane.showConfirmDialog(null, "Password can't be void!", "Opps", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Password can't be void!", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		} else {
 
@@ -153,14 +153,14 @@ public class LoginGui extends JFrame implements ActionListener {
 			System.out.println("id = " + id);
 			if (user == null) {
 				System.out.println("id wrong");
-				JOptionPane.showConfirmDialog(null, "ID or Password incorrect.", "Opps", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(this, "ID or Password incorrect.", "Opps", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.WARNING_MESSAGE);
 			} else {
 				if (user.getPw().equals(new String(pw))) {
 					return user;
 				} else {
 					System.out.println("pw wrong");
-					JOptionPane.showConfirmDialog(null, "ID or Password incorrect.", "Opps", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "ID or Password incorrect.", "Opps", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.WARNING_MESSAGE);
 				}
 			}

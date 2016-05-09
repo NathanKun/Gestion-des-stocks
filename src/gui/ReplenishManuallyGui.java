@@ -72,7 +72,7 @@ public class ReplenishManuallyGui extends SearchProductGui {
 						ProductDao.updateProduct(selectedProduct);
 						JOptionPane.showConfirmDialog(null, "Product replenished.", "Confirm",
 								JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
+						jtfQuantity.setText("");
 						refreshTable();
 
 					} else {

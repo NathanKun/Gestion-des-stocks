@@ -1,6 +1,5 @@
 package dao;
 
-import gds.Product;
 import gds.Supplier;
 import gds.SupplierProductPrice;
 
@@ -149,22 +148,9 @@ public abstract class SupplierDao extends Dao {
 	 *            the price of the product
 	 * @return the number of products add in the table
 	 */
-	// TODO if return 0 means this product is already existed
-	// in the list of this supplier
-	// Should show a warning panel
 	public static int addSupplierProduct(long sprId, long pdtId, Double price) {
 		double[] param = { Double.valueOf(sprId), Double.valueOf(pdtId), price };
-		int retour = 0;
-		retour = Dao.addLine("spl", param);
-		// update the product
-		Product product = ProductDao.getProduct(pdtId);
-		product.setSupplierId(sprId);
-		product.setSupplierName(SupplierDao.getSupplier(sprId).getName());
-		if (ProductDao.updateProduct(product) != 1) {
-			System.out.println("Update product failed");
-		}
-
-		return retour;
+		return Dao.addLine("spl", param);
 	}
 
 	/**

@@ -6,19 +6,19 @@ CREATE SEQUENCE oplid_seq MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 5;
 CREATE SEQUENCE splid_seq MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 5;
 CREATE TABLE supplier_spr (
     spr_id NUMBER CONSTRAINT PK_spr PRIMARY KEY,
-    spr_name VARCHAR2(50)
+    spr_name VARCHAR2(50) NOT NULL
 );
 CREATE TABLE product_pdt (
     pdt_id NUMBER CONSTRAINT PK_pdt PRIMARY KEY,
-    pdt_name VARCHAR2(50),
+    pdt_name VARCHAR2(50) NOT NULL,
     pdt_stock NUMBER(3) NOT NULL,
     PDT_SPR NUMBER (10),
     pdt_price NUMBER (10,2),
-    CONSTRAINT FK_pdt_sprid FOREIGN KEY (pdt_spr) REFERENCES supplier_spr (spr_id) ON DELETE CASCADE
+    CONSTRAINT FK_pdt_sprid FOREIGN KEY (pdt_spr) REFERENCES supplier_spr (spr_id)
 );
 CREATE TABLE user_usr (
     usr_id VARCHAR2(50) CONSTRAINT PK_usr PRIMARY KEY,
-    usr_pw VARCHAR2(50),
+    usr_pw VARCHAR2(50) NOT NULL,
     usr_name VARCHAR(50)
 );
 CREATE TABLE order_odr (

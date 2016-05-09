@@ -285,7 +285,6 @@ public class SearchSupplierGui extends JFrame {
 	public void chargeProductListTable() {
 		// set product list table
 		HashMap<Long, Double> pdtList = SupplierDao.getSupplierProductMap(selectedSupplier.getId());
-		// System.out.println("s.getId() : " + s.getId());
 		for (int i = jtbPdtList.getRowCount() - 1; i >= 0; i--) {
 			modelPdtList.removeRow(i);
 		}
@@ -303,7 +302,6 @@ public class SearchSupplierGui extends JFrame {
 			}
 			Object[] object = { key, pdtName, entry.getValue() };
 			modelPdtList.addRow(object);
-			// System.out.println("object : " + object);
 		}
 	}
 

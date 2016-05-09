@@ -1,8 +1,8 @@
 package dao;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,9 +12,9 @@ import java.util.List;
 
 public final class SetupDatabaseDao {
 
-	static final String fileDrop = "src/resources/drop.sql";
-	static final String fileCreate = "src/resources/create.sql";
-	static final String fileInsert = "src/resources/insert.sql";
+	static final String fileDrop = "/resources/drop.sql";
+	static final String fileCreate = "/resources/create.sql";
+	static final String fileInsert = "/resources/insert.sql";
 
 	/**
 	 * Constructor, load the JDBC driver.
@@ -92,13 +92,10 @@ public final class SetupDatabaseDao {
 	 */
 	public static List<String> readSqlFile(String fileName) {
 		List<String> sqlList = new ArrayList<String>();
-		File myFile = new File(fileName);
-		if (!myFile.exists()) {
-			System.err.println("Can't Find " + fileName);
-		}
+		InputStream is = SetupDatabaseDao.class.getResourceAsStream(fileName);
 		StringBuffer temp = new StringBuffer();
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(myFile));
+			BufferedReader in = new BufferedReader(new InputStreamReader(is));
 			String str;
 			while ((str = in.readLine()) != null) {
 				temp.append(str);
@@ -229,9 +226,9 @@ public final class SetupDatabaseDao {
 	 */
 	public static void main(String[] args) {
 		SetupDatabaseDao.switchStaticFields("Junyang");
-		SetupDatabaseDao.dropAll();
-		SetupDatabaseDao.createTable();
-		SetupDatabaseDao.insertData();
+//		SetupDatabaseDao.dropAll();
+//		SetupDatabaseDao.createTable();
+//		SetupDatabaseDao.insertData();
 	}
 
 }

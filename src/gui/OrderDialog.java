@@ -552,20 +552,28 @@ public class OrderDialog extends JDialog implements ActionListener {
 				// if the product is already existed in the added product
 				// list
 				// then add the quantity
-				boolean bool = false;
+				boolean isExistedInList = false;
 				for (int i = 0; i < modelPdtList.getRowCount(); i++) {
 					if ((long) modelPdtList.getValueAt(i, 0) == pdt.getId()) {
-						bool = true;
+						isExistedInList = true;
 					}
 				}
-				if (bool) {
+				if (isExistedInList) {
 					for (int i = 0; i < modelPdtList.getRowCount(); i++) {
 						if ((long) modelPdtList.getValueAt(i, 0) == pdt.getId()) {
 							if (pdt.getStock() > (int) modelPdtList.getValueAt(i, 3)) {
-								modelPdtList.setValueAt((int) modelPdtList.getValueAt(i, 3) + 1, i, 3);
+								if (pdt.getSupplierId() != 0) {
+									modelPdtList.setValueAt((int) modelPdtList.getValueAt(i, 3) + 1, i, 3);
+								} else {
+									JOptionPane.showConfirmDialog(this,
+											"this product doesn't has a supplier now.\n"
+													+ "Please contact Admin to choose a supplier for this product.\n"
+													+ "Else, this product doesn't have a price.",
+											"Opps", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+								}
 							} else {
 								System.out.println("Stock not enought");
-								JOptionPane.showConfirmDialog(null, "Stock not enought", "Opps",
+								JOptionPane.showConfirmDialog(this, "Stock not enought", "Opps",
 										JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
 							}
 						}
@@ -573,10 +581,18 @@ public class OrderDialog extends JDialog implements ActionListener {
 				} else {
 					// else add a new line
 					if (pdt.getStock() != 0) {
-						modelPdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
+						if (pdt.getSupplierId() != 0) {
+							modelPdtList.addRow(new Object[] { pdt.getId(), pdt.getName(), pdt.getPrice(), 1 });
+						} else {
+							JOptionPane.showConfirmDialog(this,
+									"this product doesn't has a supplier now.\n"
+											+ "Please contact Admin to choose a supplier for this product.\n"
+											+ "Else, this product doesn't have a price.",
+									"Opps", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+						}
 					} else {
 						System.out.println("Stock not enought");
-						JOptionPane.showConfirmDialog(null, "Stock not enought", "Opps", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.showConfirmDialog(this, "Stock not enought", "Opps", JOptionPane.DEFAULT_OPTION,
 								JOptionPane.WARNING_MESSAGE);
 					}
 				}
@@ -593,7 +609,7 @@ public class OrderDialog extends JDialog implements ActionListener {
 			}
 		} else {
 			System.out.println("pdt id wrong type");
-			JOptionPane.showConfirmDialog(null, "Please enter a correct ID", "Opps", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Please enter a correct ID", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -639,13 +655,13 @@ public class OrderDialog extends JDialog implements ActionListener {
 			System.out.println(newOrder.toString());
 			// add order into date base
 			OrderDao.addOrder(newOrder);
-			JOptionPane.showConfirmDialog(null, "Order created.", "OK", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Order created.", "OK", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 			// if no product selected
 		} else {
 			System.out.println("product list void");
-			JOptionPane.showConfirmDialog(null, "No product selected.", "Opps", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "No product selected.", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -671,12 +687,12 @@ public class OrderDialog extends JDialog implements ActionListener {
 
 			OrderDao.updateOrder(order);
 
-			JOptionPane.showConfirmDialog(null, "Order Updated.", "OK", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Order Updated.", "OK", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 		} else {
 			System.out.println("product list void");
-			JOptionPane.showConfirmDialog(null, "No product selected.", "Opps", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "No product selected.", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -685,12 +701,12 @@ public class OrderDialog extends JDialog implements ActionListener {
 	 * Cancel the order.
 	 */
 	private void cancelOrder() {
-		if (JOptionPane.showConfirmDialog(null,
+		if (JOptionPane.showConfirmDialog(this,
 				"Do you really want to Cancel this order?\nIt means DELETE this order from our database and it can not redo!",
 				"Comfirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 			// y for 0, n for 1
 			OrderDao.deleteOrder(order.getId());
-			JOptionPane.showConfirmDialog(null, "Order deleted", "OK", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Order deleted", "OK", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			this.dispose();
 		}

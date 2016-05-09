@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author HE Junyang
  *
  */
-public class SearchSupplierForAffect extends SearchSupplierGui {
+public class SearchSupplierForChoose extends SearchSupplierGui {
 	/**
 	 * serialVersionUID.
 	 */
@@ -36,7 +36,7 @@ public class SearchSupplierForAffect extends SearchSupplierGui {
 	 * @param pdtId
 	 *            the id of product for choose a supplier.
 	 */
-	public SearchSupplierForAffect(ManageProductGui owner, long pdtId) {
+	public SearchSupplierForChoose(ManageProductGui owner, long pdtId) {
 		super();
 		jbBack.setSize(100, 23);
 
@@ -67,17 +67,23 @@ public class SearchSupplierForAffect extends SearchSupplierGui {
 
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				Product pdt = ProductDao.getProduct(pdtId);
-				pdt.setSupplierId(selectedSupplier.getId());
-				pdt.setSupplierName(selectedSupplier.getName());
-				pdt.setPrice(selectedSupplier.getProductList().get(pdtId));
-				if (ProductDao.updateProduct(pdt) == 1) {
-					JOptionPane.showConfirmDialog(null, "Supplier chose.\nProduct updated.", "Confirm",
-							JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-					dispose();
-					owner.setVisible(true);
+				if (selectedSupplier != null) {
+					Product pdt = ProductDao.getProduct(pdtId);
+					pdt.setSupplierId(selectedSupplier.getId());
+					pdt.setSupplierName(selectedSupplier.getName());
+					pdt.setPrice(selectedSupplier.getProductList().get(pdtId));
+					if (ProductDao.updateProduct(pdt) == 1) {
+						JOptionPane.showConfirmDialog(null, "Supplier chose.\nProduct updated.", "Confirm",
+								JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+						owner.refreshList();
+						owner.setVisible(true);
+					} else {
+						JOptionPane.showConfirmDialog(null, "Something wrong.", "Error", JOptionPane.DEFAULT_OPTION,
+								JOptionPane.ERROR_MESSAGE);
+					}
 				} else {
-					JOptionPane.showConfirmDialog(null, "Something wrong.", "Error", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(null, "You need to choose a supplier.", "Error", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}

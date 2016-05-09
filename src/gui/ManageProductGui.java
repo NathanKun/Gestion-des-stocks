@@ -39,6 +39,9 @@ public class ManageProductGui extends SearchProductGui implements ActionListener
 	 * The user who logged in.
 	 */
 	private User user;
+	/**
+	 * Button to choose a supplier.
+	 */
 	private JButton jbChooseSupplier;
 
 	/**
@@ -97,21 +100,21 @@ public class ManageProductGui extends SearchProductGui implements ActionListener
 		if (selectedProduct != null) {
 			String text = "Do you really want to delete product " + selectedProduct.getName() + " ?";
 			// ask if really want to delete a product
-			if (JOptionPane.showConfirmDialog(null, text, "Comfirm", JOptionPane.YES_NO_OPTION,
+			if (JOptionPane.showConfirmDialog(this, text, "Comfirm", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE) == 0) {
 				// y for 0, n for 1
 				if (ProductDao.deleteProduct(selectedProduct.getId()) == 1) {
-					JOptionPane.showConfirmDialog(null, "Product deleted", "Confirm", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Product deleted", "Confirm", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					JOptionPane.showConfirmDialog(null, "Something wrong.", "Error", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Something wrong.", "Error", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				}
 				// refresh the list after deleting
 				refreshList();
 			}
 		} else {
-			JOptionPane.showConfirmDialog(null, "Please select a product.", "Error", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Please select a product.", "Error", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -129,7 +132,7 @@ public class ManageProductGui extends SearchProductGui implements ActionListener
 			if (selectedProduct != null) {
 				new ProductDialog(this, true, selectedProduct);
 			} else {
-				JOptionPane.showConfirmDialog(null, "Please select a product.", "Error", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(this, "Please select a product.", "Error", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (ev.getSource() == jbDelete) {
@@ -137,10 +140,10 @@ public class ManageProductGui extends SearchProductGui implements ActionListener
 			deleteProduct();
 		} else if (ev.getSource() == jbChooseSupplier) {
 			if (selectedProduct != null) {
-				new SearchSupplierForAffect(this, selectedProduct.getId());
+				new SearchSupplierForChoose(this, selectedProduct.getId());
 				this.setVisible(false);
 			} else {
-				JOptionPane.showConfirmDialog(null, "Please select a product.", "Error", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(this, "Please select a product.", "Error", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (ev.getSource() == jbBack) {

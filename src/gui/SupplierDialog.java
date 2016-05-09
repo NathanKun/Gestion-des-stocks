@@ -142,7 +142,7 @@ public class SupplierDialog extends JDialog implements ActionListener {
 	private void saveSupplier() {
 		// if text field is empty
 		if (jtfName.getText().isEmpty()) {
-			JOptionPane.showConfirmDialog(null, "Supplier name can't be void.", "Error", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Supplier name can't be void.", "Error", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.ERROR_MESSAGE);
 		} else {
 			// Detect if the name is already existed
@@ -158,17 +158,17 @@ public class SupplierDialog extends JDialog implements ActionListener {
 				if (spr != null) {
 					spr.setName(jtfName.getText());
 					SupplierDao.updateSupplier(spr);
-					JOptionPane.showConfirmDialog(null, "Supplier updated.", "Confirm", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Supplier updated.", "Confirm", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					SupplierDao.addSupplier(new Supplier(Long.parseLong(jtfId.getText()), jtfName.getText()));
-					JOptionPane.showConfirmDialog(null, "Supplier added.", "Confirm", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Supplier added.", "Confirm", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE);
 				}
 				((ManageSupplierGui) this.getOwner()).refreshList();
 				this.dispose();
 			} else {
-				JOptionPane.showConfirmDialog(null, "Supplier name is already existed.", "Error",
+				JOptionPane.showConfirmDialog(this, "Supplier name is already existed.", "Error",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 		}

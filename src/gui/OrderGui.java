@@ -272,7 +272,7 @@ public class OrderGui extends JFrame implements ActionListener {
 			new OrderDialog(this, true, OrderDao.getOrder(seletedOrderId));
 		} else {
 			System.out.println("No seleted order");
-			JOptionPane.showConfirmDialog(null, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -299,7 +299,7 @@ public class OrderGui extends JFrame implements ActionListener {
 	 */
 	private void cancelButtonOnClick() {
 		if (seletedOrderId != 0) {
-			if (JOptionPane.showConfirmDialog(null,
+			if (JOptionPane.showConfirmDialog(this,
 					"Do you really want to Cancel this order?\nIt means DELETE this order from our database and it can not redo!",
 					"Comfirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 				// y for 0, n for 1
@@ -308,7 +308,7 @@ public class OrderGui extends JFrame implements ActionListener {
 			}
 		} else {
 			System.out.println("No seleted order");
-			JOptionPane.showConfirmDialog(null, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -339,15 +339,15 @@ public class OrderGui extends JFrame implements ActionListener {
 				}
 
 				if (isStockEnought) {
-					if (JOptionPane.showConfirmDialog(null, "Settle this order ?", "Comfirm", JOptionPane.YES_NO_OPTION,
+					if (JOptionPane.showConfirmDialog(this, "Settle this order ?", "Comfirm", JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE) == 0) {
 						// update order state
 						order.setIsPaid(true);
 						if (OrderDao.updateOrder(order) == 1) {
-							JOptionPane.showConfirmDialog(null, "Order settled!", "Settle Order",
+							JOptionPane.showConfirmDialog(this, "Order settled!", "Settle Order",
 									JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							JOptionPane.showConfirmDialog(null, "Something wrong. Look at the console.", "Oops",
+							JOptionPane.showConfirmDialog(this, "Something wrong. Look at the console.", "Oops",
 									JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 							System.out.println(order);
 						}
@@ -362,10 +362,10 @@ public class OrderGui extends JFrame implements ActionListener {
 							loopCounter++;
 						}
 						if (loopCounter != updateCounter) {
-							JOptionPane.showConfirmDialog(null, "Something wrong. Look at the console.", "Oops",
+							JOptionPane.showConfirmDialog(this, "Something wrong. Look at the console.", "Oops",
 									JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 						} else {
-							JOptionPane.showConfirmDialog(null, "Products' stocks updated!", "Settle Order",
+							JOptionPane.showConfirmDialog(this, "Products' stocks updated!", "Settle Order",
 									JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 						}
 
@@ -373,11 +373,11 @@ public class OrderGui extends JFrame implements ActionListener {
 						replenishAutomatic(order);
 					}
 				} else {
-					JOptionPane.showConfirmDialog(null, text, "Oops", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, text, "Oops", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				}
 			} else {
-				JOptionPane.showConfirmDialog(null, "This order has already been paid.", "Oops",
+				JOptionPane.showConfirmDialog(this, "This order has already been paid.", "Oops",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 
@@ -385,7 +385,7 @@ public class OrderGui extends JFrame implements ActionListener {
 			searchButtonOnClick();
 		} else {
 			System.out.println("No seleted order");
-			JOptionPane.showConfirmDialog(null, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
 		}
 
@@ -408,25 +408,34 @@ public class OrderGui extends JFrame implements ActionListener {
 		boolean isReplenished = false;
 		for (OrderProduct orderProduct : order.getProductList()) {
 			Product pdt = ProductDao.getProduct(orderProduct.getProductId());
-			if (pdt.getStock() < 15) {
-				isReplenished = true;
-				int replenishQuantity = replenishFromSupplier(orderProduct.getProductId());
-				pdt.addStock(replenishQuantity);
-				ProductDao.updateProduct(pdt);
+			if (pdt.getSupplierId() != 0) {
+				if (pdt.getStock() < 15) {
+					isReplenished = true;
+					int replenishQuantity = replenishFromSupplier(orderProduct.getProductId());
+					pdt.addStock(replenishQuantity);
+					ProductDao.updateProduct(pdt);
 
+					text.append("Product <<");
+					text.append(pdt.getName());
+					text.append(">> with id = ");
+					text.append(String.valueOf(pdt.getId()));
+					text.append(" replenished quantity ");
+					text.append(String.valueOf(replenishQuantity));
+					text.append(". Quantity is now ");
+					text.append(String.valueOf(pdt.getStock()));
+					text.append("\n");
+				}
+			} else {
 				text.append("Product <<");
 				text.append(pdt.getName());
 				text.append(">> with id = ");
 				text.append(String.valueOf(pdt.getId()));
-				text.append(" replenished quantity ");
-				text.append(String.valueOf(replenishQuantity));
-				text.append(". Quantity is now ");
-				text.append(String.valueOf(pdt.getStock()));
+				text.append(" has no supplier now, can not be replenished.");
 				text.append("\n");
 			}
 		}
 		if (isReplenished) {
-			JOptionPane.showConfirmDialog(null, text, "Replenished automatic", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, text, "Replenished automatic", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 		}
 	}

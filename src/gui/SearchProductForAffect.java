@@ -94,9 +94,7 @@ public class SearchProductForAffect extends SearchProductGui {
 									Double.parseDouble(jtfPrice.getText())) == 1) {
 								JOptionPane.showConfirmDialog(null, "Product affected", "Confirm",
 										JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-								dispose();
-								owner.chargeProductListTable();
-								owner.setVisible(true);
+								jtfPrice.setText("");
 							} else {
 								// show product already affected message
 								JOptionPane.showConfirmDialog(null, "Product already affected", "Error",

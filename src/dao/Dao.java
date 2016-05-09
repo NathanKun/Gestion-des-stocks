@@ -203,7 +203,6 @@ abstract class Dao {
 			case "spl":
 				while (rs.next()) {
 					returnMap.put(rs.getLong("spl_pdt_id"), rs.getDouble("spl_pdt_price"));
-					// System.out.println("spl returnMap : " + returnMap);
 				}
 				break;
 
@@ -230,8 +229,6 @@ abstract class Dao {
 					long sprId = rs.getLong("spr_id");
 					returnList.add(new Supplier(sprId, rs.getString("spr_name"), (HashMap<Long, Double>) Dao
 							.getList("spl", "SELECT * FROM sprpdtlist_spl WHERE spl_spr_id = ?", 1, sprId)));
-					// System.out.println("Supplier List 0: " +
-					// returnList.get(0).toString());
 				}
 				break;
 
@@ -280,7 +277,6 @@ abstract class Dao {
 		}
 
 		if (type.contains("spl")) {
-			// System.out.println("spl : " + returnMap.toString());
 			return returnMap;
 		} else {
 			return returnList;

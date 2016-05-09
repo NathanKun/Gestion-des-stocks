@@ -1,13 +1,21 @@
 package gui;
 
+import dao.ProductDao;
 import dao.SupplierDao;
+import gds.Product;
 import gds.Supplier;
+import gds.SupplierProductPrice;
 import gds.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -140,21 +148,38 @@ public class ManageSupplierGui extends SearchSupplierGui implements ActionListen
 		if (selectedSupplier != null) {
 			String text = "Do you really want to delete supplier " + selectedSupplier.getName() + " ?";
 			// ask if really want to delete a supplier
-			if (JOptionPane.showConfirmDialog(null, text, "Comfirm", JOptionPane.YES_NO_OPTION,
+			if (JOptionPane.showConfirmDialog(this, text, "Comfirm", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE) == 0) {
-				// y for 0, n for 1
+				// reset the products' supplier data which the current supplier
+				// of the product is this supplier
+				HashMap<Long, Double> productMapOfSupplier = SupplierDao
+						.getSupplierProductMap(selectedSupplier.getId());
+				Iterator<Entry<Long, Double>> ite = productMapOfSupplier.entrySet().iterator();
+				long sprId = selectedSupplier.getId();
+				while (ite.hasNext()) {
+					Entry<Long, Double> entry = ite.next();
+					Product product = ProductDao.getProduct(entry.getKey());
+					if (product.getSupplierId() == sprId) {
+						product.setSupplierId(0);
+						product.setPrice(0.0d);
+						product.setSupplierName(null);
+						ProductDao.updateProduct(product);
+					}
+				}
+
+				// delete supplier
 				if (SupplierDao.deleteSupplier(selectedSupplier.getId()) == 1) {
-					JOptionPane.showConfirmDialog(null, "Supplier deleted", "Confirm", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Supplier deleted", "Confirm", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					JOptionPane.showConfirmDialog(null, "Something wrong.", "Error", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Something wrong.", "Error", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				}
 				// refresh the list after deleting
 				refreshList();
 			}
 		} else {
-			JOptionPane.showConfirmDialog(null, "Please select a supplier.", "Error", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Please select a supplier.", "Error", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -164,20 +189,31 @@ public class ManageSupplierGui extends SearchSupplierGui implements ActionListen
 	 */
 	private void removeProduct() {
 		if (seletedProductId != 0) {
-			if (JOptionPane.showConfirmDialog(null, "Do you really want to remove this product from this supplier?",
+			if (JOptionPane.showConfirmDialog(this, "Do you really want to remove this product from this supplier?",
 					"Comfirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 				if (SupplierDao.deleteSupplierProduct(selectedSupplier.getId(), seletedProductId) == 1) {
-					JOptionPane.showConfirmDialog(null, "Product deleted", "Confirm", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Product deleted", "Confirm", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE);
+
+					// reset the product's supplier data if this supplier is
+					// this product's current supplier.
+					Product pdt = ProductDao.getProduct(seletedProductId);
+					if (pdt.getSupplierId() == selectedSupplier.getId()) {
+						pdt.setSupplierId(0L);
+						pdt.setSupplierName(null);
+						pdt.setPrice(0.00d);
+						ProductDao.updateProduct(pdt);
+					}
+
 					seletedProductId = 0;
 					chargeProductListTable();
 				} else {
-					JOptionPane.showConfirmDialog(null, "Something wrong.", "Error", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Something wrong.", "Error", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		} else {
-			JOptionPane.showConfirmDialog(null, "Please selected a product.", "Error", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Please selected a product.", "Error", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -195,7 +231,7 @@ public class ManageSupplierGui extends SearchSupplierGui implements ActionListen
 			if (selectedSupplier != null) {
 				new SupplierDialog(this, true, selectedSupplier);
 			} else {
-				JOptionPane.showConfirmDialog(null, "Please select a supplier.", "Error", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(this, "Please select a supplier.", "Error", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (ev.getSource() == jbDelete) {
@@ -207,7 +243,7 @@ public class ManageSupplierGui extends SearchSupplierGui implements ActionListen
 				new SearchProductForAffect(this, selectedSupplier.getId());
 				this.setVisible(false);
 			} else {
-				JOptionPane.showConfirmDialog(null, "Please select a supplier.", "Error", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.showConfirmDialog(this, "Please select a supplier.", "Error", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (ev.getSource() == jbRemoveProduct) {
