@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author HE Junyang
  *
  */
-public class SearchSupplierForChoose extends SearchSupplierGui {
+public final class SearchSupplierForChoose extends SearchSupplierGui {
 	/**
 	 * serialVersionUID.
 	 */

@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
  * @author HE Junyang
  *
  */
-public class SupplierDialog extends JDialog implements ActionListener {
+public final class SupplierDialog extends JDialog implements ActionListener {
 
 	/**
 	 * serialVersionUID.
@@ -72,6 +72,10 @@ public class SupplierDialog extends JDialog implements ActionListener {
 
 	/**
 	 * Create the dialog.
+	 * 
+	 * @param owner	owner of this Frame
+	 * @param modal	can the owner be selected
+	 * @param spr	supplier selected
 	 */
 	public SupplierDialog(Frame owner, boolean modal, Supplier spr) {
 		super(owner, modal);

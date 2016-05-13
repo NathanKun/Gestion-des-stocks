@@ -23,7 +23,7 @@ import javax.swing.JTextField;
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
-public class LoginGui extends JFrame implements ActionListener {
+public final class LoginGui extends JFrame implements ActionListener {
 	/**
 	 * serialVersionUID.
 	 */

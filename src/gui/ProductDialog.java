@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
  * @author HE Junyang
  *
  */
-public class ProductDialog extends JDialog implements ActionListener {
+public final class ProductDialog extends JDialog implements ActionListener {
 
 	/**
 	 * serialVersionUID.
@@ -72,6 +72,10 @@ public class ProductDialog extends JDialog implements ActionListener {
 
 	/**
 	 * Create the dialog.
+	 * 
+	 * @param owner	owner of this Frame
+	 * @param modal	can the owner be selected
+	 * @param pdt	product selected
 	 */
 	public ProductDialog(Frame owner, boolean modal, Product pdt) {
 		super(owner, modal);
@@ -142,7 +146,8 @@ public class ProductDialog extends JDialog implements ActionListener {
 	private void saveProduct() {
 		// if text field is empty
 		if (jtfName.getText().isEmpty()) {
-			JOptionPane.showConfirmDialog(this, "Product name can't be void.", "Error", JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showConfirmDialog(this, "Product name can't be void.",
+					"Error", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.ERROR_MESSAGE);
 		} else {
 			// Detect if the name is already existed
@@ -158,17 +163,21 @@ public class ProductDialog extends JDialog implements ActionListener {
 				if (pdt != null) {
 					pdt.setName(jtfName.getText());
 					ProductDao.updateProduct(pdt);
-					JOptionPane.showConfirmDialog(this, "Product updated.", "Confirm", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(this, "Product updated.",
+							"Confirm", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					ProductDao.addProduct(new Product(Long.parseLong(jtfId.getText()), jtfName.getText()));
-					JOptionPane.showConfirmDialog(this, "Product added.", "Confirm", JOptionPane.DEFAULT_OPTION,
+					ProductDao.addProduct(new Product(Long.parseLong(jtfId
+							.getText()), jtfName.getText()));
+					JOptionPane.showConfirmDialog(this, "Product added.",
+							"Confirm", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE);
 				}
 				((ManageProductGui) this.getOwner()).refreshList();
 				this.dispose();
 			} else {
-				JOptionPane.showConfirmDialog(this, "Product name is already existed.", "Error",
+				JOptionPane.showConfirmDialog(this,
+						"Product name is already existed.", "Error",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 		}

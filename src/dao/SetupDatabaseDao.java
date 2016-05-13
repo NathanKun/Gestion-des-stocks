@@ -46,6 +46,11 @@ public final class SetupDatabaseDao {
 			Dao.LOGIN = "system";
 			Dao.PASS = "bdd";
 			break;
+		case "BDD1":
+			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
+			Dao.LOGIN = "BDD1";
+			Dao.PASS = "BDD1";
+			break;
 		case "BDD3":
 			Dao.URL = "jdbc:oracle:thin:@localhost:1521:xe";
 			Dao.LOGIN = "BDD3";
@@ -116,6 +121,7 @@ public final class SetupDatabaseDao {
 	 * 
 	 * @param sql
 	 *            SQL code
+	 * @return number of rows updated
 	 */
 	public static int updateOne(String sql) {
 		Connection con = null;

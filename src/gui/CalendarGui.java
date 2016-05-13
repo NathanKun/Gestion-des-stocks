@@ -42,7 +42,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class CalendarGui extends JFrame {
+public final class CalendarGui extends JFrame {
 
 	/**
 	 * serialVersionUID.
@@ -67,11 +67,11 @@ public class CalendarGui extends JFrame {
 	/**
 	 * check box's state.
 	 */
-	private int checkBoxState = ONEPRODUCT;
+	private static int checkBoxState = ONEPRODUCT;
 	/**
 	 * radio button's state.
 	 */
-	private int radioButtonState = SINGLEDAY;
+	private static int radioButtonState = SINGLEDAY;
 
 	/**
 	 * main panel.
@@ -161,7 +161,7 @@ public class CalendarGui extends JFrame {
 	 */
 	private ArrayList<Product> productList;
 	/**
-	 * list of all order in db.
+	 * list of all order in database.
 	 */
 	private ArrayList<Order> orderList;
 	/**
@@ -171,6 +171,7 @@ public class CalendarGui extends JFrame {
 
 	/**
 	 * Calendar of order.
+	 * @param user the User who logged in
 	 */
 	public CalendarGui(User user) {
 		jpMain = new JPanel();
