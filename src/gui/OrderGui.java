@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
-public class OrderGui extends JFrame implements ActionListener {
+public final class OrderGui extends JFrame implements ActionListener {
 
 	/**
 	 * serialVersionUID.

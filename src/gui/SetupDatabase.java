@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
-public class SetupDatabase extends JFrame implements ActionListener {
+public final class SetupDatabase extends JFrame implements ActionListener {
 
 	/**
 	 * serialVersionUID.
@@ -25,6 +25,7 @@ public class SetupDatabase extends JFrame implements ActionListener {
 	private JButton btnInsert;
 	private JRadioButton rdbtnJunyang;
 	private JRadioButton rdbtnJunior;
+	private JRadioButton rdbtnBdd1;
 	private JRadioButton rdbtnBdd3;
 	private JRadioButton rdbtnBdd5;
 	private JRadioButton rdbtnBdd6;
@@ -37,7 +38,7 @@ public class SetupDatabase extends JFrame implements ActionListener {
 	 */
 	public SetupDatabase() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 386, 235);
+		setBounds(100, 100, 486, 235);
 		setTitle("Setup DataBase");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -52,40 +53,44 @@ public class SetupDatabase extends JFrame implements ActionListener {
 		rdbtnJunior.setBounds(6, 31, 121, 23);
 		contentPane.add(rdbtnJunior);
 
+		rdbtnBdd1 = new JRadioButton("BDD1");
+		rdbtnBdd1.setBounds(6, 56, 121, 23);
+		contentPane.add(rdbtnBdd1);
+
 		rdbtnBdd3 = new JRadioButton("BDD3");
-		rdbtnBdd3.setBounds(6, 56, 121, 23);
+		rdbtnBdd3.setBounds(6, 83, 121, 23);
 		contentPane.add(rdbtnBdd3);
 
 		rdbtnBdd5 = new JRadioButton("BDD5");
-		rdbtnBdd5.setBounds(6, 81, 59, 23);
+		rdbtnBdd5.setBounds(6, 106, 70, 23);
 		contentPane.add(rdbtnBdd5);
 
 		rdbtnBdd6 = new JRadioButton("BDD6");
-		rdbtnBdd6.setBounds(6, 106, 70, 23);
+		rdbtnBdd6.setBounds(6, 131, 70, 23);
 		contentPane.add(rdbtnBdd6);
 
 		rdbtnBdd7 = new JRadioButton("BDD7");
-		rdbtnBdd7.setBounds(6, 131, 70, 23);
+		rdbtnBdd7.setBounds(6, 156, 70, 23);
 		contentPane.add(rdbtnBdd7);
 
 		rdbtnBdd8 = new JRadioButton("BDD8");
-		rdbtnBdd8.setBounds(6, 156, 70, 23);
+		rdbtnBdd8.setBounds(6, 183, 70, 23);
 		contentPane.add(rdbtnBdd8);
 
 		btnDrop = new JButton("Drop");
-		btnDrop.setBounds(180, 10, 93, 23);
+		btnDrop.setBounds(270, 6, 93, 23);
 		contentPane.add(btnDrop);
 
 		btnCreate = new JButton("Create");
-		btnCreate.setBounds(180, 56, 93, 23);
+		btnCreate.setBounds(270, 56, 93, 23);
 		contentPane.add(btnCreate);
 
 		btnInsert = new JButton("Insert");
-		btnInsert.setBounds(180, 106, 93, 23);
+		btnInsert.setBounds(270, 106, 93, 23);
 		contentPane.add(btnInsert);
 
 		btnLaunchApp = new JButton("Launch App");
-		btnLaunchApp.setBounds(166, 156, 121, 29);
+		btnLaunchApp.setBounds(250, 153, 121, 29);
 		contentPane.add(btnLaunchApp);
 
 		btnDrop.addActionListener(this);
@@ -96,6 +101,7 @@ public class SetupDatabase extends JFrame implements ActionListener {
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(rdbtnJunyang);
 		buttonGroup.add(rdbtnJunior);
+		buttonGroup.add(rdbtnBdd1);
 		buttonGroup.add(rdbtnBdd3);
 		buttonGroup.add(rdbtnBdd5);
 		buttonGroup.add(rdbtnBdd6);
@@ -103,19 +109,20 @@ public class SetupDatabase extends JFrame implements ActionListener {
 		buttonGroup.add(rdbtnBdd8);
 
 		JLabel lblCreateAGds = new JLabel("Create a blank G.D.S database with an Admin a, a.");
-		lblCreateAGds.setBounds(71, 85, 300, 15);
+		lblCreateAGds.setBounds(110, 87, 370, 15);
 		contentPane.add(lblCreateAGds);
 
 		JLabel lblDropTheGds = new JLabel("Drop the G.D.S database.");
-		lblDropTheGds.setBounds(165, 35, 168, 15);
+		lblDropTheGds.setBounds(230, 35, 194, 15);
 		contentPane.add(lblDropTheGds);
 
 		JLabel lblInsertSomeData = new JLabel("Insert some data for testing.");
-		lblInsertSomeData.setBounds(138, 135, 195, 15);
+		lblInsertSomeData.setBounds(180, 135, 300, 15);
 		contentPane.add(lblInsertSomeData);
 
 		rdbtnJunyang.addActionListener(this);
 		rdbtnJunior.addActionListener(this);
+		rdbtnBdd1.addActionListener(this);
 		rdbtnBdd3.addActionListener(this);
 		rdbtnBdd5.addActionListener(this);
 		rdbtnBdd6.addActionListener(this);
@@ -135,6 +142,8 @@ public class SetupDatabase extends JFrame implements ActionListener {
 			SetupDatabaseDao.switchStaticFields("Junyang");
 		} else if (ev.getSource() == rdbtnJunior) {
 			SetupDatabaseDao.switchStaticFields("Junior");
+		} else if (ev.getSource() == rdbtnBdd1) {
+			SetupDatabaseDao.switchStaticFields("BDD1");
 		} else if (ev.getSource() == rdbtnBdd3) {
 			SetupDatabaseDao.switchStaticFields("BDD3");
 		} else if (ev.getSource() == rdbtnBdd5) {
@@ -152,7 +161,7 @@ public class SetupDatabase extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Main method for testing
+	 * Main method for testing.
 	 * 
 	 * @param args
 	 *            for main

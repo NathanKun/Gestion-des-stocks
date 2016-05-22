@@ -27,7 +27,7 @@ import javax.swing.JPanel;
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
-public class MainGui extends JFrame implements ActionListener {
+public final class MainGui extends JFrame implements ActionListener {
 
 	/**
 	 * serialVersionUID.

@@ -46,7 +46,7 @@ import javax.swing.text.DefaultFormatter;
  *
  */
 
-public class OrderDialog extends JDialog implements ActionListener {
+public final class OrderDialog extends JDialog implements ActionListener {
 
 	/**
 	 * serialVersionUID.

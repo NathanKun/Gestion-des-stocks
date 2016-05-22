@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * Class GUI for the search supplier Dialog.
+ * Designed for extend.
  * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *

@@ -30,13 +30,13 @@ abstract class Dao {
 	// static final String LOGIN = "system";
 	// static final String PASS = "bdd";
 
-	// static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	// static final String LOGIN = "BDD5";
-	// static final String PASS = "BDD5";
-
-	static String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
-	static String LOGIN = "c##nathankun";
-	static String PASS = "83783548jun";
+	 static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	 static String LOGIN = "BDD1";
+	 static String PASS = "BDD1";
+//
+//	static String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
+//	static String LOGIN = "c##nathankun";
+//	static String PASS = "83783548jun";
 
 	/**
 	 * Constructor. Load JDBC driver.

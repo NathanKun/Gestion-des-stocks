@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
  * @author HE Junyang
  *
  */
-public class SupplierDialog extends JDialog implements ActionListener {
+public final class SupplierDialog extends JDialog implements ActionListener {
 
 	/**
 	 * serialVersionUID.

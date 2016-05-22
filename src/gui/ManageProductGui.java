@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author HE Junyang - - FOTSING KENGNE Junior
  *
  */
-public class ManageProductGui extends SearchProductGui implements ActionListener {
+public final class ManageProductGui extends SearchProductGui implements ActionListener {
 
 	/**
 	 * serialVersionUID.

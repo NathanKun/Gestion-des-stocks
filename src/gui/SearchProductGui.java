@@ -30,7 +30,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Class GUI for the search product Dialog.
+ * Class GUI for the search product Dialog. Designed for extend.
  * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *

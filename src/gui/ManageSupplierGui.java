@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class ManageSupplierGui extends SearchSupplierGui implements ActionListener {
+public final class ManageSupplierGui extends SearchSupplierGui implements ActionListener {
 
 	/**
 	 * serialVersionUID.

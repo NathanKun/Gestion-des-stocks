@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @author HE Junyang
  *
  */
-public class ReplenishManuallyGui extends SearchProductGui {
+public final class ReplenishManuallyGui extends SearchProductGui {
 	/**
 	 * serialVersionUID.
 	 */

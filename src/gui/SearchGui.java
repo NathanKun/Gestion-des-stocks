@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
-public class SearchGui extends JFrame implements ActionListener {
+public final class SearchGui extends JFrame implements ActionListener {
 
 	/**
 	 * serialVersionUID.

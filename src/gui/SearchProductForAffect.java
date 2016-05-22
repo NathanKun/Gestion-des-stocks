@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @author HE Junyang
  *
  */
-public class SearchProductForAffect extends SearchProductGui {
+public final class SearchProductForAffect extends SearchProductGui {
 	/**
 	 * serialVersionUID.
 	 */
@@ -90,31 +90,55 @@ public class SearchProductForAffect extends SearchProductGui {
 						if (Regex.isDouble(jtfPrice.getText())) {
 							// if the product has not already affected to this
 							// supplier
-							if (SupplierDao.addSupplierProduct(sprId, selectedProduct.getId(),
-									Double.parseDouble(jtfPrice.getText())) == 1) {
-								JOptionPane.showConfirmDialog(null, "Product affected", "Confirm",
-										JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-								jtfPrice.setText("");
+							if (Regex.isDouble(jtfPrice.getText())) {
+								if (SupplierDao.addSupplierProduct(sprId,
+										selectedProduct.getId(),
+										Double.parseDouble(jtfPrice.getText())) == 1) {
+									JOptionPane.showConfirmDialog(null,
+											"Product affected", "Confirm",
+											JOptionPane.DEFAULT_OPTION,
+											JOptionPane.INFORMATION_MESSAGE);
+									jtfPrice.setText("");
+								} else {
+									// show product already affected message
+									JOptionPane.showConfirmDialog(null,
+											"Product already affected",
+											"Error",
+											JOptionPane.DEFAULT_OPTION,
+											JOptionPane.ERROR_MESSAGE);
+								}
 							} else {
-								// show product already affected message
-								JOptionPane.showConfirmDialog(null, "Product already affected", "Error",
-										JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showConfirmDialog(null,
+										"Price incorrect",
+										"Error",
+										JOptionPane.DEFAULT_OPTION,
+										JOptionPane.ERROR_MESSAGE);
 							}
+
 						} else {
 							// show price not correct message
-							JOptionPane.showConfirmDialog(null, "Please enter a correct price.", "Error",
-									JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showConfirmDialog(null,
+									"Please enter a correct price.", "Error",
+									JOptionPane.DEFAULT_OPTION,
+									JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
 						// show price not entered message
-						JOptionPane.showConfirmDialog(null,
-								"Please enter a price for this product offered by this supplier.", "Error",
-								JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						JOptionPane
+								.showConfirmDialog(
+										null,
+										"Please enter a price for this product offered by this supplier.",
+										"Error", JOptionPane.DEFAULT_OPTION,
+										JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					// show product not selected message
-					JOptionPane.showConfirmDialog(null, "Please select a product offered by this supplier.", "Error",
-							JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					JOptionPane
+							.showConfirmDialog(
+									null,
+									"Please select a product offered by this supplier.",
+									"Error", JOptionPane.DEFAULT_OPTION,
+									JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
