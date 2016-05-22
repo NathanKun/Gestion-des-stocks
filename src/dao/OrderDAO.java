@@ -1,7 +1,7 @@
-package src.dao;
+package dao;
 
-import src.gds.Order;
-import src.gds.OrderProduct;
+import gds.Order;
+import gds.OrderProduct;
 
 import java.awt.List;
 import java.sql.Connection;
@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 
 /**
  * Data access object for Order.
@@ -22,9 +21,8 @@ final public class OrderDAO extends DAO {
 
 
 	/**
-	 * Add an order in the order_odr table.
-	 * Add also the product with quantity in
-	 * odrpdtlist_opl table.
+	 * Add an order in the order_odr table. Add also the product with quantity
+	 * in odrpdtlist_opl table.
 	 * 
 	 * @param order
 	 *            the order for add
@@ -45,17 +43,20 @@ final public class OrderDAO extends DAO {
 
 	/**
 	 * get an Order by id.
-	 * @param id id of order
+	 * 
+	 * @param id
+	 *            id of order
 	 * @return the object Order
 	 */
 	public Order getOrder(long id) {
 		final String sql = "SELECT * FROM order_odr WHERE odr_id = ?";
 		return (Order) this.getOne("Order", sql, id);
 	}
-	
+
 	/**
 	 * get the list of order.
-	 * @return	the list of order
+	 * 
+	 * @return the list of order
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Order> getOrderList() {
@@ -139,7 +140,9 @@ final public class OrderDAO extends DAO {
 
 	/**
 	 * get the list of products in an order.
-	 * @param odrId id of the order
+	 * 
+	 * @param odrId
+	 *            id of the order
 	 * @return list of products in an order
 	 */
 	@SuppressWarnings("unchecked")
@@ -147,10 +150,12 @@ final public class OrderDAO extends DAO {
 		String sql = "SELECT * FROM odrpdtlist_opl WHERE opl_odr_id = ?";
 		return (ArrayList<OrderProduct>) this.getList("opl", sql, 1, odrId);
 	}
-	
+
 	/**
 	 * delete A products in an order.
-	 * @param orderProduct 	the orderProduct to delete
+	 * 
+	 * @param orderProduct
+	 *            the orderProduct to delete
 	 * @returnl number of line deleted
 	 */
 	public int deleteOrderProduct(OrderProduct orderProduct) {
@@ -254,7 +259,9 @@ final public class OrderDAO extends DAO {
 
 	/**
 	 * main method for testing.
-	 * @param args for main
+	 * 
+	 * @param args
+	 *            for main
 	 */
 	public static void main(String[] args) {
 		final OrderDAO dao = new OrderDAO();
@@ -270,13 +277,18 @@ final public class OrderDAO extends DAO {
 		list.add(new OrderProduct(4, 1, 1));
 		list.add(new OrderProduct(4, 2, 2));
 		list.add(new OrderProduct(4, 3, 33));
+<<<<<<< HEAD
 		Order order = new Order(4, 10000, 100, "update test", true, (new Date(new java.util.Date().getTime())), list);
 	*/
+=======
+		Order order = new Order(4, 10000, 100, "date test", true, (new Date(new java.util.Date().getTime())), list);
+
+>>>>>>> 6f2d694daa538915a82f376ce11729a4f9ae56fa
 		// dao.addOrderProductList(new OrderProduct(2, 5), 1);
 		// System.out.println("Get List : ");
 		// System.out.println(dao.getOrderList().toString());
-		// System.out.println("Get Order 1 : ");
-		// System.out.println(dao.getOrder(1).toString());
+		// System.out.println("Get Order 12 : ");
+		// System.out.println(dao.getOrder(12).toString());
 		// System.out.println("Add Order : ");
 		// System.out.println(dao.addOrder(order));
 		// System.out.println("Add Order Product List");
@@ -291,9 +303,15 @@ final public class OrderDAO extends DAO {
 		// 23)));
 		// System.out.println("Update Order Product : ");
 		// System.out.println(dao.updateOrderProductList(list, 3));
+<<<<<<< HEAD
 		dao.settleOrder(orderProductList);
 		System.out.println("Update Order  : ");
 		//System.out.println(dao.updateOrder(order));
 		
+=======
+		// System.out.println("Update Order : ");
+		// System.out.println(dao.updateOrder(order));
+
+>>>>>>> 6f2d694daa538915a82f376ce11729a4f9ae56fa
 	}
 }

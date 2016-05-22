@@ -1,56 +1,64 @@
-package src.gds;
+package gds;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
 /**
- * Order class, represents an order
+ * Order class, represents an order.
+ * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *
  */
 public class Order {
 	/**
-	 * contain the order ID
+	 * contain the order ID.
 	 */
 	private long id;
 	/**
-	 * contain the total price of the order
+	 * contain the total price of the order.
 	 */
 	private double price;
 	/**
-	 * contain the price after discount for the client
+	 * contain the price after discount for the client.
 	 */
 	private double priceDiscount;
 	/**
-	 * the name of the client
+	 * the name of the client.
 	 */
 	private String clientName;
 	/**
-	 * the state of the order
-	 * true - for paid
-	 * false - for not paid
+	 * the state of the order. true - for paid false - for not paid
 	 */
 	boolean isPaid;
 	/**
-	 * contain the date of the order creation
+	 * contain the date of the order creation.
 	 */
 	private Date date;
 	/**
-	 * contain the ID of all the order's products
+	 * contain the ID of all the order's products.
 	 */
 	private ArrayList<OrderProduct> productList;
+
 	/**
-	 * get an order from database or create an order directly
-	 * @param id			id of the new order
-	 * @param price			the initial price of the order
-	 * @param priceDiscount	the price discounted of the order
-	 * @param clientName	the name of the client
-	 * @param isPaid		is the order paid
-	 * @param date			date of the order creation
-	 * @param productList	the IDs of the order's products
+	 * get an order from database or create an order directly.
+	 * 
+	 * @param id
+	 *            id of the new order
+	 * @param price
+	 *            the initial price of the order
+	 * @param priceDiscount
+	 *            the price discounted of the order
+	 * @param clientName
+	 *            the name of the client
+	 * @param isPaid
+	 *            is the order paid
+	 * @param date
+	 *            date of the order creation
+	 * @param productList
+	 *            the IDs of the order's products
 	 */
-	public Order(long id, double price, double priceDiscount, String clientName, 
-			boolean isPaid, Date date, ArrayList<OrderProduct> productList) {
+	public Order(long id, double price, double priceDiscount, String clientName, boolean isPaid, Date date,
+			ArrayList<OrderProduct> productList) {
 		this.clientName = clientName;
 		this.date = date;
 		this.priceDiscount = priceDiscount;
@@ -59,106 +67,142 @@ public class Order {
 		this.isPaid = isPaid;
 		this.productList = productList;
 	}
+
 	/**
-	 * get the price of the order
+	 * get the price of the order.
+	 * 
 	 * @return the order price
 	 */
 	public double getPrice() {
 		return price;
 	}
+
 	/**
-	 * price setter
-	 * @param price - the new price of the order
+	 * price setter.
+	 * 
+	 * @param price
+	 *            - the new price of the order
 	 */
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
 	/**
-	 * name of client's order discount
+	 * name of client's order discount.
+	 * 
 	 * @return the name of the client
 	 */
 	public String getClientName() {
 		return clientName;
 	}
+
 	/**
-	 * client name setter
-	 * @param clientName - the new name of the client
+	 * client name setter.
+	 * 
+	 * @param clientName
+	 *            - the new name of the client
 	 */
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
+
 	/**
-	 * return the state of the order
+	 * return the state of the order.
+	 * 
 	 * @return - state's order
 	 */
 	public boolean getIsPaid() {
 		return isPaid;
 	}
+
 	/**
-	 * product id list getter
+	 * product id list getter.
+	 * 
 	 * @return product id ArrayList
 	 */
 	public ArrayList<OrderProduct> getProductList() {
 		return productList;
 	}
+
 	/**
-	 * productIdList setter
-	 * @param productIdList new product Id List
+	 * productIdList setter.
+	 * 
+	 * @param productIdList
+	 *            new product Id List
 	 */
 	public void setProductList(ArrayList<OrderProduct> productIdList) {
 		this.productList = productIdList;
 	}
+
 	/**
-	 * Order Id getter
-	 * @return	order Id
+	 * Order Id getter.
+	 * 
+	 * @return order Id
 	 */
 	public long getId() {
 		return id;
 	}
+
 	/**
-	 * Order date getter
-	 * @return	order date
+	 * Order date getter.
+	 * 
+	 * @return order date
 	 */
 	public Date getDate() {
 		return date;
 	}
+
 	/**
-	 * priceDiscount getter
+	 * priceDiscount getter.
+	 * 
 	 * @return priceDiscount
 	 */
 	public double getPriceDiscount() {
 		return priceDiscount;
 	}
+
 	/**
-	 * priceDiscount setter
-	 * @param priceDiscount - contain the new order discount value
+	 * priceDiscount setter.
+	 * 
+	 * @param priceDiscount
+	 *            - contain the new order discount value
 	 */
 	public void setPriceDiscount(double priceDiscount) {
 		this.priceDiscount = priceDiscount;
 	}
+
 	/**
-	 * id setter
-	 * @param id new id
+	 * id setter.
+	 * 
+	 * @param id
+	 *            new id
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	/**
-	 * isPaid setter
-	 * @param isPaid new isPaid state
+	 * isPaid setter.
+	 * 
+	 * @param isPaid
+	 *            new isPaid state
 	 */
 	public void setIsPaid(boolean isPaid) {
 		this.isPaid = isPaid;
 	}
+
 	/**
-	 * date setter
-	 * @param date new date
+	 * date setter.
+	 * 
+	 * @param date
+	 *            new date
 	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	/**
-	 * toString
+	 * toString.
 	 */
 	@Override
 	public String toString() {

@@ -1,11 +1,4 @@
-package src.gui;
-
-import src.dao.ProductDAO;
-import src.dao.SupplierDAO;
-import src.gds.Product;
-import src.gds.Supplier;
-import src.gds.SupplierProductPrice;
-import src.gds.User;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -42,7 +35,12 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.org.apache.xml.internal.security.Init;
+import dao.ProductDAO;
+import dao.SupplierDAO;
+import gds.Product;
+import gds.Supplier;
+import gds.SupplierProductPrice;
+import gds.User;
 
 /**
  * The GUI for the search menu.

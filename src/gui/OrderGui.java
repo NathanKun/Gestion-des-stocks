@@ -1,8 +1,8 @@
-package src.gui;
+package gui;
 
-import src.dao.OrderDAO;
-import src.gds.Order;
-import src.gds.User;
+import dao.OrderDAO;
+import gds.Order;
+import gds.User;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
- * graphical user interface of Order menu window
+ * graphical user interface of Order menu window.
  * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *
@@ -39,11 +39,11 @@ public class OrderGui extends JFrame implements ActionListener {
 	/**
 	 * main container.
 	 */
-	private JPanel jp_main = new JPanel();
+	private JPanel jpMain = new JPanel();
 	/**
 	 * main background.
 	 */
-	private JLabel jl_bgMain = new JLabel();
+	private JLabel jlBgMain = new JLabel();
 	/**
 	 * Button : Link to main page.
 	 */
@@ -53,9 +53,9 @@ public class OrderGui extends JFrame implements ActionListener {
 	 */
 	private JButton jbNew = new JButton("New order");
 	/**
-	 * Button : Link to research order page.
+	 * Button : search order .
 	 */
-	private JButton jbSearch = new JButton("Search");
+	private JButton jbDisplayAllOrder = new JButton("Display all Orders");
 	/**
 	 * Button : Link to edit order page.
 	 */
@@ -72,7 +72,10 @@ public class OrderGui extends JFrame implements ActionListener {
 	 * Button : Link to replenishment.
 	 */
 	private JButton jbReplenishment = new JButton("Replenishment");
-
+	/**
+	 * Button : Settle an order.
+	 */
+	private JButton jbSettle = new JButton("Settle");
 	/**
 	 * big font size for buttons.
 	 */
@@ -81,11 +84,25 @@ public class OrderGui extends JFrame implements ActionListener {
 	 * User who logged in.
 	 */
 	private User user;
-
+	/**
+	 * The table of the list of order.
+	 */
 	private JTable jtbOrderList = null;
+	/**
+	 * table model for jtbOrderList.
+	 */
 	private DefaultTableModel tableModel = null;
+	/**
+	 * the scroll pane which warp the order list table.
+	 */
 	private final JScrollPane jspOrderList = new JScrollPane();
+	/**
+	 * the panel which warp the jspOrderList.
+	 */
 	private JPanel jpOrderList = new JPanel();
+	/**
+	 * the id of the order which is selected.
+	 */
 	private long seletedOrderId = 0;
 
 	/**
@@ -128,61 +145,66 @@ public class OrderGui extends JFrame implements ActionListener {
 		this.setResizable(false);
 		this.setVisible(true);
 
-		jp_main.setLayout(null);
-		jp_main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		jpMain.setLayout(null);
+		jpMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		// setup background
-		jl_bgMain.setIcon(new ImageIcon("data\\bg_order.png"));
-		jl_bgMain.setBounds(0, 0, 1024, 768);
-		this.getLayeredPane().add(jl_bgMain, new Integer(Integer.MIN_VALUE));
-		jp_main = (JPanel) this.getContentPane();
-		jp_main.setOpaque(false);
+		jlBgMain.setIcon(new ImageIcon("data\\bg_order.png"));
+		jlBgMain.setBounds(0, 0, 1024, 768);
+		this.getLayeredPane().add(jlBgMain, new Integer(Integer.MIN_VALUE));
+		jpMain = (JPanel) this.getContentPane();
+		jpMain.setOpaque(false);
 	}
 
 	/**
 	 * init buttons.
 	 */
 	public void initButtons() {
-		jbNew.setBounds(630, 350, 200, 50);
-		jbEdit.setBounds(630, 450, 200, 50);
-		jbCancel.setBounds(630, 550, 200, 50);
-		jbSearch.setBounds(630, 250, 200, 50);
+		jbNew.setBounds(780, 350, 200, 50);
+		jbEdit.setBounds(780, 450, 200, 50);
+		jbCancel.setBounds(780, 650, 200, 50);
+		jbDisplayAllOrder.setBounds(780, 250, 200, 50);
 		jbCalendar.setBounds(780, 50, 200, 50);
 		jbReplenishment.setBounds(780, 150, 200, 50);
 		jbReturn.setBounds(50, 600, 100, 100);
+		jbSettle.setBounds(780, 550, 200, 50);
 
 		jbNew.setFont(fontBig);
 		jbEdit.setFont(fontBig);
 		jbCancel.setFont(fontBig);
-		jbSearch.setFont(fontBig);
+		jbDisplayAllOrder.setFont(fontBig);
 		jbCalendar.setFont(fontBig);
 		jbReplenishment.setFont(fontBig);
 		jbReturn.setFont(fontBig);
+		jbSettle.setFont(fontBig);
 
 		jbNew.addActionListener(this);
 		jbEdit.addActionListener(this);
 		jbCancel.addActionListener(this);
-		jbSearch.addActionListener(this);
+		jbDisplayAllOrder.addActionListener(this);
 		jbCalendar.addActionListener(this);
 		jbReplenishment.addActionListener(this);
 		jbReturn.addActionListener(this);
+		jbSettle.addActionListener(this);
 
-		jp_main.add(jbNew);
-		jp_main.add(jbEdit);
-		jp_main.add(jbCancel);
-		jp_main.add(jbSearch);
-		jp_main.add(jbCalendar);
-		jp_main.add(jbReplenishment);
-		jp_main.add(jbReturn);
+		jpMain.add(jbNew);
+		jpMain.add(jbEdit);
+		jpMain.add(jbCancel);
+		jpMain.add(jbDisplayAllOrder);
+		jpMain.add(jbCalendar);
+		jpMain.add(jbReplenishment);
+		jpMain.add(jbReturn);
+		jpMain.add(jbSettle);
 
 	}
 
 	/**
 	 * init table an it's panel.
 	 */
+	@SuppressWarnings("serial")
 	public void initTable() {
 		// init model and table
 		String[][] datas = {};
-		String[] titles = { "ID", "Client's name", "Date", "Final price" };
+		String[] titles = { "ID", "Client's name", "Date", "Final price", "State" };
 		tableModel = new DefaultTableModel(datas, titles) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -190,14 +212,16 @@ public class OrderGui extends JFrame implements ActionListener {
 			}
 		};
 		jtbOrderList = new JTable(tableModel);
-		jpOrderList.setBounds(183, 250, 400, 350);
+		jpOrderList.setBounds(201, 150, 522, 450);
 		getContentPane().add(jpOrderList);
 		jpOrderList.setLayout(null);
-		jspOrderList.setBounds(0, 0, 400, 350);
+		jspOrderList.setBounds(0, 0, 522, 450);
 		jpOrderList.add(jspOrderList);
 		jspOrderList.setViewportView(jtbOrderList);
 		jtbOrderList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jtbOrderList.setCellSelectionEnabled(false);
+
+		getContentPane().add(jbSettle);
 
 		// get selected order's id when the order is seleted
 		ListSelectionModel cellSelectionModel = jtbOrderList.getSelectionModel();
@@ -225,7 +249,7 @@ public class OrderGui extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * show Dialog to edit an Order
+	 * show Dialog to edit an Order.
 	 */
 	private void showEditOrderDialog() {
 		if (seletedOrderId != 0) {
@@ -238,7 +262,7 @@ public class OrderGui extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Search order.
+	 * list all orders.
 	 */
 	private void searchButtonOnClick() {
 		// clear the table first
@@ -249,12 +273,16 @@ public class OrderGui extends JFrame implements ActionListener {
 		OrderDAO dao = new OrderDAO();
 		ArrayList<Order> list = dao.getOrderList();
 		for (Order order : list) {
-			Object[] objects = { order.getId(), order.getClientName(), order.getDate(), order.getPriceDiscount() };
+			String str = order.getIsPaid() == true ? "Paid" : "Unpaid";
+			Object[] objects = { order.getId(), order.getClientName(), order.getDate(), order.getPriceDiscount(), str};
 			tableModel.addRow(objects);
 		}
 	}
-	
-	private void cancelButtonOnClick(){
+
+	/**
+	 * cancel the selected order.
+	 */
+	private void cancelButtonOnClick() {
 		if (seletedOrderId != 0) {
 			if (JOptionPane.showConfirmDialog(null,
 					"Do you really want to Cancel this order?\nIt means DELETE this order from our database and it can not redo!",
@@ -263,7 +291,7 @@ public class OrderGui extends JFrame implements ActionListener {
 				new OrderDAO().deleteOrder(seletedOrderId);
 				this.searchButtonOnClick();
 			}
-		} else{
+		} else {
 			System.out.println("No seleted order");
 			JOptionPane.showConfirmDialog(null, "No order seleted", "Opps", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.WARNING_MESSAGE);
@@ -271,17 +299,36 @@ public class OrderGui extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * main methode of class, use for testing
-	 * 
-	 * @param args
-	 *            for main
+	 * settle the selected order.
 	 */
-	public static void main(String[] args) {
-		OrderGui orderGui = new OrderGui(null);
+	private void settleOrder() {
+		OrderDAO dao = new OrderDAO();
+		Order order = dao.getOrder(seletedOrderId);
+		if (!order.getIsPaid()) {
+			if (JOptionPane.showConfirmDialog(null, "Settle this order ?", "Comfirm", JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE) == 0) {
+				// y for 0, n for 1
+				order.setIsPaid(true);
+				if (dao.updateOrder(order) == 1) {
+					JOptionPane.showConfirmDialog(null, "Done!", "Settle Order", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showConfirmDialog(null, "Something wrong. Look at the console.", "Oops",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					System.out.println(order);
+				}
+			}
+		} else {
+			JOptionPane.showConfirmDialog(null, "This order has already been paid.", "Oops", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
+		//refresh the table
+		searchButtonOnClick();
 	}
 
 	/**
-	 * action perform when buttons on click
+	 * action perform when buttons on click.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent ae) {
@@ -289,7 +336,7 @@ public class OrderGui extends JFrame implements ActionListener {
 			// return button on click
 			new MainGui(user);
 			dispose();
-		} else if (ae.getSource() == jbSearch) {
+		} else if (ae.getSource() == jbDisplayAllOrder) {
 			// search order button on click
 			this.searchButtonOnClick();
 		} else if (ae.getSource() == jbNew) {
@@ -302,8 +349,24 @@ public class OrderGui extends JFrame implements ActionListener {
 			// cancel order button on click
 			cancelButtonOnClick();
 		} else if (ae.getSource() == jbCalendar) {
-
+			// Calendar button on click
+			new CalendarGui(user);
+			dispose();
+		} else if (ae.getSource() == jbSettle) {
+			// settle button on click
+			settleOrder();
 		}
 
+	}
+
+	/**
+	 * main methode of class, use for testing.
+	 * 
+	 * @param args
+	 *            for main
+	 */
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
+		OrderGui orderGui = new OrderGui(null);
 	}
 }

@@ -1,4 +1,4 @@
-package src.gds;
+package gds;
 
 import java.util.HashMap;
 import java.util.Map.Entry;

@@ -1,4 +1,4 @@
-package src.gds;
+package gds;
 
 /**
  * class represents a product with a quantity

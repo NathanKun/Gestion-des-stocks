@@ -1,11 +1,11 @@
-package src.dao;
+package dao;
 
-import src.gds.Order;
-import src.gds.OrderProduct;
-import src.gds.Product;
-import src.gds.Supplier;
-import src.gds.SupplierProductPrice;
-import src.gds.User;
+import gds.Order;
+import gds.OrderProduct;
+import gds.Product;
+import gds.Supplier;
+import gds.SupplierProductPrice;
+import gds.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,6 +26,7 @@ abstract class DAO {
 	 * constants.
 	 */
 
+<<<<<<< HEAD
 	 static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	 static final String LOGIN = "system";
 	 static final String PASS = "bdd";
@@ -33,10 +34,19 @@ abstract class DAO {
 	// static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	 //static final String LOGIN = "BDD5";
 	 //static final String PASS = "BDD5";
+=======
+//	 static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+//	 static final String LOGIN = "system";
+//	 static final String PASS = "bdd";
 
-//	static final String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
-//	static final String LOGIN = "c##nathankun";
-//	static final String PASS = "83783548jun";
+//	 static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+//	 static final String LOGIN = "BDD5";
+//	 static final String PASS = "BDD5";
+>>>>>>> 6f2d694daa538915a82f376ce11729a4f9ae56fa
+
+	static final String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
+	static final String LOGIN = "c##nathankun";
+	static final String PASS = "83783548jun";
 
 
 	/**

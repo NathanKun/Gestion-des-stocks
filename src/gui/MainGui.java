@@ -1,14 +1,19 @@
-package src.gui;
+package gui;
 
-import src.gds.User;
-import src.util.MouseTracker;
+import gds.User;
+import gui.LoginGui;
+import gui.OrderGui;
+import gui.SearchGui;
+import util.MouseTracker;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -42,10 +47,6 @@ public class MainGui extends JFrame implements ActionListener {
 	 * button : link to search menu.
 	 */
 	private JButton jbMainSearch = new JButton("Search");
-	/**
-	 * button : link to settle and shipment page.
-	 */
-	private JButton jbSettleShipment = new JButton("Settle & Shipment");
 	/**
 	 * button : link to login windows.
 	 */
@@ -98,11 +99,11 @@ public class MainGui extends JFrame implements ActionListener {
 		initButtons();
 		setupAdminsComponents();
 
-		// Find mouse's position
-		MouseTracker mt = new MouseTracker();
-		mt.setBounds(0, 0, 1024, 768);
-		mt.setOpaque(false);
-		jpMain.add(mt);
+		// // Find mouse's position
+		// MouseTracker mt = new MouseTracker();
+		// mt.setBounds(0, 0, 1024, 768);
+		// mt.setOpaque(false);
+		// jpMain.add(mt);
 
 	}
 
@@ -132,7 +133,7 @@ public class MainGui extends JFrame implements ActionListener {
 		jpMain.setLayout(null);
 		jpMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		// setup background
-		jlBgMain.setIcon(new ImageIcon("data/bg_main.jpg"));
+		jlBgMain.setIcon(new ImageIcon(getClass().getResource("/resources/bg_main.jpg")));
 		jlBgMain.setBounds(0, 0, 1024, 768);
 		this.getLayeredPane().add(jlBgMain, new Integer(Integer.MIN_VALUE));
 		jpMain = (JPanel) this.getContentPane();
@@ -146,7 +147,6 @@ public class MainGui extends JFrame implements ActionListener {
 	public void initButtons() {
 		jbMenuOrder.setBounds(700, 240, 250, 50);
 		jbMainSearch.setBounds(700, 300, 250, 50);
-		jbSettleShipment.setBounds(700, 360, 250, 50);
 		jbLogin.setBounds(60, 640, 150, 60);
 		jbLogout.setBounds(60, 640, 150, 60);
 		jbHelp.setBounds(850, 600, 100, 100);
@@ -154,7 +154,6 @@ public class MainGui extends JFrame implements ActionListener {
 		jbSupplierMng.setBounds(387, 600, 250, 50);
 
 		jbMenuOrder.setFont(fontBig);
-		jbSettleShipment.setFont(fontBig);
 		jbMainSearch.setFont(fontBig);
 		jbLogin.setFont(fontBig);
 		jbLogout.setFont(fontBig);
@@ -164,7 +163,6 @@ public class MainGui extends JFrame implements ActionListener {
 
 		jpMain.add(jbMenuOrder);
 		jpMain.add(jbMainSearch);
-		jpMain.add(jbSettleShipment);
 		jpMain.add(jbLogin);
 		jpMain.add(jbLogout);
 		jpMain.add(jbHelp);
@@ -172,7 +170,6 @@ public class MainGui extends JFrame implements ActionListener {
 		jpMain.add(jbSupplierMng);
 
 		jbMenuOrder.addActionListener(this);
-		jbSettleShipment.addActionListener(this);
 		jbMainSearch.addActionListener(this);
 		jbLogin.addActionListener(this);
 		jbLogout.addActionListener(this);
@@ -193,8 +190,8 @@ public class MainGui extends JFrame implements ActionListener {
 		jlWelcomeAdmin.setFont(font);
 		jlEspaceAdmin.setForeground(Color.WHITE);
 		jlWelcomeAdmin.setForeground(Color.WHITE);
-		this.add(jlEspaceAdmin);
-		this.add(jlWelcomeAdmin);
+		getContentPane().add(jlEspaceAdmin);
+		getContentPane().add(jlWelcomeAdmin);
 	}
 
 	/**
@@ -243,9 +240,6 @@ public class MainGui extends JFrame implements ActionListener {
 			// search button on click
 			new SearchGui(this.user);
 			dispose();
-		} else if (ae.getSource() == jbSettleShipment) {
-			// settle&shipment button on click
-
 		} else if (ae.getSource() == jbProductMng) {
 			// product management button on click
 
@@ -261,9 +255,16 @@ public class MainGui extends JFrame implements ActionListener {
 	 * @param args
 	 *            for main
 	 */
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		MainGui mainGui = new MainGui(null);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainGui mainGui = new MainGui(null);
+					mainGui.setVisible(true);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
 	}
-
 }

@@ -1,8 +1,8 @@
-package src.gui;
+package gui;
 
-import src.dao.UserDAO;
-import src.gds.User;
-import src.util.MouseTracker;
+import dao.UserDAO;
+import gds.User;
+import util.MouseTracker;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -106,7 +106,7 @@ public class LoginGui extends JFrame implements ActionListener {
 		
 		jp.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		jlBgMain.setIcon(new ImageIcon("data/bg_login.jpg"));
+		jlBgMain.setIcon(new ImageIcon(getClass().getResource("/resources/bg_login.jpg")));;
 		jlBgMain.setBounds(461, 23, 323, 295);
 		jp.add(jlBgMain, new Integer(Integer.MIN_VALUE));
 
