@@ -1,0 +1,55 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="USER_USR" directorySegmentName="seg_0" id="ACA3D42A-BAD2-3E93-ADDE-F34E68D8A8CD">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:14 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<schemaObject>49AF9F5C-729E-9BC3-C326-D76E23C7E1EB</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>C5ACB468-4E23-180C-BF92-DA62BD378CD4</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="USR_ID" id="1D32D435-4E95-F51B-FAE2-848F7FD6D0BB">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USR_PW" id="8BD1BFAF-8F9B-22A5-49B2-C0260ED3D4E0">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USR_NAME" id="F51A1834-F138-0A47-E694-AB3C2C75CF48">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="PK_USR" id="81451060-C797-AB45-58D5-BB7C9DB4E5D5">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<schemaObject>49AF9F5C-729E-9BC3-C326-D76E23C7E1EB</schemaObject>
+<segment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+</IndexProxy>
+</indexProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="PK_USR" id="CD3B4932-BCFE-E5A5-FE33-0C267FCC5147">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<segment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+<existingIndex>81451060-C797-AB45-58D5-BB7C9DB4E5D5</existingIndex>
+<indexSegment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

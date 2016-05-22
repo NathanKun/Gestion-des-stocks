@@ -46,6 +46,9 @@ public class ManageProductGui extends SearchProductGui implements ActionListener
 
 	/**
 	 * Constructor of the class. Init the components.
+	 * 
+	 * @param user
+	 *            user who logged in
 	 */
 	public ManageProductGui(User user) {
 		super();

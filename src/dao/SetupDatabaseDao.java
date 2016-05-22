@@ -116,6 +116,7 @@ public final class SetupDatabaseDao {
 	 * 
 	 * @param sql
 	 *            SQL code
+	 * @return numbers of row updated
 	 */
 	public static int updateOne(String sql) {
 		Connection con = null;
@@ -226,9 +227,9 @@ public final class SetupDatabaseDao {
 	 */
 	public static void main(String[] args) {
 		SetupDatabaseDao.switchStaticFields("Junyang");
-//		SetupDatabaseDao.dropAll();
-//		SetupDatabaseDao.createTable();
-//		SetupDatabaseDao.insertData();
+		// SetupDatabaseDao.dropAll();
+		// SetupDatabaseDao.createTable();
+		// SetupDatabaseDao.insertData();
 	}
 
 }

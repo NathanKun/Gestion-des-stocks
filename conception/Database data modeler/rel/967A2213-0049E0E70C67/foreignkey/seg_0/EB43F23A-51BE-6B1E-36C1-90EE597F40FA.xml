@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EB43F23A-51BE-6B1E-36C1-90EE597F40FA" containerWithKeyObject="B7F93888-4A80-243E-4090-1A25C823F84A" localFKIndex="DF1C965C-F75D-7A45-2FAE-B62028E2A9FA" name="FK_PDT_SPRID">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>FK_PDT_SPRID</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>B7FF7209-DFC2-6561-F8DE-4AC4C4844481</referredTableID>
+<keyObject>42ECE21B-5943-CE62-84EA-3F54B4CCFE26</keyObject>
+<referredKeyID>42ECE21B-5943-CE62-84EA-3F54B4CCFE26</referredKeyID>
+<mandatory>false</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

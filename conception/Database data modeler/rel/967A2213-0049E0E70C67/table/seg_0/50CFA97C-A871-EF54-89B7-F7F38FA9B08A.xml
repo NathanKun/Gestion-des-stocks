@@ -1,0 +1,123 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="50CFA97C-A871-EF54-89B7-F7F38FA9B08A" schemaObject="49AF9F5C-729E-9BC3-C326-D76E23C7E1EB" name="SPRPDTLIST_SPL">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>SPRPDTLIST_SPL</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:14 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SPL_ID" id="611A95AD-12C4-3937-A627-AF97F18A2B22">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>SPRPDTLIST_SPL</sourceObjSchema>
+<sourceObjName>SPL_ID</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SPL_SPR_ID" id="7B733A44-0A1A-259A-CDDC-FF86BE05189F">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>SPRPDTLIST_SPL</sourceObjSchema>
+<sourceObjName>SPL_SPR_ID</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="45C407BF-CE1B-554A-5972-9C3E5BF9D970" referredColumn="9F5F6E88-6A50-3D4C-431F-668C840003B0"/>
+</associations>
+</Column>
+<Column name="SPL_PDT_ID" id="CDAA9D73-77B1-9780-DFA8-649A4260F2EA">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>SPRPDTLIST_SPL</sourceObjSchema>
+<sourceObjName>SPL_PDT_ID</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="BD6B9B01-E3D2-AC82-2193-36D5215E8AF6" referredColumn="AC0A45DE-3DFA-0E29-E298-18C08C8A3E6B"/>
+</associations>
+</Column>
+<Column name="SPL_PDT_PRICE" id="1D5C8C85-D8E0-3638-30FB-22BD2A51C731">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>SPRPDTLIST_SPL</sourceObjSchema>
+<sourceObjName>SPL_PDT_PRICE</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,10,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="24B7E2C2-24B2-80ED-1245-7466862891E1" name="PK_SPL">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>PK_SPL</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="611A95AD-12C4-3937-A627-AF97F18A2B22"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FFC4059C-C35F-A9B7-BEB2-30A88D8C7596" schemaObject="49AF9F5C-729E-9BC3-C326-D76E23C7E1EB" name="PK_SPL">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>PK_SPL</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="611A95AD-12C4-3937-A627-AF97F18A2B22"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6DE22D45-A62D-FF9D-22BB-D3808F65630B" name="FK_SPL_PDTID">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CDAA9D73-77B1-9780-DFA8-649A4260F2EA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9A379676-EBA3-98EF-6CC7-4FBB2FF29F55" name="FK_SPL_SPRID">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7B733A44-0A1A-259A-CDDC-FF86BE05189F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

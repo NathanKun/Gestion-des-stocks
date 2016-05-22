@@ -1,0 +1,70 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B7FF7209-DFC2-6561-F8DE-4AC4C4844481" schemaObject="49AF9F5C-729E-9BC3-C326-D76E23C7E1EB" name="SUPPLIER_SPR">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>SUPPLIER_SPR</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:14 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SPR_ID" id="9F5F6E88-6A50-3D4C-431F-668C840003B0">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>SUPPLIER_SPR</sourceObjSchema>
+<sourceObjName>SPR_ID</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SPR_NAME" id="5FC04D3C-2C31-E32B-4CBB-236D6295F377">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>SUPPLIER_SPR</sourceObjSchema>
+<sourceObjName>SPR_NAME</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="42ECE21B-5943-CE62-84EA-3F54B4CCFE26" name="PK_SPR">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>PK_SPR</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9F5F6E88-6A50-3D4C-431F-668C840003B0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="80E6E15D-0056-9A08-B156-F18A134810DE" schemaObject="49AF9F5C-729E-9BC3-C326-D76E23C7E1EB" name="PK_SPR">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>PK_SPR</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9F5F6E88-6A50-3D4C-431F-668C840003B0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

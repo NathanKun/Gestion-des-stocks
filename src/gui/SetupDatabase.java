@@ -152,7 +152,10 @@ public class SetupDatabase extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Launch the application.
+	 * Main method for testing
+	 * 
+	 * @param args
+	 *            for main
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

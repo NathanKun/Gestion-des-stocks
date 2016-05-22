@@ -1,0 +1,130 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B7F93888-4A80-243E-4090-1A25C823F84A" schemaObject="49AF9F5C-729E-9BC3-C326-D76E23C7E1EB" name="PRODUCT_PDT">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>PRODUCT_PDT</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:14 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PDT_ID" id="AC0A45DE-3DFA-0E29-E298-18C08C8A3E6B">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>PRODUCT_PDT</sourceObjSchema>
+<sourceObjName>PDT_ID</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PDT_NAME" id="00415277-32C5-D1A9-EEE6-C0DA4F08FD13">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>PRODUCT_PDT</sourceObjSchema>
+<sourceObjName>PDT_NAME</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PDT_STOCK" id="36EF9DC1-B81B-F442-6E5A-DC224940D003">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>PRODUCT_PDT</sourceObjSchema>
+<sourceObjName>PDT_STOCK</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,3,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PDT_SPR" id="3485A138-2CFB-E6EA-70B6-D28512EDD924">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>PRODUCT_PDT</sourceObjSchema>
+<sourceObjName>PDT_SPR</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EB43F23A-51BE-6B1E-36C1-90EE597F40FA" referredColumn="9F5F6E88-6A50-3D4C-431F-668C840003B0"/>
+</associations>
+</Column>
+<Column name="PDT_PRICE" id="754777AD-6699-8F5B-4FA8-EFF83A834D29">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>PRODUCT_PDT</sourceObjSchema>
+<sourceObjName>PDT_PRICE</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,10,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5AD637C5-C075-3243-D8F2-A31B0FD520D6" name="PK_PDT">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>PK_PDT</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AC0A45DE-3DFA-0E29-E298-18C08C8A3E6B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CAD30507-89D5-1AA7-89F1-2FF68275D3AC" schemaObject="49AF9F5C-729E-9BC3-C326-D76E23C7E1EB" name="PK_PDT">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>PK_PDT</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AC0A45DE-3DFA-0E29-E298-18C08C8A3E6B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DF1C965C-F75D-7A45-2FAE-B62028E2A9FA" name="FK_PDT_SPRID">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3485A138-2CFB-E6EA-70B6-D28512EDD924"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

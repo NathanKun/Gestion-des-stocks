@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="ODRPDTLIST_OPL" directorySegmentName="seg_0" id="C3907787-5509-439F-CA58-A60BDB823506">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:14 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<schemaObject>49AF9F5C-729E-9BC3-C326-D76E23C7E1EB</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>C5ACB468-4E23-180C-BF92-DA62BD378CD4</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="OPL_ODR_ID" id="A1059E40-408B-37B8-F6D0-CD0CF54F02EC">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="OPL_PDT_QUANTITY" id="EEA63282-7D60-C354-6765-7B2340728E6F">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="OPL_ID" id="F6A10A26-3B6A-E9FE-38C9-DFB77ED2D1BF">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="OPL_PDT_ID" id="F7BAF151-72CC-3221-C573-706528BA02B4">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="PK_OPL" id="6920E17B-A9F5-A23F-10C6-89A14B99C272">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<schemaObject>49AF9F5C-729E-9BC3-C326-D76E23C7E1EB</schemaObject>
+<segment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="FK_OPL_ODRID" id="03079E93-F735-8F30-71A3-69A659996518">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="FK_OPL_PDTID" id="5A8E672A-C248-675A-2AD4-CD61F4A3DC3E">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="PK_OPL" id="177BEDBA-90D5-4549-9B51-2A11F3F2D75E">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<segment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+<existingIndex>6920E17B-A9F5-A23F-10C6-89A14B99C272</existingIndex>
+<indexSegment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

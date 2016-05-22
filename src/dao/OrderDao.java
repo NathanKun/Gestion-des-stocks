@@ -150,7 +150,7 @@ public abstract class OrderDao extends Dao {
 	 * 
 	 * @param orderProduct
 	 *            the orderProduct to delete
-	 * @returnl number of line deleted
+	 * @return number of line deleted
 	 */
 	public static int deleteOrderProduct(OrderProduct orderProduct) {
 		return Dao.deleteLine("opl", orderProduct);

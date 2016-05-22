@@ -37,6 +37,9 @@ public class ReplenishManuallyGui extends SearchProductGui {
 
 	/**
 	 * Constructor of gui.
+	 * 
+	 * @param owner
+	 *            owner of this Frame
 	 */
 	public ReplenishManuallyGui(OrderGui owner) {
 		this.setSize(400, 640);

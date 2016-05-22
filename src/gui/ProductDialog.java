@@ -71,7 +71,14 @@ public class ProductDialog extends JDialog implements ActionListener {
 	private Product pdt;
 
 	/**
-	 * Create the dialog.
+	 * Constructor of the dialog.
+	 * 
+	 * @param owner
+	 *            owner of this dialog
+	 * @param modal
+	 *            is the father Frame selectable
+	 * @param pdt
+	 *            the product for edit
 	 */
 	public ProductDialog(Frame owner, boolean modal, Product pdt) {
 		super(owner, modal);

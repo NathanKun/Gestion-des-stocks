@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="45C407BF-CE1B-554A-5972-9C3E5BF9D970" containerWithKeyObject="50CFA97C-A871-EF54-89B7-F7F38FA9B08A" localFKIndex="9A379676-EBA3-98EF-6CC7-4FBB2FF29F55" name="FK_SPL_SPRID">
+<sourceConnName>NathanKun</sourceConnName>
+<sourceObjSchema>C##NATHANKUN</sourceObjSchema>
+<sourceObjName>FK_SPL_SPRID</sourceObjName>
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>B7FF7209-DFC2-6561-F8DE-4AC4C4844481</referredTableID>
+<keyObject>42ECE21B-5943-CE62-84EA-3F54B4CCFE26</keyObject>
+<referredKeyID>42ECE21B-5943-CE62-84EA-3F54B4CCFE26</referredKeyID>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

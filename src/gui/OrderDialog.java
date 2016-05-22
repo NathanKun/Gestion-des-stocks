@@ -447,7 +447,6 @@ public class OrderDialog extends JDialog implements ActionListener {
 	 */
 	private void initSpinner() {
 		// spinner
-		// from 0 to 9, in 1.0 steps start value 5
 		spinnerModel = new SpinnerNumberModel(100.0, 0.0, 100.0, 1.0);
 		jspinner = new JSpinner(spinnerModel);
 		jspinner.setBounds(289, 245, 60, 22);

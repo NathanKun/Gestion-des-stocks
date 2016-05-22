@@ -1,0 +1,50 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="SUPPLIER_SPR" directorySegmentName="seg_0" id="B7FF7209-DFC2-6561-F8DE-4AC4C4844481">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:14 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<schemaObject>49AF9F5C-729E-9BC3-C326-D76E23C7E1EB</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>C5ACB468-4E23-180C-BF92-DA62BD378CD4</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="SPR_NAME" id="5FC04D3C-2C31-E32B-4CBB-236D6295F377">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="SPR_ID" id="9F5F6E88-6A50-3D4C-431F-668C840003B0">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:15 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="PK_SPR" id="80E6E15D-0056-9A08-B156-F18A134810DE">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<schemaObject>49AF9F5C-729E-9BC3-C326-D76E23C7E1EB</schemaObject>
+<segment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+</IndexProxy>
+</indexProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="PK_SPR" id="42ECE21B-5943-CE62-84EA-3F54B4CCFE26">
+<createdBy>NathanKun</createdBy>
+<createdTime>2016-05-22 14:05:16 UTC</createdTime>
+<ownerDesignName>Database data modeler</ownerDesignName>
+<segment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</segment>
+<tableSpace>45AC9690-7F1A-6B9B-69F5-08CDFF1C1030</tableSpace>
+<existingIndex>80E6E15D-0056-9A08-B156-F18A134810DE</existingIndex>
+<indexSegment>4A45638B-3BB2-FE01-4BDA-36F193ACC4F8</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

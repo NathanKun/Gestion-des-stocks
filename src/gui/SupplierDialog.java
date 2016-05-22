@@ -72,6 +72,13 @@ public class SupplierDialog extends JDialog implements ActionListener {
 
 	/**
 	 * Create the dialog.
+	 * 
+	 * @param owner
+	 *            owner of this dialog
+	 * @param modal
+	 *            is the father Frame selectable
+	 * @param spr
+	 *            the supplier for edit
 	 */
 	public SupplierDialog(Frame owner, boolean modal, Supplier spr) {
 		super(owner, modal);

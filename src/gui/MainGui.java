@@ -107,6 +107,7 @@ public class MainGui extends JFrame implements ActionListener {
 		// mt.setOpaque(false);
 		// jpMain.add(mt);
 
+		jbHelp.setVisible(false);
 	}
 
 	/**

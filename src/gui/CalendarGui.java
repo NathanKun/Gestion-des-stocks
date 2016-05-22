@@ -171,6 +171,9 @@ public class CalendarGui extends JFrame {
 
 	/**
 	 * Calendar of order.
+	 * 
+	 * @param user
+	 *            user who logged in
 	 */
 	public CalendarGui(User user) {
 		jpMain = new JPanel();

@@ -583,14 +583,14 @@ abstract class Dao {
 				if (ps != null) {
 					ps.close();
 				}
-			} catch (Exception ignore) {
+			} catch (Exception ex) {
 				System.out.println("closing problem");
 			}
 			try {
 				if (con != null) {
 					con.close();
 				}
-			} catch (Exception ignore) {
+			} catch (Exception ex) {
 				System.out.println("closing problem");
 			}
 		}
