@@ -26,13 +26,13 @@ abstract class DAO {
 	 * constants.
 	 */
 
-//	 static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-//	 static final String LOGIN = "system";
-//	 static final String PASS = "bdd";
-
 	 static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	 static final String LOGIN = "BDD5";
-	 static final String PASS = "BDD5";
+	 static final String LOGIN = "system";
+	 static final String PASS = "bdd";
+
+	// static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	 //static final String LOGIN = "BDD5";
+	 //static final String PASS = "BDD5";
 
 //	static final String URL = "jdbc:oracle:thin:@localhost:1521:dbkun";
 //	static final String LOGIN = "c##nathankun";

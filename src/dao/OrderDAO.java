@@ -3,6 +3,7 @@ package src.dao;
 import src.gds.Order;
 import src.gds.OrderProduct;
 
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
  *
  */
 final public class OrderDAO extends DAO {
+
 
 	/**
 	 * Add an order in the order_odr table.
@@ -196,6 +198,59 @@ final public class OrderDAO extends DAO {
 		}
 		return (retour + 1);
 	}
+	/**
+	 * Settle an order and update of the 
+	 * @param orderProductList
+	 */
+	public void settleOrder(ArrayList<OrderProduct> orderProductList){
+		Connection con;
+		Connection con1;
+		PreparedStatement ps1;
+		PreparedStatement ps;
+		int rs1;
+		ResultSet rs;
+		for(OrderProduct orderProduct: orderProductList){
+			con = null;
+			con1=null;
+			ps1 = null;
+			ps = null;
+			rs = null;
+			try {
+				con = DriverManager.getConnection(URL, LOGIN, PASS);
+				ps = con.prepareStatement("SELECT * FROM product_pdt WHERE pdt_id=?");
+				ps.setLong(1,orderProduct.getProductId());
+				rs=ps.executeQuery();
+				
+				if(rs.next()){
+					con1 = DriverManager.getConnection(URL, LOGIN, PASS);
+					ps1 = con1.prepareStatement("UPDATE product_pdt SET pdt_stock=? WHERE pdt_id=?");
+					ps1.setInt(1,(rs.getInt("pdt_stock")-orderProduct.getQuantity()));
+					ps1.setLong(2,orderProduct.getProductId());
+					// excecution of the requiere
+					rs1= ps.executeUpdate();
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				// close preparedStatement and connection
+				try {
+					if (ps != null && ps1!=null) {
+						ps.close();
+					}
+				} catch (Exception ignore) {
+					System.out.println("closing problem");
+				}
+				try {
+					if (con != null && con1 != null) {
+						con.close();
+						con1.close();
+					}
+				} catch (Exception ignore) {
+					System.out.println("closing problem");
+				}
+			}
+		}
+	}
 
 	/**
 	 * main method for testing.
@@ -203,15 +258,20 @@ final public class OrderDAO extends DAO {
 	 */
 	public static void main(String[] args) {
 		final OrderDAO dao = new OrderDAO();
+		ArrayList<OrderProduct> orderProductList = new ArrayList<OrderProduct>();
+		orderProductList = dao.getOrderProductList(6);
+		for(OrderProduct list: orderProductList){
+			System.out.println("list:"+list.getOrderId());
+		}
 		// System.out.println("id gen next odr_id = " + dao.idGeneratorOdr());
 		// System.out.println("id gen next opl_id = " + dao.idGeneratorOpl());
-
+	/*
 		ArrayList<OrderProduct> list = new ArrayList<OrderProduct>();
 		list.add(new OrderProduct(4, 1, 1));
 		list.add(new OrderProduct(4, 2, 2));
 		list.add(new OrderProduct(4, 3, 33));
 		Order order = new Order(4, 10000, 100, "update test", true, (new Date(new java.util.Date().getTime())), list);
-
+	*/
 		// dao.addOrderProductList(new OrderProduct(2, 5), 1);
 		// System.out.println("Get List : ");
 		// System.out.println(dao.getOrderList().toString());
@@ -231,8 +291,9 @@ final public class OrderDAO extends DAO {
 		// 23)));
 		// System.out.println("Update Order Product : ");
 		// System.out.println(dao.updateOrderProductList(list, 3));
+		dao.settleOrder(orderProductList);
 		System.out.println("Update Order  : ");
-		System.out.println(dao.updateOrder(order));
+		//System.out.println(dao.updateOrder(order));
 		
 	}
 }
