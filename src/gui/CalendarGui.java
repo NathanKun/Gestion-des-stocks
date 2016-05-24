@@ -1,15 +1,10 @@
 package gui;
 
-import dao.OrderDao;
-import dao.ProductDao;
 import gds.Order;
 import gds.OrderProduct;
 import gds.Product;
 import gds.User;
 
-import org.jdesktop.swingx.JXDatePicker;
-
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,6 +36,11 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import org.jdesktop.swingx.JXDatePicker;
+
+import dao.OrderDao;
+import dao.ProductDao;
 
 /**
  * The Calendar of orders.

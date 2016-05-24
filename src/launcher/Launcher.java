@@ -22,6 +22,10 @@ import javax.swing.JLabel;
 public class Launcher extends JFrame implements ActionListener {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -4263394026761517526L;
+	/**
 	 * Button : link to the database helper.
 	 */
 	private JButton jbDb;

@@ -105,6 +105,17 @@ public class Regex {
 				return false;
 			}
 	}
+	
+	public static boolean isName (String str) {
+		String regEx = "^[\\p{L} .'-]+$";
+		Pattern pat = Pattern.compile(regEx);
+		Matcher mat = pat.matcher(str);
+		if (mat.matches()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * main method, for testing.
@@ -113,22 +124,22 @@ public class Regex {
 	 *            for main
 	 */
 	public static void main(String[] args) {
-		System.out.println("Is double : ");
-		System.out.println(isDouble("3.1231"));
-		System.out.println(isDouble("3"));
-		System.out.println(isDouble(".1231"));
-		System.out.println(isDouble("-3.1231"));
-		System.out.println(isDouble("434531234537513"));
-		System.out.println(isDouble("00123"));
-		System.out.println(isDouble("00"));
-		System.out.println(isDouble("0"));
-		System.out.println(isDouble("10"));
-		System.out.println(isDouble("10 "));
-		System.out.println(isDouble("1.020 "));
-		System.out.println(isDouble(" 1.020"));
-		System.out.println(isDouble("&2)"));
-		System.out.println(isDouble("2é"));
-		System.out.println(isDouble("2e"));
+//		System.out.println("Is double : ");
+//		System.out.println(isDouble("3.1231"));
+//		System.out.println(isDouble("3"));
+//		System.out.println(isDouble(".1231"));
+//		System.out.println(isDouble("-3.1231"));
+//		System.out.println(isDouble("434531234537513"));
+//		System.out.println(isDouble("00123"));
+//		System.out.println(isDouble("00"));
+//		System.out.println(isDouble("0"));
+//		System.out.println(isDouble("10"));
+//		System.out.println(isDouble("10 "));
+//		System.out.println(isDouble("1.020 "));
+//		System.out.println(isDouble(" 1.020"));
+//		System.out.println(isDouble("&2)"));
+//		System.out.println(isDouble("2é"));
+//		System.out.println(isDouble("2e"));
 //
 //		System.out.println("Is long : ");
 //		System.out.println(isLong("3.1231"));
@@ -155,8 +166,13 @@ public class Regex {
 //		System.out.println(isInteger("0123456789"));
 //		System.out.println(isInteger("123456789"));
 //		System.out.println(isInteger("1234567890"));
-		
 
+		System.out.println("isName : ");
+		System.out.println(isName("&qsdqsd"));
+		System.out.println(isName("azqsdqsdqar"));
+		System.out.println(isName("sdqsd&"));
+		System.out.println(isName("1234"));
+		System.out.println(isName("nathen Kun"));
 	}
 
 }

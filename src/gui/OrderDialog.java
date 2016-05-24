@@ -647,23 +647,29 @@ public final class OrderDialog extends JDialog implements ActionListener {
 	private void createOrder() {
 		// if the selected product table is not empty
 		if (jtbPdtList.getRowCount() != 0) {
-			// add the selected product in a list
-			ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
-			for (int i = 0; i < modelPdtList.getRowCount(); i++) {
-				productList.add(new OrderProduct(Long.parseLong(jtfId.getText()), (Long) modelPdtList.getValueAt(i, 0),
-						(int) modelPdtList.getValueAt(i, 3)));
+			if (Regex.isName(jtfCltName.getText())) {
+				// add the selected product in a list
+				ArrayList<OrderProduct> productList = new ArrayList<OrderProduct>();
+				for (int i = 0; i < modelPdtList.getRowCount(); i++) {
+					productList.add(new OrderProduct(Long.parseLong(jtfId.getText()), (Long) modelPdtList.getValueAt(i, 0),
+							(int) modelPdtList.getValueAt(i, 3)));
+				}
+				// Create a new order
+				final Order newOrder = new Order(Long.parseLong(jtfId.getText()), Double.parseDouble(jtfPrice.getText()),
+						Double.parseDouble(jtfFinalPrice.getText()), jtfCltName.getText(), false,
+						new java.sql.Date(date.getTime()), productList);
+				System.out.println(newOrder.toString());
+				// add order into date base
+				OrderDao.addOrder(newOrder);
+				JOptionPane.showConfirmDialog(this, "Order created.", "OK", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				// if no product selected
+			} else {
+				System.out.println("Name not correct");
+				JOptionPane.showConfirmDialog(this, "Name not correct.", "Opps", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.WARNING_MESSAGE);
 			}
-			// Create a new order
-			final Order newOrder = new Order(Long.parseLong(jtfId.getText()), Double.parseDouble(jtfPrice.getText()),
-					Double.parseDouble(jtfFinalPrice.getText()), jtfCltName.getText(), false,
-					new java.sql.Date(date.getTime()), productList);
-			System.out.println(newOrder.toString());
-			// add order into date base
-			OrderDao.addOrder(newOrder);
-			JOptionPane.showConfirmDialog(this, "Order created.", "OK", JOptionPane.DEFAULT_OPTION,
-					JOptionPane.INFORMATION_MESSAGE);
-			dispose();
-			// if no product selected
 		} else {
 			System.out.println("product list void");
 			JOptionPane.showConfirmDialog(this, "No product selected.", "Opps", JOptionPane.DEFAULT_OPTION,
