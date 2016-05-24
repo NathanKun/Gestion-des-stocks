@@ -42,6 +42,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * The Calendar of orders.
+ * 
+ * @author HE Junyang - FOTSING KENGNE Junior
+ *
+ */
 public final class CalendarGui extends JFrame {
 
 	/**
@@ -217,7 +223,8 @@ public final class CalendarGui extends JFrame {
 		jpOrderPane.add(jlProductName);
 
 		String[][] data = null;
-		String[] names = { "Date", "ID", "Client's name", "price", "Final price", "State" };
+		String[] names = { "Date", "ID", "Client's name", "price",
+				"Final price", "State" };
 		modelOrderList = new DefaultTableModel(data, names) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -252,7 +259,8 @@ public final class CalendarGui extends JFrame {
 		productList = ProductDao.getProductList();
 		modelProductList = new DefaultListModel<String>();
 		for (Product pdt : productList) {
-			((DefaultListModel<String>) modelProductList).addElement(pdt.getName());
+			((DefaultListModel<String>) modelProductList).addElement(pdt
+					.getName());
 		}
 		jlistProductList = new JList<String>(modelProductList);
 		jlistProductList.setBounds(0, 0, 130, 500);
@@ -320,7 +328,8 @@ public final class CalendarGui extends JFrame {
 
 				// add new element in JList
 				for (Product pdt : filteredList) {
-					((DefaultListModel<String>) modelProductList).addElement(pdt.getName());
+					((DefaultListModel<String>) modelProductList)
+							.addElement(pdt.getName());
 				}
 			}
 		});
@@ -376,17 +385,24 @@ public final class CalendarGui extends JFrame {
 				// if user chose a period
 				if (radioButtonState == PERIOD) {
 					// if date picker are not void
-					if (datePickerA.getDate() != null && datePickerB.getDate() != null) {
+					if (datePickerA.getDate() != null
+							&& datePickerB.getDate() != null) {
 						// if date B is after date A
 						if (isDateBAfterDateA()) {
 							filterPeriodOrder();
 							updateTable();
 						} else {
-							JOptionPane.showConfirmDialog(null, "The seconde date must after the first date.", "Opps",
-									JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+							JOptionPane
+									.showConfirmDialog(
+											null,
+											"The seconde date must after the first date.",
+											"Opps", JOptionPane.DEFAULT_OPTION,
+											JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
-						JOptionPane.showConfirmDialog(null, "Date can't be void", "Opps", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.showConfirmDialog(null,
+								"Date can't be void", "Opps",
+								JOptionPane.DEFAULT_OPTION,
 								JOptionPane.WARNING_MESSAGE);
 					}
 				} else {
@@ -396,7 +412,9 @@ public final class CalendarGui extends JFrame {
 						filterSingleDayOrder();
 						updateTable();
 					} else {
-						JOptionPane.showConfirmDialog(null, "Date can't be void", "Opps", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.showConfirmDialog(null,
+								"Date can't be void", "Opps",
+								JOptionPane.DEFAULT_OPTION,
 								JOptionPane.WARNING_MESSAGE);
 					}
 				}
@@ -413,7 +431,8 @@ public final class CalendarGui extends JFrame {
 					cal.set(Calendar.MINUTE, 0);
 					cal.set(Calendar.SECOND, 0);
 					cal.set(Calendar.MILLISECOND, 0);
-					if (cal.getTimeInMillis() == datePickerA.getDate().getTime()) {
+					if (cal.getTimeInMillis() == datePickerA.getDate()
+							.getTime()) {
 						orderListFilteredByDate.add(order);
 					}
 				}
@@ -431,8 +450,10 @@ public final class CalendarGui extends JFrame {
 					cal.set(Calendar.MINUTE, 0);
 					cal.set(Calendar.SECOND, 0);
 					cal.set(Calendar.MILLISECOND, 0);
-					if (cal.getTimeInMillis() >= datePickerA.getDate().getTime()
-							&& cal.getTimeInMillis() <= datePickerB.getDate().getTime()) {
+					if (cal.getTimeInMillis() >= datePickerA.getDate()
+							.getTime()
+							&& cal.getTimeInMillis() <= datePickerB.getDate()
+									.getTime()) {
 						orderListFilteredByDate.add(order);
 					}
 				}
@@ -450,7 +471,8 @@ public final class CalendarGui extends JFrame {
 						}
 					}
 					for (Order order : orderListFilteredByDate) {
-						ArrayList<OrderProduct> orderProductList = OrderDao.getOrderProductList(order.getId());
+						ArrayList<OrderProduct> orderProductList = OrderDao
+								.getOrderProductList(order.getId());
 						boolean containsProduct = false;
 						for (OrderProduct orderProduct : orderProductList) {
 							if (orderProduct.getProductId() == selectedProductId) {
@@ -472,8 +494,10 @@ public final class CalendarGui extends JFrame {
 					modelOrderList.removeRow(i);
 				}
 				for (Order order : orderListFilteredByProduct) {
-					String state = order.getIsPaid() == true ? "Paid" : "Unpaid";
-					Object[] obj = { order.getDate(), order.getId(), order.getClientName(), order.getPrice(),
+					String state = order.getIsPaid() == true ? "Paid"
+							: "Unpaid";
+					Object[] obj = { order.getDate(), order.getId(),
+							order.getClientName(), order.getPrice(),
 							order.getPriceDiscount(), state };
 					modelOrderList.addRow(obj);
 				}
@@ -497,8 +521,8 @@ public final class CalendarGui extends JFrame {
 				} else {
 					checkBoxState = ONEPRODUCT;
 					if (selectedProductName == null) {
-						jlProductName.setText(
-								"Please select a product or check \"All products\" in order to show the order's caclendar.");
+						jlProductName
+								.setText("Please select a product or check \"All products\" in order to show the order's caclendar.");
 					} else {
 						jlProductName.setText(selectedProductName);
 					}
@@ -561,14 +585,6 @@ public final class CalendarGui extends JFrame {
 	 *            for main.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new CalendarGui(null);
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-		});
+		new CalendarGui(null);
 	}
 }

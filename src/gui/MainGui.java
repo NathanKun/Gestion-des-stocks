@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * graphical user interface of Main window.
+ * Main entry of G.D.S APPLICATION.
  * 
  * @author HE Junyang - FOTSING KENGNE Junior
  *
@@ -107,7 +107,7 @@ public final class MainGui extends JFrame implements ActionListener {
 		// mt.setOpaque(false);
 		// jpMain.add(mt);
 
-		jbHelp.setVisible(false);
+		//jbHelp.setVisible(false);
 	}
 
 	/**
@@ -227,6 +227,8 @@ public final class MainGui extends JFrame implements ActionListener {
 		// help button on click
 		if (ae.getSource() == jbHelp) {
 			// help button on click
+			JOptionPane.showConfirmDialog(this, "Coming Soon", "Help", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE);
 		} else if (ae.getSource() == jbLogin) {
 			// admin login button on click
 			new LoginGui();
@@ -251,11 +253,11 @@ public final class MainGui extends JFrame implements ActionListener {
 			// supplier management button on click
 			new ManageSupplierGui(this.user);
 			dispose();
-		}
+		} 
 	}
 
 	/**
-	 * main methode of MainGui, for test.
+	 * Main entry of G.D.S.
 	 * 
 	 * @param args
 	 *            for main
