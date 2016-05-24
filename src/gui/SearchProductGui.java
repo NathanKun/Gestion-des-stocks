@@ -84,6 +84,18 @@ public class SearchProductGui extends JFrame {
 	 * the panel contains buttons.
 	 */
 	protected JPanel jpButtonPane;
+	/**
+	 * label : product name
+	 */
+	private JLabel jlProductName;
+	/**
+	 * scroll pane for table
+	 */
+	private JScrollPane tableScrollPane;
+	/**
+	 * scroll pane for list
+	 */
+	private JScrollPane listScrollPane;
 
 	/**
 	 * Create the dialog.
@@ -101,7 +113,7 @@ public class SearchProductGui extends JFrame {
 		// get all product in the list
 		productList = ProductDao.getProductList();
 
-		JLabel jlProductName = new JLabel("Product name : ");
+		jlProductName = new JLabel("Product name : ");
 		jlProductName.setBounds(10, 10, 200, 15);
 		jpMain.add(jlProductName);
 
@@ -137,11 +149,10 @@ public class SearchProductGui extends JFrame {
 		table.setPreferredScrollableViewportSize(new Dimension(364, 197));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setCellSelectionEnabled(true);
-		// panel.setLayout(null);
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setToolTipText("Product detail");
-		scrollPane.setBounds(10, 321, 374, 207);
-		jpMain.add(scrollPane);
+		tableScrollPane = new JScrollPane(table);
+		tableScrollPane.setToolTipText("Product detail");
+		tableScrollPane.setBounds(10, 321, 374, 207);
+		jpMain.add(tableScrollPane);
 	}
 
 	/**
@@ -150,15 +161,15 @@ public class SearchProductGui extends JFrame {
 	private void initProductList() {
 		// list
 		listModel = new DefaultListModel<String>();
-		JScrollPane listScroller = new JScrollPane();
-		listScroller.setLocation(10, 35);
-		listScroller.setSize(374, 276);
-		listScroller.setPreferredSize(new Dimension(364, 323));
-		listScroller.setAlignmentX(LEFT_ALIGNMENT);
+		listScrollPane = new JScrollPane();
+		listScrollPane.setLocation(10, 35);
+		listScrollPane.setSize(374, 276);
+		listScrollPane.setPreferredSize(new Dimension(364, 323));
+		listScrollPane.setAlignmentX(LEFT_ALIGNMENT);
 		// contentPanel.add(list);
-		jpMain.add(listScroller);
+		jpMain.add(listScrollPane);
 		list = new JList<String>(listModel);
-		listScroller.setViewportView(list);
+		listScrollPane.setViewportView(list);
 
 		// sort the list (by name)
 		productList.sort((o1, o2) -> o1.compareTo(o2));
@@ -356,10 +367,6 @@ public class SearchProductGui extends JFrame {
 	 *            for main
 	 */
 	public static void main(String[] args) {
-		try {
 			new SearchProductGui();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
 	}
 }

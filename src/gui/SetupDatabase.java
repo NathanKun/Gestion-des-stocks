@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Setup DataBase helper.
+ * @author HE Junyang
+ *
+ */
 public final class SetupDatabase extends JFrame implements ActionListener {
 
 	/**
@@ -32,6 +37,7 @@ public final class SetupDatabase extends JFrame implements ActionListener {
 	private JRadioButton rdbtnBdd7;
 	private JRadioButton rdbtnBdd8;
 	private JButton btnLaunchApp;
+	private ButtonGroup buttonGroup;
 
 	/**
 	 * Create the frame.
@@ -39,7 +45,7 @@ public final class SetupDatabase extends JFrame implements ActionListener {
 	public SetupDatabase() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 486, 235);
-		setTitle("Setup DataBase");
+		setTitle("Setup DataBase Helper");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,7 +96,7 @@ public final class SetupDatabase extends JFrame implements ActionListener {
 		contentPane.add(btnInsert);
 
 		btnLaunchApp = new JButton("Launch App");
-		btnLaunchApp.setBounds(250, 153, 121, 29);
+		btnLaunchApp.setBounds(255, 153, 121, 29);
 		contentPane.add(btnLaunchApp);
 
 		btnDrop.addActionListener(this);
@@ -98,7 +104,7 @@ public final class SetupDatabase extends JFrame implements ActionListener {
 		btnInsert.addActionListener(this);
 		btnLaunchApp.addActionListener(this);
 
-		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup = new ButtonGroup();
 		buttonGroup.add(rdbtnJunyang);
 		buttonGroup.add(rdbtnJunior);
 		buttonGroup.add(rdbtnBdd1);
@@ -108,17 +114,17 @@ public final class SetupDatabase extends JFrame implements ActionListener {
 		buttonGroup.add(rdbtnBdd7);
 		buttonGroup.add(rdbtnBdd8);
 
-		JLabel lblCreateAGds = new JLabel("Create a blank G.D.S database with an Admin a, a.");
-		lblCreateAGds.setBounds(110, 87, 370, 15);
-		contentPane.add(lblCreateAGds);
+		JLabel jlCreateAGds = new JLabel("Create a blank G.D.S database with an Admin a, a.");
+		jlCreateAGds.setBounds(110, 87, 370, 15);
+		contentPane.add(jlCreateAGds);
 
-		JLabel lblDropTheGds = new JLabel("Drop the G.D.S database.");
-		lblDropTheGds.setBounds(230, 35, 194, 15);
-		contentPane.add(lblDropTheGds);
+		JLabel jlDropTheGds = new JLabel("Drop the G.D.S database.");
+		jlDropTheGds.setBounds(230, 35, 194, 15);
+		contentPane.add(jlDropTheGds);
 
-		JLabel lblInsertSomeData = new JLabel("Insert some data for testing.");
-		lblInsertSomeData.setBounds(180, 135, 300, 15);
-		contentPane.add(lblInsertSomeData);
+		JLabel jlInsertSomeData = new JLabel("Insert some data for testing.");
+		jlInsertSomeData.setBounds(220, 135, 300, 15);
+		contentPane.add(jlInsertSomeData);
 
 		rdbtnJunyang.addActionListener(this);
 		rdbtnJunior.addActionListener(this);
@@ -128,6 +134,9 @@ public final class SetupDatabase extends JFrame implements ActionListener {
 		rdbtnBdd6.addActionListener(this);
 		rdbtnBdd7.addActionListener(this);
 		rdbtnBdd8.addActionListener(this);
+		
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 	}
 
 	@Override
@@ -161,7 +170,7 @@ public final class SetupDatabase extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Main method for testing.
+	 * Entry of setup database helper.
 	 * 
 	 * @param args
 	 *            for main
@@ -170,8 +179,7 @@ public final class SetupDatabase extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SetupDatabase frame = new SetupDatabase();
-					frame.setVisible(true);
+					new SetupDatabase();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

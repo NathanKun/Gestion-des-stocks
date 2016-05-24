@@ -96,6 +96,22 @@ public class SearchSupplierGui extends JFrame {
 	 * the supplier selected.
 	 */
 	protected Supplier selectedSupplier;
+	/**
+	 * label : product list
+	 */
+	private JLabel jlProductsList;
+	/**
+	 * scroll pane for list
+	 */
+	private JScrollPane jspList;
+	/**
+	 * label : supplier name
+	 */
+	private JLabel jlSupplierName;
+	/**
+	 * scroll pane for table
+	 */
+	private JScrollPane jspSprDetail;
 
 	/**
 	 * Create the dialog.
@@ -221,9 +237,9 @@ public class SearchSupplierGui extends JFrame {
 		});
 		contentPanel.add(jtfSupplierName);
 
-		JLabel lblProductsList = new JLabel("Products list : ");
-		lblProductsList.setBounds(10, 287, 200, 15);
-		contentPanel.add(lblProductsList);
+		jlProductsList = new JLabel("Products list : ");
+		jlProductsList.setBounds(10, 287, 200, 15);
+		contentPanel.add(jlProductsList);
 	}
 
 	/**
@@ -232,14 +248,14 @@ public class SearchSupplierGui extends JFrame {
 	private void initSupplierList() {
 		// list
 		listModel = new DefaultListModel<String>();
-		JScrollPane listScroller = new JScrollPane();
-		listScroller.setBounds(10, 35, 374, 140);
-		listScroller.setPreferredSize(new Dimension(364, 323));
-		listScroller.setAlignmentX(LEFT_ALIGNMENT);
+		jspList = new JScrollPane();
+		jspList.setBounds(10, 35, 374, 140);
+		jspList.setPreferredSize(new Dimension(364, 323));
+		jspList.setAlignmentX(LEFT_ALIGNMENT);
 		// contentPanel.add(list);
-		contentPanel.add(listScroller);
+		contentPanel.add(jspList);
 		list = new JList<String>(listModel);
-		listScroller.setViewportView(list);
+		jspList.setViewportView(list);
 		// add default data in the list
 		for (Supplier s : supplierList) {
 			((DefaultListModel<String>) listModel).addElement(s.getName());
@@ -312,9 +328,9 @@ public class SearchSupplierGui extends JFrame {
 	@SuppressWarnings("serial")
 	private void initSupplierTable() {
 		contentPanel.setLayout(null);
-		JLabel lblSupplierName = new JLabel("Supplier name : ");
-		lblSupplierName.setBounds(10, 10, 200, 15);
-		contentPanel.add(lblSupplierName);
+		jlSupplierName = new JLabel("Supplier name : ");
+		jlSupplierName.setBounds(10, 10, 200, 15);
+		contentPanel.add(jlSupplierName);
 
 		// sprDetail table
 		String[][] datasSprDetail = {};
@@ -330,7 +346,7 @@ public class SearchSupplierGui extends JFrame {
 		jtbSprDetail.setPreferredScrollableViewportSize(new Dimension(364, 197));
 		jtbSprDetail.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jtbSprDetail.setCellSelectionEnabled(false);
-		JScrollPane jspSprDetail = new JScrollPane(jtbSprDetail);
+		jspSprDetail = new JScrollPane(jtbSprDetail);
 		jspSprDetail.setBounds(10, 185, 374, 92);
 		jspSprDetail.setToolTipText("Supplier's detail");
 		contentPanel.add(jspSprDetail);
@@ -343,10 +359,6 @@ public class SearchSupplierGui extends JFrame {
 	 *            for main
 	 */
 	public static void main(String[] args) {
-		try {
 			new SearchSupplierGui();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
 	}
 }

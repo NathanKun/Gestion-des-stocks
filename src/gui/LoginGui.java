@@ -56,6 +56,10 @@ public final class LoginGui extends JFrame implements ActionListener {
 	 * button : login.
 	 */
 	private JButton jbLogin = new JButton("Login");
+	/**
+	 * label : Identification Admin
+	 */
+	private JLabel jlbIdentificationAdmin = new JLabel("Identification Admin");
 
 	/**
 	 * constructor.
@@ -124,7 +128,6 @@ public final class LoginGui extends JFrame implements ActionListener {
 		jp.add(jtfPw);
 		jp.add(jbLogin);
 
-		JLabel jlbIdentificationAdmin = new JLabel("Identification Admin");
 		jlbIdentificationAdmin.setBounds(50, 100, 200, 15);
 		getContentPane().add(jlbIdentificationAdmin);
 

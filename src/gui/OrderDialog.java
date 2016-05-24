@@ -200,6 +200,14 @@ public final class OrderDialog extends JDialog implements ActionListener {
 	 * the order loaded. null if creation of a new order.
 	 */
 	private Order order;
+	/**
+	 * label : Search result
+	 */
+	private JLabel jlbSearchResult = new JLabel("Search result : ");
+	/**
+	 * label : Discount
+	 */
+	private JLabel jlDiscount = new JLabel("Discount :");
 
 	/**
 	 * contructor.
@@ -314,9 +322,8 @@ public final class OrderDialog extends JDialog implements ActionListener {
 		// configure the middle panel
 		jpMiddle.setBounds(12, 155, 475, 230);
 		jpMiddle.setLayout(null);
-		JLabel label = new JLabel("Search result : ");
-		label.setBounds(0, 0, 130, 15);
-		jpMiddle.add(label);
+		jlbSearchResult.setBounds(0, 0, 130, 15);
+		jpMiddle.add(jlbSearchResult);
 		jpMiddle.add(jtbPdtSearch);
 		jspPdtSearch = new JScrollPane(jtbPdtSearch);
 		jspPdtSearch.setBounds(0, 18, 452, 212);
@@ -375,7 +382,6 @@ public final class OrderDialog extends JDialog implements ActionListener {
 		jbSave.addActionListener(this);
 		jbCancel.addActionListener(this);
 
-		JLabel jlDiscount = new JLabel("Discount :");
 		jlDiscount.setBounds(214, 245, 100, 18);
 		jpDown.add(jlDiscount);
 

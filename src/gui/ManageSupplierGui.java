@@ -259,10 +259,6 @@ public final class ManageSupplierGui extends SearchSupplierGui implements Action
 	 *            for main
 	 */
 	public static void main(String[] args) {
-		try {
 			new ManageSupplierGui(null);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
 	}
 }

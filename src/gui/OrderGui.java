@@ -110,6 +110,14 @@ public final class OrderGui extends JFrame implements ActionListener {
 	 * the id of the order which is selected.
 	 */
 	private long seletedOrderId = 0;
+	/**
+	 * label : explanation of software
+	 */
+	private JLabel jlTheSystemWill;
+	/**
+	 * label : explanation of software 2
+	 */
+	private JLabel jlThisIsFor;
 
 	/**
 	 * constructor.
@@ -159,6 +167,16 @@ public final class OrderGui extends JFrame implements ActionListener {
 		this.getLayeredPane().add(jlBgMain, new Integer(Integer.MIN_VALUE));
 		jpMain = (JPanel) this.getContentPane();
 		jpMain.setOpaque(false);
+		
+
+		jlThisIsFor = new JLabel("The Replenish button is for replenish manually.");
+		jlThisIsFor.setBounds(200, 685, 600, 15);
+		getContentPane().add(jlThisIsFor);
+
+		jlTheSystemWill = new JLabel(
+				"Tips : The system will replenish automaticly when the stock of a product < 15.");
+		jlTheSystemWill.setBounds(200, 660, 700, 15);
+		getContentPane().add(jlTheSystemWill);
 	}
 
 	/**
@@ -230,14 +248,6 @@ public final class OrderGui extends JFrame implements ActionListener {
 
 		getContentPane().add(jbSettle);
 
-		JLabel lblThisIsFor = new JLabel("The Replenish button is for replenish manually.");
-		lblThisIsFor.setBounds(256, 685, 316, 15);
-		getContentPane().add(lblThisIsFor);
-
-		JLabel lblTheSystemWill = new JLabel(
-				"Tips : The system will replenish automaticly when the stock of a product < 15.");
-		lblTheSystemWill.setBounds(256, 660, 514, 15);
-		getContentPane().add(lblTheSystemWill);
 
 		// get selected order's id when the order is seleted
 		ListSelectionModel cellSelectionModel = jtbOrderList.getSelectionModel();
